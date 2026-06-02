@@ -1,65 +1,307 @@
 import Image from "next/image";
+import Link from "next/link";
+import Navbar from "@/app/components/Navbar";
+import Footer from "@/app/components/Footer";
+import { products } from "@/app/data/products";
+import {
+  ArrowRight,
+  Globe,
+  Hand,
+  ShieldCheck,
+  Sparkles,
+  Hammer,
+  Gem,
+} from "lucide-react";
 
 export default function Home() {
+  const featuredProducts = products.filter((product) => product.featured);
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <main className="min-h-screen bg-[#080604] text-[#f8f1df]">
+      <Navbar />
+
+      <section className="grid min-h-[85vh] items-center gap-10 px-6 py-12 md:grid-cols-2 md:px-12">
+        <div>
+          <p className="mb-4 text-sm uppercase tracking-[0.4em] text-[#d6b15c]">
+            The Art of the Divine
+          </p>
+
+          <h1 className="text-5xl font-semibold leading-tight md:text-7xl">
+            Handcrafted Indian Sculptures with a Soul.
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+
+          <p className="mt-6 max-w-xl text-lg leading-8 text-[#d8ccb2]">
+            Devashilpa preserves inherited Indian metal craftsmanship through
+            handcrafted brass and copper sculptures made by master artisans.
+          </p>
+
+          <div className="mt-8 flex flex-wrap gap-4">
+            <Link
+              href="/collections"
+              className="flex items-center gap-2 rounded-full bg-[#d6b15c] px-6 py-3 font-medium text-black"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+              Explore Collection <ArrowRight size={18} />
+            </Link>
+
+            <Link
+              href="/custom-order"
+              className="rounded-full border border-[#d6b15c] px-6 py-3 text-[#d6b15c]"
             >
-              Learning
-            </a>{" "}
-            center.
+              Custom Order
+            </Link>
+          </div>
+        </div>
+
+        <Image
+          src="/products/ganesha-chariot/main.jpg"
+          alt="Devashilpa handcrafted brass sculpture"
+          width={900}
+          height={650}
+          priority
+          className="rounded-3xl object-cover shadow-2xl"
+        />
+      </section>
+
+      <section className="grid gap-6 px-6 py-16 md:grid-cols-4 md:px-12">
+        {[
+          ["Handcrafted", "Made by master artisans", Hand],
+          ["Heritage", "Inherited generational art", Sparkles],
+          ["Worldwide", "International shipping available", Globe],
+          ["Secure Packing", "Protected delivery packaging", ShieldCheck],
+        ].map(([title, desc, Icon]: any) => (
+          <div
+            key={title}
+            className="rounded-2xl border border-[#d6b15c]/30 bg-white/5 p-6"
+          >
+            <Icon className="mb-4 text-[#d6b15c]" />
+            <h3 className="text-xl text-[#d6b15c]">{title}</h3>
+            <p className="mt-2 text-sm text-[#d8ccb2]">{desc}</p>
+          </div>
+        ))}
+      </section>
+
+      <section className="px-6 py-24 md:px-12">
+        <div className="max-w-4xl">
+          <p className="text-sm uppercase tracking-[0.35em] text-[#d6b15c]">
+            Traditional Craftsmanship
+          </p>
+
+          <h2 className="mt-4 text-5xl font-semibold md:text-6xl">
+            Handcrafted Through a 7-Step Traditional Process
+          </h2>
+
+          <p className="mt-6 text-lg leading-8 text-[#d8ccb2]">
+            Every Devashilpa sculpture is created through generations-old Indian
+            metal casting techniques. From clay modelling to final polishing,
+            each masterpiece is handcrafted by skilled artisans without shortcuts
+            or mass production.
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+
+        <div className="mt-16 grid gap-6 md:grid-cols-4">
+          {[
+            "Clay Modelling",
+            "Wax Detailing",
+            "Mold Creation",
+            "Metal Casting",
+            "Hand Finishing",
+            "Polishing",
+            "Protective Coating",
+            "Quality Inspection",
+          ].map((step, index) => (
+            <div
+              key={step}
+              className="rounded-3xl border border-[#d6b15c]/20 bg-[#120d08] p-6"
+            >
+              <div className="text-4xl font-semibold text-[#d6b15c]">
+                {index + 1}
+              </div>
+
+              <h3 className="mt-4 text-xl font-medium text-[#f8f1df]">
+                {step}
+              </h3>
+            </div>
+          ))}
         </div>
-      </main>
-    </div>
+
+        <div className="mt-16 rounded-3xl bg-[#120d08] p-10">
+          <h3 className="text-3xl font-semibold text-[#d6b15c]">
+            Why Every Piece Is Unique
+          </h3>
+
+          <p className="mt-6 text-lg leading-8 text-[#d8ccb2]">
+            Since every sculpture is shaped, detailed, finished, and polished by
+            hand, no two pieces are ever completely identical. Small variations
+            are a mark of authentic craftsmanship and make each creation truly
+            one of a kind.
+          </p>
+        </div>
+      </section>
+
+      <section className="px-6 py-24 md:px-12">
+        <p className="text-sm uppercase tracking-[0.35em] text-[#d6b15c]">
+          Why Devashilpa
+        </p>
+
+        <h2 className="mt-4 text-5xl font-semibold md:text-6xl">
+          Crafted for Collectors, Temples & Luxury Spaces
+        </h2>
+
+        <div className="mt-16 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {[
+            [
+              "Handmade",
+              "Every sculpture is handcrafted by skilled artisans using traditional techniques.",
+              Hand,
+            ],
+            [
+              "Custom Sizes",
+              "From small decor pieces to large 3–4 feet sculptures, made to order.",
+              Hammer,
+            ],
+            [
+              "Worldwide Shipping",
+              "Secure packaging and international delivery available.",
+              Globe,
+            ],
+            [
+              "Heritage Craft",
+              "Generations of Indian metal craftsmanship preserved in every piece.",
+              Gem,
+            ],
+          ].map(([title, desc, Icon]: any) => (
+            <div key={title} className="rounded-3xl bg-[#120d08] p-8">
+              <Icon className="mb-4 text-[#d6b15c]" />
+              <h3 className="text-2xl text-[#d6b15c]">{title}</h3>
+              <p className="mt-4 text-[#d8ccb2]">{desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="grid gap-10 px-6 py-20 md:grid-cols-2 md:px-12">
+        <Image
+          src="/products/ram-darbar/main.jpg"
+          alt="Devashilpa heritage sculpture"
+          width={800}
+          height={600}
+          className="rounded-3xl object-cover"
+        />
+
+        <div className="flex flex-col justify-center">
+          <p className="text-sm uppercase tracking-[0.35em] text-[#d6b15c]">
+            Our Heritage
+          </p>
+
+          <h2 className="mt-4 text-4xl font-semibold md:text-5xl">
+            A legacy inherited through generations.
+          </h2>
+
+          <p className="mt-6 text-lg leading-8 text-[#d8ccb2]">
+            Every sculpture begins with traditional mold-making and metal
+            casting. Each piece is shaped, detailed, and finished by hand,
+            making every creation one of a kind.
+          </p>
+
+          <Link
+            href="/about"
+            className="mt-8 inline-flex w-fit items-center gap-2 rounded-full border border-[#d6b15c] px-6 py-3 text-[#d6b15c]"
+          >
+            Read Our Story <ArrowRight size={18} />
+          </Link>
+        </div>
+      </section>
+
+      <section className="px-6 py-16 md:px-12">
+        <div className="grid gap-6 md:grid-cols-4">
+          {[
+            ["50+", "Years of Heritage"],
+            ["100%", "Handcrafted"],
+            ["11+", "Unique Masterpieces"],
+            ["Worldwide", "Shipping Available"],
+          ].map(([value, label]) => (
+            <div
+              key={label}
+              className="rounded-3xl border border-[#d6b15c]/20 bg-[#120d08] p-8 text-center"
+            >
+              <div className="text-4xl font-bold text-[#d6b15c]">{value}</div>
+
+              <div className="mt-3 text-[#d8ccb2]">{label}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="px-6 py-20 md:px-12">
+        <div className="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div>
+            <p className="text-sm uppercase tracking-[0.35em] text-[#d6b15c]">
+              Featured
+            </p>
+
+            <h2 className="mt-3 text-4xl font-semibold">
+              Featured Masterpieces
+            </h2>
+          </div>
+
+          <Link
+            href="/collections"
+            className="inline-flex w-fit items-center gap-2 rounded-full border border-[#d6b15c] px-6 py-3 text-[#d6b15c]"
+          >
+            View All Collections <ArrowRight size={18} />
+          </Link>
+        </div>
+
+        <div className="mt-10 grid gap-8 md:grid-cols-3">
+          {featuredProducts.map((product) => (
+            <Link
+              href={`/product/${product.slug}`}
+              key={product.id}
+              className="overflow-hidden rounded-3xl bg-[#120d08] transition hover:scale-[1.02]"
+            >
+              <Image
+                src={product.images[0]}
+                alt={product.name}
+                width={600}
+                height={450}
+                className="h-80 w-full object-cover"
+              />
+
+              <div className="p-6">
+                <p className="text-sm text-[#d6b15c]">{product.category}</p>
+
+                <h3 className="mt-2 text-2xl">{product.name}</h3>
+
+                <p className="mt-4 text-sm leading-6 text-[#d8ccb2]">
+                  {product.shortDescription}
+                </p>
+
+                <p className="mt-5 text-[#d6b15c]">View Masterpiece →</p>
+              </div>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      <section className="mx-6 my-20 rounded-3xl bg-[#d6b15c] px-8 py-16 text-center text-black md:mx-12">
+        <h2 className="text-4xl font-semibold md:text-5xl">
+          Looking for a custom sculpture?
+        </h2>
+
+        <p className="mx-auto mt-5 max-w-2xl text-lg">
+          Share your preferred size, material, and design idea. Devashilpa can
+          create made-to-order sculptures according to your vision.
+        </p>
+
+        <Link
+          href="/custom-order"
+          className="mt-8 inline-flex items-center gap-2 rounded-full bg-black px-8 py-3 text-[#d6b15c]"
+        >
+          Request Custom Creation <ArrowRight size={18} />
+        </Link>
+      </section>
+
+      <Footer />
+    </main>
   );
 }
