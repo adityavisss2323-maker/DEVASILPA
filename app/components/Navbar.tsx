@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, MessageCircle } from "lucide-react";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -13,95 +13,117 @@ const navLinks = [
   { href: "/contact", label: "Contact" },
 ];
 
+const WA_URL = "https://wa.me/916261068277";
+
 export default function Navbar() {
   const pathname = usePathname();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close mobile menu on route change
-  useEffect(() => {
-    setMenuOpen(false);
-  }, [pathname]);
+  useEffect(() => { setOpen(false); }, [pathname]);
 
   return (
     <>
-      <nav
-        className={`sticky top-0 z-50 flex items-center justify-between px-6 py-5 transition-all duration-300 md:px-12 ${
+      {/* ── Main Navbar ── */}
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
           scrolled
-            ? "border-b border-[#d6b15c]/10 bg-[#080604]/90 backdrop-blur-md"
+            ? "bg-[#080604]/90 backdrop-blur-xl border-b border-[#D6B15C]/10"
             : "bg-transparent"
         }`}
       >
-        <Link
-          href="/"
-          className="text-2xl tracking-[0.35em] text-[#d6b15c] transition duration-200 hover:text-[#f0d080]"
-        >
-          DEVASHILPA
-        </Link>
+        <div className="flex items-center justify-between px-6 md:px-16 h-[72px]">
 
-        {/* Desktop links */}
-        <div className="hidden items-center gap-8 text-sm md:flex">
-          {navLinks.map(({ href, label }) => (
-            <Link
-              key={href}
-              href={href}
-              className={`transition duration-200 hover:text-[#d6b15c] ${
-                pathname === href
-                  ? "text-[#d6b15c]"
-                  : "text-[#d8ccb2]"
-              }`}
-            >
-              {label}
-            </Link>
-          ))}
-        </div>
+          {/* Logo */}
+          <Link
+            href="/"
+            className="luxury-label text-[#D6B15C] hover:opacity-70 transition-opacity duration-300 text-[11px]"
+          >
+            DEVASHILPA
+          </Link>
 
-        {/* Mobile hamburger */}
-        <button
-          className="flex items-center justify-center rounded-xl border border-[#d6b15c]/20 p-2 text-[#d6b15c] transition duration-200 hover:bg-[#d6b15c]/10 md:hidden"
-          onClick={() => setMenuOpen((v) => !v)}
-          aria-label="Toggle navigation menu"
-          aria-expanded={menuOpen}
-        >
-          {menuOpen ? <X size={22} /> : <Menu size={22} />}
-        </button>
-      </nav>
-
-      {/* Mobile menu overlay */}
-      {menuOpen && (
-        <div className="fixed inset-0 z-40 flex flex-col bg-[#080604]/97 pt-24 backdrop-blur-sm md:hidden">
-          <div className="flex flex-col items-center gap-8 px-6 py-10">
+          {/* Center nav — desktop */}
+          <nav className="hidden md:flex items-center gap-9" aria-label="Primary navigation">
             {navLinks.map(({ href, label }) => (
               <Link
                 key={href}
                 href={href}
-                className={`text-3xl font-light tracking-wider transition duration-200 hover:text-[#d6b15c] ${
-                  pathname === href ? "text-[#d6b15c]" : "text-[#f8f1df]"
+                className={`text-[11px] uppercase tracking-[0.2em] transition-colors duration-300 ${
+                  pathname === href
+                    ? "text-[#D6B15C]"
+                    : "text-[#D8CCB2] hover:text-[#F8F1DF]"
                 }`}
               >
                 {label}
               </Link>
             ))}
+          </nav>
 
-            <div className="mt-6 h-px w-24 bg-[#d6b15c]/30" />
-
-            <Link
-              href="/custom-order"
-              className="rounded-full bg-[#d6b15c] px-8 py-3 text-base font-medium text-black transition hover:bg-[#c4a14e]"
+          {/* Right: WhatsApp CTA + Hamburger */}
+          <div className="flex items-center gap-4">
+            <a
+              href={WA_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hidden md:inline-flex items-center gap-2 border border-[#D6B15C]/35 text-[#D6B15C] text-[10px] uppercase tracking-[0.2em] px-4 py-2 transition-all duration-300 hover:bg-[#D6B15C] hover:text-black hover:border-[#D6B15C]"
+              aria-label="WhatsApp Inquiry"
             >
-              Request Custom Order
-            </Link>
+              <MessageCircle size={13} />
+              Inquire
+            </a>
+
+            <button
+              onClick={() => setOpen((v) => !v)}
+              className="md:hidden text-[#D8CCB2] hover:text-[#D6B15C] transition-colors duration-200 p-1"
+              aria-label="Toggle menu"
+              aria-expanded={open}
+            >
+              {open ? <X size={22} /> : <Menu size={22} />}
+            </button>
           </div>
         </div>
-      )}
+      </header>
+
+      {/* ── Mobile menu ── */}
+      <div
+        className={`fixed inset-0 z-40 bg-[#080604] flex flex-col transition-all duration-500 md:hidden ${
+          open ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+        aria-hidden={!open}
+      >
+        <div className="flex flex-col items-center justify-center h-full gap-10 pb-16">
+          {navLinks.map(({ href, label }) => (
+            <Link
+              key={href}
+              href={href}
+              className={`font-display text-4xl font-light transition-colors duration-200 ${
+                pathname === href ? "text-[#D6B15C]" : "text-[#F8F1DF] hover:text-[#D6B15C]"
+              }`}
+            >
+              {label}
+            </Link>
+          ))}
+
+          <div className="mt-4 flex flex-col items-center gap-4">
+            <span className="gold-divider" />
+            <a
+              href={WA_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 border border-[#D6B15C] text-[#D6B15C] text-xs uppercase tracking-[0.25em] px-7 py-3 hover:bg-[#D6B15C] hover:text-black transition-all duration-300"
+            >
+              <MessageCircle size={14} />
+              WhatsApp Inquiry
+            </a>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

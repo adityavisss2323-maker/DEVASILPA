@@ -1,70 +1,121 @@
 @import "tailwindcss";
 
+/* ─── Design Tokens ─── */
 :root {
-  --background: #080604;
-  --foreground: #f8f1df;
-  --gold: #D6B15C;
-  --gold-dim: #a8894a;
-  --text-secondary: #D8CCB2;
-  --surface: #120d08;
+  --bg:           #080604;
+  --surface:      #120d08;
+  --surface-2:    #1a1106;
+  --gold:         #D6B15C;
+  --gold-muted:   #a8894a;
+  --gold-subtle:  rgba(214, 177, 92, 0.10);
+  --gold-border:  rgba(214, 177, 92, 0.15);
+  --gold-hover:   rgba(214, 177, 92, 0.30);
+  --text:         #F8F1DF;
+  --text-2:       #D8CCB2;
+  --text-muted:   #8e7b53;
+  --nav-h:        72px;
 }
 
+/* ─── Theme ─── */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
+  --color-background: var(--bg);
+  --color-foreground: var(--text);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
+/* ─── Reset & Base ─── */
 *,
 *::before,
-*::after {
-  box-sizing: border-box;
-}
+*::after { box-sizing: border-box; }
 
-html {
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), 'Inter', Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-geist-sans), -apple-system, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
+img { max-width: 100%; height: auto; }
+
+/* ─── Display Font ─── */
+.font-display {
+  font-family: var(--font-cormorant), 'Palatino Linotype', Georgia, serif;
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #2a1e0a; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+/* ─── Selection ─── */
 ::selection {
-  background: rgba(214, 177, 92, 0.3);
-  color: #f8f1df;
+  background: rgba(214, 177, 92, 0.18);
+  color: var(--text);
 }
 
-/* Custom luxury scrollbar */
-::-webkit-scrollbar {
-  width: 6px;
-}
-
-::-webkit-scrollbar-track {
-  background: #080604;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #3a2f1a;
-  border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: #D6B15C;
-}
-
-/* Focus visible */
+/* ─── Focus ─── */
 :focus-visible {
-  outline: 2px solid #D6B15C;
-  outline-offset: 2px;
+  outline: 1px solid var(--gold);
+  outline-offset: 3px;
+  border-radius: 2px;
 }
 
-/* Image optimization */
-img {
-  max-width: 100%;
-  height: auto;
+/* ─── Keyframes ─── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(36px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+@keyframes lineGrow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+/* ─── Animation Classes ─── */
+.anim-up {
+  opacity: 0;
+  animation: fadeInUp 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+.anim-in {
+  opacity: 0;
+  animation: fadeIn 0.9s ease forwards;
+}
+
+.d1 { animation-delay: 0.10s; }
+.d2 { animation-delay: 0.22s; }
+.d3 { animation-delay: 0.36s; }
+.d4 { animation-delay: 0.50s; }
+.d5 { animation-delay: 0.65s; }
+.d6 { animation-delay: 0.80s; }
+
+/* ─── Utility ─── */
+.gold-divider {
+  width: 40px;
+  height: 1px;
+  background: var(--gold);
+  opacity: 0.45;
+  display: block;
+}
+
+.luxury-label {
+  font-size: 0.65rem;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  color: var(--gold);
+}
+
+.card-hover {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.card-hover:hover {
+  transform: translateY(-4px);
 }

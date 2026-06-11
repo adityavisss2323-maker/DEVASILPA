@@ -16,13 +16,10 @@ import {
   MessageCircle,
   Hand,
   Users,
-  Award,
 } from "lucide-react";
 
 export function generateStaticParams() {
-  return products.map((product) => ({
-    slug: product.slug,
-  }));
+  return products.map((product) => ({ slug: product.slug }));
 }
 
 export async function generateMetadata({
@@ -32,28 +29,14 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const product = getProductBySlug(slug);
-
-  if (!product) {
-    return {
-      title: "Product Not Found",
-    };
-  }
-
+  if (!product) return { title: "Not Found" };
   return {
     title: `${product.name} | Devashilpa`,
     description: product.description,
     openGraph: {
-      title: `${product.name} | Devashilpa Handcrafted Brass Sculptures`,
+      title: `${product.name} | Devashilpa`,
       description: product.description,
-      images: [
-        {
-          url: product.images[0],
-          width: 900,
-          height: 650,
-          alt: product.name,
-        },
-      ],
-      type: "website",
+      images: [{ url: product.images[0], width: 900, height: 650, alt: product.name }],
     },
     twitter: {
       card: "summary_large_image",
@@ -61,9 +44,7 @@ export async function generateMetadata({
       description: product.description,
       images: [product.images[0]],
     },
-    alternates: {
-      canonical: `https://www.devashilpa.com/product/${slug}`,
-    },
+    alternates: { canonical: `https://www.devashilpa.com/product/${slug}` },
   };
 }
 
@@ -74,373 +55,228 @@ export default async function ProductPage({
 }) {
   const { slug } = await params;
   const product = getProductBySlug(slug);
+  if (!product) notFound();
 
-  if (!product) {
-    notFound();
-  }
-
-  // Related: same category first, then others (exclude current)
-  const sameCategory = products.filter(
-    (item) => item.slug !== product.slug && item.category === product.category
-  );
-  const others = products.filter(
-    (item) => item.slug !== product.slug && item.category !== product.category
-  );
-  const relatedProducts = [...sameCategory, ...others].slice(0, 3);
+  // Same category first, then others
+  const related = [
+    ...products.filter((p) => p.slug !== product.slug && p.category === product.category),
+    ...products.filter((p) => p.slug !== product.slug && p.category !== product.category),
+  ].slice(0, 3);
 
   const whatsappNumber = "916261068277";
+  const whatsappText = `Hello Devashilpa, I am interested in:\n\nProduct: ${product.name}\nCategory: ${product.category}\nMaterial: ${product.material}\nSize: ${product.size}\n\nPlease share price, availability and shipping details.`;
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappText)}`;
 
-  const whatsappText = `Hello Devashilpa, I am interested in this sculpture:
+  const specs = [
+    { label: "Material",         value: product.material,         Icon: Gem },
+    { label: "Size",             value: product.size,             Icon: Ruler },
+    { label: "Production Time",  value: product.productionTime,   Icon: Clock },
+    { label: "Shipping",         value: product.shipping,         Icon: Globe },
+    { label: "Packing",          value: product.packing,          Icon: PackageCheck },
+    { label: "Authenticity",     value: "Handcrafted — no two pieces identical", Icon: ShieldCheck },
+  ];
 
-Product: ${product.name}
-Category: ${product.category}
-Material: ${product.material}
-Size: ${product.size}
-
-Please share price, availability, shipping cost, and custom options.`;
-
-  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
-    whatsappText
-  )}`;
-
-  const trustCards = [
-    {
-      icon: Hand,
-      title: "Handcrafted in India",
-      desc: "Made by master artisans using inherited Indian metal craft techniques.",
-    },
-    {
-      icon: Globe,
-      title: "Worldwide Shipping",
-      desc: "Secure international delivery to collectors across the globe.",
-    },
-    {
-      icon: PackageCheck,
-      title: "Export Grade Packaging",
-      desc: "Museum-quality protective packaging for every shipment.",
-    },
-    {
-      icon: Ruler,
-      title: "Custom Sizes Available",
-      desc: "From 12-inch decor to grand 3–4 feet sculptures, made to order.",
-    },
-    {
-      icon: Users,
-      title: "Family Artisan Business",
-      desc: "Generational Indian metalwork heritage in every piece.",
-    },
+  const trust = [
+    { Icon: Hand,         title: "Handcrafted in India",       sub: "By master artisans" },
+    { Icon: Globe,        title: "Worldwide Shipping",          sub: "To all countries" },
+    { Icon: PackageCheck, title: "Export Grade Packaging",      sub: "Museum-safe delivery" },
+    { Icon: Ruler,        title: "Custom Sizes Available",      sub: "12″ to 4 feet" },
+    { Icon: Users,        title: "Family Artisan Business",     sub: "Generational heritage" },
   ];
 
   return (
-    <main className="min-h-screen bg-[#080604] text-[#f8f1df]">
+    <main className="bg-[#080604] text-[#F8F1DF] min-h-screen">
       <Navbar />
 
-      {/* ── PRODUCT DETAIL ── */}
-      <section className="grid gap-12 px-6 py-12 md:grid-cols-2 md:px-12">
-        {/* Image Gallery */}
+      {/* ── Breadcrumb ── */}
+      <div className="pt-[72px] px-6 md:px-16 py-5 border-b border-[#D6B15C]/10">
+        <nav className="flex items-center gap-3 text-[10px] uppercase tracking-[0.2em] text-[#8e7b53]">
+          <Link href="/" className="hover:text-[#D6B15C] transition-colors">Home</Link>
+          <span>/</span>
+          <Link href="/collections" className="hover:text-[#D6B15C] transition-colors">Collections</Link>
+          <span>/</span>
+          <span className="text-[#D6B15C]">{product.name}</span>
+        </nav>
+      </div>
+
+      {/* ── Product Detail — Apple-style sticky split ── */}
+      <section className="px-6 md:px-16 py-16 grid md:grid-cols-[1.1fr_1fr] gap-12 md:gap-20">
+
+        {/* Left: Image */}
         <div>
-          {/* Main image with zoom on hover */}
-          <div className="group overflow-hidden rounded-3xl bg-[#120d08]">
+          <div className="group relative overflow-hidden bg-[#120d08]" style={{ aspectRatio: "4/5" }}>
             <Image
               src={product.images[0]}
               alt={product.name}
-              width={900}
-              height={650}
+              fill
               priority
-              className="w-full object-cover transition duration-700 group-hover:scale-105"
-              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+              sizes="(max-width: 768px) 100vw, 55vw"
             />
           </div>
 
-          {/* Thumbnail strip (shows main image repeated if only one exists) */}
-          {product.images.length > 1 && (
-            <div className="mt-4 grid grid-cols-3 gap-3">
-              {product.images.slice(0, 3).map((img, i) => (
-                <div key={img} className="group overflow-hidden rounded-2xl bg-[#120d08]">
-                  <Image
-                    src={img}
-                    alt={`${product.name} view ${i + 1}`}
-                    width={300}
-                    height={220}
-                    className="h-28 w-full object-cover transition duration-500 group-hover:scale-105"
-                    sizes="33vw"
-                  />
-                </div>
-              ))}
-            </div>
-          )}
-
-          {/* Craftsmanship note card */}
-          <div className="mt-4 rounded-2xl border border-[#d6b15c]/20 bg-[#120d08] p-5">
-            <div className="flex items-center gap-3">
-              <Award className="text-[#d6b15c]" size={20} />
-              <p className="text-sm font-medium text-[#d6b15c]">Museum-Grade Craftsmanship</p>
-            </div>
-            <p className="mt-2 text-xs leading-5 text-[#8e7b53]">
-              Every Devashilpa piece is individually handcrafted — no two sculptures are
-              ever completely identical. Natural variations are a mark of authentic artisan work.
+          {/* Craftsmanship note */}
+          <div className="border-l-2 border-[#D6B15C]/40 pl-5 mt-6">
+            <p className="luxury-label text-[10px] mb-1">Authenticity</p>
+            <p className="text-xs text-[#8e7b53] leading-relaxed">
+              Each Devashilpa piece is individually cast and finished by hand. Natural variations 
+              are a mark of genuine artisan work — no two pieces are ever identical.
             </p>
           </div>
         </div>
 
-        {/* Product Info */}
-        <div className="flex flex-col justify-start">
-          <p className="text-sm uppercase tracking-[0.35em] text-[#d6b15c]">
-            {product.category}
-          </p>
-
-          <h1 className="mt-4 text-4xl font-semibold leading-tight md:text-5xl">
+        {/* Right: Sticky product info */}
+        <div className="md:sticky md:top-28 md:self-start">
+          <p className="luxury-label mb-4">{product.category}</p>
+          <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-light text-[#F8F1DF] leading-[1.08] mb-6">
             {product.name}
           </h1>
-
-          <p className="mt-6 text-lg leading-8 text-[#d8ccb2]">
+          <span className="gold-divider mb-6 block" />
+          <p className="text-[#D8CCB2] leading-relaxed mb-8 text-sm">
             {product.description}
           </p>
 
-          {/* Price card */}
-          <div className="mt-6 rounded-2xl border border-[#d6b15c]/30 bg-[#120d08] p-5">
-            <p className="text-xs uppercase tracking-widest text-[#d6b15c]">Price</p>
-            <p className="mt-1 text-2xl font-semibold text-[#f8f1df]">
-              {product.price}
+          {/* Price */}
+          <div className="border border-[#D6B15C]/15 p-5 mb-8">
+            <p className="luxury-label text-[#8e7b53] text-[10px] mb-1">Pricing</p>
+            <p className="font-display text-3xl font-light text-[#F8F1DF]">{product.price}</p>
+            <p className="text-xs text-[#8e7b53] mt-2 leading-relaxed">
+              Final price varies by size, material, detailing, finish, and shipping destination.
             </p>
-            <p className="mt-2 text-sm text-[#8e7b53]">
-              Final price depends on size, material, detailing, finish, packing,
-              and shipping destination.
-            </p>
-          </div>
-
-          {/* Specifications grid */}
-          <div className="mt-6 grid gap-3 md:grid-cols-2">
-            {[
-              ["Material", product.material, Gem],
-              ["Size", product.size, Ruler],
-              ["Production Time", product.productionTime, Clock],
-              ["Shipping", product.shipping, Globe],
-              ["Packing", product.packing, PackageCheck],
-              ["Authenticity", "Handcrafted, no two pieces identical", ShieldCheck],
-            ].map(([title, value, Icon]: any) => (
-              <div
-                key={title}
-                className="rounded-2xl border border-[#d6b15c]/20 bg-[#120d08] p-4 transition duration-200 hover:border-[#d6b15c]/40"
-              >
-                <div className="flex items-center gap-2">
-                  <Icon className="text-[#d6b15c]" size={18} />
-                  <p className="text-xs uppercase tracking-wider text-[#d6b15c]">{title}</p>
-                </div>
-                <p className="mt-2 text-sm leading-5 text-[#d8ccb2]">{value}</p>
-              </div>
-            ))}
           </div>
 
           {/* CTA Buttons */}
-          <div className="mt-8 flex flex-wrap gap-4">
+          <div className="space-y-3 mb-8">
             <a
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-2 rounded-full bg-[#25D366] px-7 py-3 font-medium text-black transition duration-300 hover:bg-[#1db954] hover:shadow-[0_0_20px_rgba(37,211,102,0.3)]"
+              className="flex items-center justify-center gap-2.5 bg-[#25D366] text-black text-xs uppercase tracking-[0.2em] py-4 px-7 w-full font-medium transition-all duration-300 hover:bg-[#1db954]"
             >
-              Ask Price on WhatsApp <MessageCircle size={18} />
+              <MessageCircle size={15} />
+              Ask Price on WhatsApp
             </a>
-
             <Link
               href="/custom-order"
-              className="flex items-center gap-2 rounded-full bg-[#d6b15c] px-7 py-3 font-medium text-black transition duration-300 hover:bg-[#c4a14e]"
+              className="flex items-center justify-center gap-2.5 border border-[#D6B15C]/30 text-[#D6B15C] text-xs uppercase tracking-[0.2em] py-4 px-7 w-full transition-all duration-300 hover:border-[#D6B15C] hover:bg-[#D6B15C] hover:text-black"
             >
-              Request Custom Quote <ArrowRight size={18} />
+              Request Custom Quote <ArrowRight size={13} />
             </Link>
-
             <Link
               href="/collections"
-              className="rounded-full border border-[#d6b15c]/40 px-7 py-3 text-[#d6b15c] transition duration-300 hover:border-[#d6b15c] hover:bg-[#d6b15c]/10"
+              className="flex items-center justify-center text-[#8e7b53] text-xs uppercase tracking-[0.15em] py-3 hover:text-[#D6B15C] transition-colors w-full"
             >
-              Back to Collections
+              ← Back to Collections
             </Link>
           </div>
 
-          <p className="mt-5 text-sm leading-6 text-[#8e7b53]">
-            For international orders, shipping charges and delivery timeline are
-            confirmed after destination, size, and packing requirements are reviewed.
-          </p>
-        </div>
-      </section>
-
-      {/* ── CRAFTSMANSHIP STORY ── */}
-      <section className="grid gap-10 px-6 py-20 md:grid-cols-2 md:px-12">
-        <div>
-          <p className="text-sm uppercase tracking-[0.35em] text-[#d6b15c]">
-            Craftsmanship Story
-          </p>
-
-          <h2 className="mt-4 text-4xl font-semibold">
-            Crafted through inherited tradition.
-          </h2>
-
-          <div className="mt-6 h-px w-16 bg-[#d6b15c]/40" />
-        </div>
-
-        <div className="space-y-5 text-lg leading-8 text-[#d8ccb2]">
-          <p>
-            Every Devashilpa masterpiece is created through traditional
-            mold-making, metal casting, and hand finishing — a process that has
-            been passed down through generations of Indian artisans.
-          </p>
-
-          <p>
-            Since every sculpture is finished manually, each piece carries
-            natural variations that make it truly one of a kind. These are not
-            flaws — they are the signature of authentic human hands.
-          </p>
-
-          <p>
-            Larger custom sculptures may take several weeks depending on size,
-            material, detailing, and finish. A 4-feet sculpture may take around
-            one month depending on complexity.
-          </p>
-        </div>
-      </section>
-
-      {/* ── TRUST CARDS ── */}
-      <section className="px-6 py-20 md:px-12">
-        <p className="text-sm uppercase tracking-[0.35em] text-[#d6b15c]">
-          Buyer Assurance
-        </p>
-
-        <h2 className="mt-4 text-4xl font-semibold">
-          Trusted by Collectors Worldwide
-        </h2>
-
-        <div className="mt-10 grid gap-5 md:grid-cols-5">
-          {trustCards.map(({ icon: Icon, title, desc }) => (
-            <div
-              key={title}
-              className="group rounded-3xl border border-[#d6b15c]/20 bg-[#120d08] p-6 text-center transition duration-300 hover:border-[#d6b15c]/50 hover:bg-[#1a1106]"
-            >
-              <div className="mx-auto flex h-14 w-14 items-center justify-center rounded-full bg-[#d6b15c]/10 transition duration-300 group-hover:bg-[#d6b15c]/20">
-                <Icon className="text-[#d6b15c]" size={24} />
+          {/* Specs grid */}
+          <div className="grid grid-cols-2 gap-3 mb-8">
+            {specs.map(({ label, value, Icon }) => (
+              <div key={label} className="border border-[#D6B15C]/10 p-4 hover:border-[#D6B15C]/25 transition-colors duration-200">
+                <div className="flex items-center gap-2 mb-2">
+                  <Icon size={13} className="text-[#D6B15C] shrink-0" />
+                  <p className="luxury-label text-[#8e7b53] text-[9px]">{label}</p>
+                </div>
+                <p className="text-xs text-[#D8CCB2] leading-relaxed">{value}</p>
               </div>
-              <h3 className="mt-4 text-sm font-medium text-[#f8f1df]">{title}</h3>
-              <p className="mt-2 text-xs leading-5 text-[#8e7b53]">{desc}</p>
+            ))}
+          </div>
+
+          <p className="text-xs text-[#8e7b53] leading-relaxed">
+            For international orders, shipping charges and delivery timeline are confirmed after 
+            destination, size, and packing requirements are reviewed.
+          </p>
+        </div>
+      </section>
+
+      {/* ── Trust Cards ── */}
+      <section className="border-t border-[#D6B15C]/10 bg-[#120d08] py-20 px-6 md:px-16">
+        <p className="luxury-label mb-12 text-center">Buyer Assurance</p>
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-px bg-[#D6B15C]/10 border border-[#D6B15C]/10">
+          {trust.map(({ Icon, title, sub }) => (
+            <div key={title} className="bg-[#120d08] p-7 text-center group hover:bg-[#1a1106] transition-colors duration-300">
+              <Icon className="text-[#D6B15C] mx-auto mb-4 group-hover:scale-110 transition-transform duration-300" size={22} />
+              <p className="text-sm font-light text-[#F8F1DF] leading-snug">{title}</p>
+              <p className="luxury-label text-[#8e7b53] text-[9px] mt-2">{sub}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* ── BUYER INFORMATION ── */}
-      <section className="px-6 py-20 md:px-12">
-        <p className="text-sm uppercase tracking-[0.35em] text-[#d6b15c]">
-          Buyer Information
-        </p>
+      {/* ── Craftsmanship Story ── */}
+      <section className="border-t border-[#D6B15C]/10 py-24 px-6 md:px-16">
+        <div className="grid md:grid-cols-2 gap-16 items-start">
+          <div>
+            <p className="luxury-label mb-5">The Making</p>
+            <h2 className="font-display text-4xl md:text-5xl font-light text-[#F8F1DF] leading-tight">
+              Crafted through inherited tradition.
+            </h2>
+            <span className="gold-divider mt-7 block" />
+          </div>
+          <div className="space-y-5 text-sm text-[#D8CCB2] leading-relaxed">
+            <p>
+              Every Devashilpa masterpiece is created through traditional mold-making, metal 
+              casting, and hand-finishing — a process passed down through generations.
+            </p>
+            <p>
+              Since every sculpture is finished manually, each piece carries natural variations 
+              that make it truly one of a kind. These are not flaws — they are the signature of 
+              authentic human hands.
+            </p>
+            <p>
+              Larger custom sculptures may take several weeks depending on size, material, 
+              detailing, and finish. A 4-feet sculpture may take around one month.
+            </p>
+          </div>
+        </div>
+      </section>
 
-        <h2 className="mt-4 text-4xl font-semibold">
-          Before you place an inquiry.
+      {/* ── WhatsApp CTA Banner ── */}
+      <section className="border-t border-[#D6B15C]/10 bg-[#120d08] py-16 px-6 md:px-16 text-center">
+        <p className="luxury-label mb-5">Interested in this Masterpiece?</p>
+        <h2 className="font-display text-3xl md:text-4xl font-light text-[#F8F1DF] mb-8 max-w-lg mx-auto">
+          Message us directly for price, availability, and international shipping.
         </h2>
-
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {[
-            [
-              "Custom Sizes Available",
-              "Designs can be created in different sizes based on your requirement.",
-            ],
-            [
-              "Material Options",
-              "Brass, copper, mixed metal, and custom finish options are available.",
-            ],
-            [
-              "Worldwide Shipping",
-              "International shipping is available with secure protective packing.",
-            ],
-            [
-              "Price on Request",
-              "Pricing depends on size, metal, detailing, finish, and destination.",
-            ],
-            [
-              "Handmade Variation",
-              "Small variations are natural and prove genuine hand craftsmanship.",
-            ],
-            [
-              "Custom Orders",
-              "Reference images and personal design ideas can be discussed on WhatsApp.",
-            ],
-          ].map(([title, desc]) => (
-            <div
-              key={title}
-              className="rounded-3xl border border-[#d6b15c]/20 bg-[#120d08] p-7 transition duration-300 hover:border-[#d6b15c]/40"
-            >
-              <h3 className="text-xl font-medium text-[#d6b15c]">{title}</h3>
-              <p className="mt-4 leading-7 text-[#d8ccb2] text-sm">{desc}</p>
-            </div>
-          ))}
-        </div>
+        <a
+          href={whatsappUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-3 border border-[#25D366] text-[#25D366] text-xs uppercase tracking-[0.22em] px-8 py-4 hover:bg-[#25D366] hover:text-black transition-all duration-300"
+        >
+          <MessageCircle size={14} />
+          Inquire on WhatsApp
+        </a>
       </section>
 
-      {/* ── WhatsApp CTA ── */}
-      <section className="mx-6 mb-20 overflow-hidden rounded-3xl md:mx-12">
-        <div className="relative bg-[#d6b15c] px-8 py-16 text-center text-black">
-          <h2 className="text-4xl font-semibold md:text-5xl">
-            Interested in this masterpiece?
-          </h2>
-
-          <p className="mx-auto mt-5 max-w-2xl text-lg">
-            Message us directly on WhatsApp for price, availability, customization,
-            packing, and international shipping details.
-          </p>
-
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-black px-8 py-3 font-medium text-[#d6b15c] transition hover:bg-[#1a1106]"
-          >
-            Inquire on WhatsApp <MessageCircle size={18} />
-          </a>
-        </div>
-      </section>
-
-      {/* ── RELATED PRODUCTS ── */}
-      <section className="px-6 py-20 md:px-12">
-        <p className="text-sm uppercase tracking-[0.35em] text-[#d6b15c]">
-          Related Masterpieces
-        </p>
-
-        <h2 className="mt-4 text-4xl font-semibold">You May Also Like</h2>
-
-        <div className="mt-10 grid gap-8 md:grid-cols-3">
-          {relatedProducts.map((item) => (
-            <Link
-              href={`/product/${item.slug}`}
-              key={item.id}
-              className="group overflow-hidden rounded-3xl bg-[#120d08] transition duration-500 hover:shadow-[0_8px_40px_rgba(214,177,92,0.10)]"
-            >
-              <div className="overflow-hidden">
-                <Image
-                  src={item.images[0]}
-                  alt={item.name}
-                  width={600}
-                  height={450}
-                  className="h-64 w-full object-cover transition duration-700 group-hover:scale-105"
-                  sizes="33vw"
-                />
-              </div>
-
-              <div className="p-6">
-                <p className="text-xs uppercase tracking-widest text-[#d6b15c]">
-                  {item.category}
-                </p>
-                <h3 className="mt-2 text-xl font-medium text-[#f8f1df] transition duration-300 group-hover:text-[#d6b15c]">
+      {/* ── Related Masterpieces ── */}
+      {related.length > 0 && (
+        <section className="border-t border-[#D6B15C]/10 py-24 px-6 md:px-16">
+          <p className="luxury-label mb-5">Related Masterpieces</p>
+          <h2 className="font-display text-3xl md:text-4xl font-light text-[#F8F1DF] mb-14">You May Also Like</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            {related.map((item) => (
+              <Link href={`/product/${item.slug}`} key={item.id} className="group block">
+                <div className="relative overflow-hidden bg-[#120d08] mb-4" style={{ aspectRatio: "3/4" }}>
+                  <Image
+                    src={item.images[0]}
+                    alt={item.name}
+                    fill
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.05]"
+                    sizes="(max-width: 640px) 100vw, 33vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                </div>
+                <p className="luxury-label text-[10px] mb-1.5">{item.category}</p>
+                <h3 className="text-[#F8F1DF] font-light group-hover:text-[#D6B15C] transition-colors duration-300">
                   {item.name}
                 </h3>
-                <p className="mt-3 text-sm leading-6 text-[#d8ccb2]">
-                  {item.shortDescription}
-                </p>
-                <p className="mt-4 flex items-center gap-1.5 text-sm text-[#d6b15c] transition duration-300 group-hover:gap-3">
-                  View Masterpiece <ArrowRight size={14} />
-                </p>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
+                <div className="h-px bg-[#D6B15C]/30 mt-3 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
 
       <Footer />
     </main>
