@@ -1,31 +1,27 @@
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
-
-import Link from "next/link";
+import type { Metadata } from "next";
 import {
   Mail,
   Phone,
   MapPin,
   Globe,
-  MessageCircle,
+  ExternalLink,
 } from "lucide-react";
+
+export const metadata: Metadata = {
+  title: "Contact | Devashilpa",
+  description:
+    "Contact Devashilpa for handcrafted brass sculpture inquiries, custom orders, and international shipping information.",
+  alternates: {
+    canonical: "https://www.devashilpa.com/contact",
+  },
+};
 
 export default function ContactPage() {
   return (
     <main className="min-h-screen bg-[#080604] text-[#f8f1df]">
-      <nav className="flex items-center justify-between px-6 py-6 md:px-12">
-        <Link href="/" className="text-2xl tracking-[0.35em] text-[#d6b15c]">
-          DEVASHILPA
-        </Link>
-
-        <div className="hidden gap-8 text-sm md:flex">
-          <Link href="/">Home</Link>
-          <Link href="/collections">Collections</Link>
-          <Link href="/about">About</Link>
-          <Link href="/custom-order">Custom Order</Link>
-          <Link href="/contact">Contact</Link>
-        </div>
-      </nav>
+      <Navbar />
 
       <section className="px-6 py-16 md:px-12">
         <p className="text-sm uppercase tracking-[0.35em] text-[#d6b15c]">
@@ -33,7 +29,7 @@ export default function ContactPage() {
         </p>
 
         <h1 className="mt-5 text-5xl font-semibold md:text-7xl">
-          Let’s create something timeless.
+          Let&apos;s create something timeless.
         </h1>
 
         <p className="mt-6 max-w-3xl text-lg leading-8 text-[#d8ccb2]">
@@ -44,106 +40,123 @@ export default function ContactPage() {
       </section>
 
       <section className="grid gap-10 px-6 pb-20 md:grid-cols-2 md:px-12">
-        <div className="rounded-3xl border border-[#d6b15c]/30 bg-white/5 p-8">
-          <h2 className="text-3xl text-[#d6b15c]">Send Us a Message</h2>
+        {/* Contact form */}
+        <div className="rounded-3xl border border-[#d6b15c]/20 bg-[#120d08] p-8">
+          <h2 className="text-2xl font-medium text-[#d6b15c]">Send Us a Message</h2>
 
-          <div className="mt-6 grid gap-5">
+          <div className="mt-6 grid gap-4">
             <input
               placeholder="Full Name"
-              className="rounded-xl border border-[#d6b15c]/30 bg-black/40 px-4 py-3 outline-none"
+              className="rounded-xl border border-[#d6b15c]/20 bg-black/40 px-4 py-3 text-[#f8f1df] outline-none placeholder:text-[#8e7b53] focus:border-[#d6b15c]/50 transition duration-200"
             />
 
             <input
               type="email"
               placeholder="Email Address"
-              className="rounded-xl border border-[#d6b15c]/30 bg-black/40 px-4 py-3 outline-none"
+              className="rounded-xl border border-[#d6b15c]/20 bg-black/40 px-4 py-3 text-[#f8f1df] outline-none placeholder:text-[#8e7b53] focus:border-[#d6b15c]/50 transition duration-200"
             />
 
             <input
-              placeholder="Phone Number"
-              className="rounded-xl border border-[#d6b15c]/30 bg-black/40 px-4 py-3 outline-none"
+              placeholder="Phone / WhatsApp Number"
+              className="rounded-xl border border-[#d6b15c]/20 bg-black/40 px-4 py-3 text-[#f8f1df] outline-none placeholder:text-[#8e7b53] focus:border-[#d6b15c]/50 transition duration-200"
             />
 
             <textarea
               rows={6}
-              placeholder="Your Message"
-              className="rounded-xl border border-[#d6b15c]/30 bg-black/40 px-4 py-3 outline-none"
+              placeholder="Your Message or Inquiry..."
+              className="rounded-xl border border-[#d6b15c]/20 bg-black/40 px-4 py-3 text-[#f8f1df] outline-none placeholder:text-[#8e7b53] focus:border-[#d6b15c]/50 transition duration-200 resize-none"
             />
 
-            <button className="rounded-full bg-[#d6b15c] px-7 py-3 font-medium text-black">
+            <a
+              href="mailto:adityavisss.2323@gmail.com"
+              className="rounded-full bg-[#d6b15c] px-7 py-3 text-center font-medium text-black transition duration-300 hover:bg-[#c4a14e]"
+            >
               Send Message
-            </button>
+            </a>
+
+            <p className="text-center text-xs text-[#8e7b53]">
+              Or contact us directly via WhatsApp or email below
+            </p>
           </div>
         </div>
 
-        <div className="space-y-6">
-          <div className="rounded-3xl bg-[#120d08] p-8">
-            <Mail className="mb-4 text-[#d6b15c]" />
+        {/* Contact info cards */}
+        <div className="space-y-4">
+          {[
+            {
+              icon: Mail,
+              title: "Email",
+              content: "adityavisss.2323@gmail.com",
+              href: "mailto:adityavisss.2323@gmail.com",
+            },
+            {
+              icon: Phone,
+              title: "Phone / WhatsApp",
+              content: "+91 6261068277",
+              href: "tel:+916261068277",
+            },
+            {
+              icon: MapPin,
+              title: "Workshop",
+              content: "Shajapur, Madhya Pradesh, India",
+              href: null,
+            },
+            {
+              icon: Globe,
+              title: "Worldwide Shipping",
+              content: "Secure international shipping available to all countries.",
+              href: null,
+            },
+            {
+              icon: ExternalLink,
+              title: "Instagram",
+              content: "@devashilpa",
+              href: "https://instagram.com/devashilpa",
+            },
+          ].map(({ icon: Icon, title, content, href }) => (
+            <div
+              key={title}
+              className="group rounded-3xl border border-[#d6b15c]/10 bg-[#120d08] p-6 transition duration-300 hover:border-[#d6b15c]/30"
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#d6b15c]/10 transition duration-300 group-hover:bg-[#d6b15c]/20">
+                  <Icon className="text-[#d6b15c]" size={18} />
+                </div>
+                <div>
+                  <h3 className="font-medium text-[#d6b15c]">{title}</h3>
+                  {href ? (
+                    <a
+                      href={href}
+                      target={href.startsWith("http") ? "_blank" : undefined}
+                      rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
+                      className="mt-1 text-sm text-[#d8ccb2] hover:text-[#d6b15c] transition duration-200"
+                    >
+                      {content}
+                    </a>
+                  ) : (
+                    <p className="mt-1 text-sm text-[#d8ccb2]">{content}</p>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
 
-            <h3 className="text-2xl text-[#d6b15c]">Email</h3>
-
-            <p className="mt-3 text-[#d8ccb2]">
-              adityavisss.2323@gmail.com
-
-            </p>
-          </div>
-
-          <div className="rounded-3xl bg-[#120d08] p-8">
-            <Phone className="mb-4 text-[#d6b15c]" />
-
-            <h3 className="text-2xl text-[#d6b15c]">Phone / WhatsApp</h3>
-
-            <p className="mt-3 text-[#d8ccb2]">
-              +91 6261068277
-            </p>
-          </div>
-
-          <div className="rounded-3xl bg-[#120d08] p-8">
-            <MapPin className="mb-4 text-[#d6b15c]" />
-
-            <h3 className="text-2xl text-[#d6b15c]">Workshop</h3>
-
-            <p className="mt-3 text-[#d8ccb2]">
-              Shajapur, Madhya Pradesh, India
-            </p>
-          </div>
-
-          <div className="rounded-3xl bg-[#120d08] p-8">
-            <Globe className="mb-4 text-[#d6b15c]" />
-
-            <h3 className="text-2xl text-[#d6b15c]">
-              Worldwide Shipping
-            </h3>
-
-            <p className="mt-3 text-[#d8ccb2]">
-              Secure international shipping available.
-            </p>
-          </div>
-
-          <div className="rounded-3xl bg-[#120d08] p-8">
-           <MessageCircle className="mb-4 text-[#d6b15c]" />
-
-            <h3 className="text-2xl text-[#d6b15c]">Instagram</h3>
-
-            <p className="mt-3 text-[#d8ccb2]">
-              @devashilpa
-            </p>
-          </div>
-
-          <div className="rounded-3xl bg-[#120d08] p-8">
-            <MessageCircle className="mb-4 text-[#d6b15c]" />
-
-            <h3 className="text-2xl text-[#d6b15c]">
-              Custom Orders
-            </h3>
-
-            <p className="mt-3 text-[#d8ccb2]">
-              Custom sculptures available in different sizes,
-              materials, and finishes.
-            </p>
-          </div>
+          {/* WhatsApp direct button */}
+          <a
+            href="https://wa.me/916261068277"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-3 rounded-3xl bg-[#25D366] px-6 py-5 font-medium text-black transition duration-300 hover:bg-[#1db954]"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor" className="h-6 w-6">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+            </svg>
+            Chat on WhatsApp
+          </a>
         </div>
       </section>
+
+      <Footer />
     </main>
   );
 }

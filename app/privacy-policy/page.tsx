@@ -1,5 +1,15 @@
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Privacy Policy | Devashilpa",
+  description:
+    "Read Devashilpa's privacy policy to understand how we handle your personal information.",
+  alternates: {
+    canonical: "https://www.devashilpa.com/privacy-policy",
+  },
+};
 
 export default function PrivacyPolicyPage() {
   return (

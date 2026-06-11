@@ -13,21 +13,70 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const siteUrl = "https://www.devashilpa.com";
+
 export const metadata: Metadata = {
-  title: "Devashilpa | Handcrafted Luxury Indian Sculptures",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Devashilpa | Handcrafted Brass Sculptures from India",
+    template: "%s | Devashilpa",
+  },
   description:
-    "Discover handcrafted brass and copper sculptures created through generations of Indian craftsmanship. Custom sculptures, heritage art, and worldwide shipping from India.",
+    "Luxury handcrafted brass sculptures, temple decor, divine idols, and heritage artworks created by Indian artisans. Worldwide shipping available.",
   keywords: [
-    "Handcrafted Sculptures",
-    "Brass Sculptures",
-    "Copper Sculptures",
-    "Indian Handicrafts",
-    "Luxury Home Decor",
-    "Custom Sculptures",
-    "Metal Art",
+    "Handcrafted Brass Sculptures",
+    "Indian Brass Sculptures",
+    "Brass Temple Decor",
+    "Divine Brass Idols",
+    "Heritage Metal Art India",
+    "Luxury Handcrafted Sculptures",
+    "Brass Ganesha Sculpture",
+    "Brass Krishna Sculpture",
+    "Custom Brass Sculptures",
+    "Indian Metal Handicrafts",
     "Devashilpa",
+    "Brass Sculptures Worldwide Shipping",
   ],
+  openGraph: {
+    type: "website",
+    locale: "en_IN",
+    url: siteUrl,
+    siteName: "Devashilpa",
+    title: "Devashilpa | Handcrafted Brass Sculptures from India",
+    description:
+      "Luxury handcrafted brass sculptures, temple decor, divine idols, and heritage artworks created by Indian artisans. Worldwide shipping available.",
+    images: [
+      {
+        url: "/products/parthasarathy-chariot/main.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Devashilpa — Handcrafted Brass Sculptures from India",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Devashilpa | Handcrafted Brass Sculptures from India",
+    description:
+      "Luxury handcrafted brass sculptures, temple decor, divine idols, and heritage artworks created by Indian artisans. Worldwide shipping available.",
+    images: ["/products/parthasarathy-chariot/main.jpg"],
+  },
+  alternates: {
+    canonical: siteUrl,
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -36,10 +85,9 @@ export default function RootLayout({
   return (
     <html
       lang="en-IN"
-
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col bg-[#080604]">
         {children}
         <WhatsAppButton />
       </body>

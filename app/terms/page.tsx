@@ -1,5 +1,15 @@
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Terms & Conditions | Devashilpa",
+  description:
+    "Read Devashilpa's terms and conditions for handcrafted brass sculpture purchases, custom orders, and delivery.",
+  alternates: {
+    canonical: "https://www.devashilpa.com/terms",
+  },
+};
 
 export default function TermsPage() {
   return (
