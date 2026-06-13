@@ -1,41 +1,86 @@
 import Link from "next/link";
 
-const quickLinks = [
-  { href: "/", label: "Home" },
-  { href: "/collections", label: "Collections" },
-  { href: "/about", label: "About" },
-  { href: "/custom-order", label: "Custom Order" },
-  { href: "/contact", label: "Contact" },
+const PAGES = [
+  { href: "/",             label: "Home" },
+  { href: "/collections",  label: "Collection" },
+  { href: "/about",        label: "Heritage" },
+  { href: "/custom-order", label: "Commission" },
+  { href: "/contact",      label: "Contact" },
 ];
 
-const policyLinks = [
+const POLICIES = [
   { href: "/shipping-policy", label: "Shipping Policy" },
-  { href: "/privacy-policy", label: "Privacy Policy" },
-  { href: "/terms", label: "Terms & Conditions" },
+  { href: "/privacy-policy",  label: "Privacy Policy" },
+  { href: "/terms",           label: "Terms & Conditions" },
 ];
 
 export default function Footer() {
   return (
-    <footer className="bg-[#080604] border-t border-[#D6B15C]/10">
-      {/* Top: Brand statement */}
-      <div className="border-b border-[#D6B15C]/10 px-6 md:px-16 py-16">
-        <p className="luxury-label text-[#D6B15C] mb-6">Devashilpa</p>
-        <p className="font-display text-3xl md:text-4xl font-light text-[#F8F1DF] max-w-2xl leading-snug">
-          Preserving inherited Indian metal craftsmanship — one handcrafted sculpture at a time.
+    <footer
+      style={{
+        background: "var(--surface)",
+        borderTop: "1px solid var(--gold-line)",
+        color: "var(--text-2)",
+      }}
+    >
+      {/* Brand statement */}
+      <div
+        className="section-x"
+        style={{
+          paddingTop: "clamp(56px, 7vw, 96px)",
+          paddingBottom: "clamp(40px, 5vw, 64px)",
+          borderBottom: "1px solid var(--gold-line)",
+        }}
+      >
+        <p
+          style={{
+            fontSize: "0.6rem",
+            letterSpacing: "0.35em",
+            textTransform: "uppercase",
+            color: "var(--gold)",
+            marginBottom: 28,
+          }}
+        >
+          Devashilpa
+        </p>
+        <p
+          className="font-display"
+          style={{
+            fontSize: "clamp(1.6rem, 3vw, 2.8rem)",
+            fontWeight: 300,
+            lineHeight: 1.3,
+            color: "#F2EBD9",
+            maxWidth: 640,
+          }}
+        >
+          Preserving inherited Indian metal craftsmanship — one handcrafted masterpiece at a time.
         </p>
       </div>
 
-      {/* Middle: Links & Contact */}
-      <div className="px-6 md:px-16 py-14 grid grid-cols-2 md:grid-cols-4 gap-10">
+      {/* Links grid */}
+      <div
+        className="section-x"
+        style={{
+          paddingTop: "clamp(40px, 5vw, 64px)",
+          paddingBottom: "clamp(40px, 5vw, 64px)",
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(160px, 1fr))",
+          gap: "clamp(32px, 4vw, 56px)",
+          borderBottom: "1px solid var(--gold-line)",
+        }}
+      >
         {/* Explore */}
         <div>
-          <p className="luxury-label text-[#8e7b53] mb-6">Explore</p>
-          <ul className="space-y-3">
-            {quickLinks.map(({ href, label }) => (
+          <p style={{ fontSize: "0.6rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "var(--text-3)", marginBottom: 24 }}>
+            Explore
+          </p>
+          <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 14 }}>
+            {PAGES.map(({ href, label }) => (
               <li key={href}>
                 <Link
                   href={href}
-                  className="text-sm text-[#D8CCB2] hover:text-[#D6B15C] transition-colors duration-300"
+                  style={{ fontSize: "0.85rem", color: "var(--text-2)", textDecoration: "none", transition: "color 0.25s" }}
+                  className="hover:text-[#C8A96E]"
                 >
                   {label}
                 </Link>
@@ -46,13 +91,16 @@ export default function Footer() {
 
         {/* Information */}
         <div>
-          <p className="luxury-label text-[#8e7b53] mb-6">Information</p>
-          <ul className="space-y-3">
-            {policyLinks.map(({ href, label }) => (
+          <p style={{ fontSize: "0.6rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "var(--text-3)", marginBottom: 24 }}>
+            Information
+          </p>
+          <ul style={{ listStyle: "none", display: "flex", flexDirection: "column", gap: 14 }}>
+            {POLICIES.map(({ href, label }) => (
               <li key={href}>
                 <Link
                   href={href}
-                  className="text-sm text-[#D8CCB2] hover:text-[#D6B15C] transition-colors duration-300"
+                  style={{ fontSize: "0.85rem", color: "var(--text-2)", textDecoration: "none", transition: "color 0.25s" }}
+                  className="hover:text-[#C8A96E]"
                 >
                   {label}
                 </Link>
@@ -63,46 +111,68 @@ export default function Footer() {
 
         {/* Contact */}
         <div>
-          <p className="luxury-label text-[#8e7b53] mb-6">Contact</p>
-          <div className="space-y-3">
-            <p className="text-sm text-[#D8CCB2]">Shajapur, Madhya Pradesh, India</p>
-            <a href="tel:+916261068277" className="block text-sm text-[#D8CCB2] hover:text-[#D6B15C] transition-colors duration-300">
+          <p style={{ fontSize: "0.6rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "var(--text-3)", marginBottom: 24 }}>
+            Contact
+          </p>
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            <p style={{ fontSize: "0.85rem", color: "var(--text-2)" }}>Shajapur, Madhya Pradesh, India</p>
+            <a href="tel:+916261068277" style={{ fontSize: "0.85rem", color: "var(--text-2)", textDecoration: "none", transition: "color 0.25s" }} className="hover:text-[#C8A96E]">
               +91 6261068277
             </a>
-            <a href="mailto:adityavisss.2323@gmail.com" className="block text-sm text-[#D8CCB2] hover:text-[#D6B15C] transition-colors duration-300 break-all">
+            <a href="mailto:adityavisss.2323@gmail.com" style={{ fontSize: "0.85rem", color: "var(--text-2)", textDecoration: "none", transition: "color 0.25s", wordBreak: "break-all" }} className="hover:text-[#C8A96E]">
               adityavisss.2323@gmail.com
             </a>
           </div>
         </div>
 
-        {/* Worldwide shipping badge */}
+        {/* Worldwide */}
         <div>
-          <p className="luxury-label text-[#8e7b53] mb-6">Delivery</p>
-          <div className="space-y-4">
-            <div className="border border-[#D6B15C]/20 p-4">
-              <p className="luxury-label text-[#D6B15C] mb-2 text-[10px]">Worldwide</p>
-              <p className="text-sm text-[#D8CCB2] leading-relaxed">
-                Secure export-grade packaging. International shipping to all countries.
-              </p>
-            </div>
-            <a
-              href="https://wa.me/916261068277"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 border border-[#D6B15C]/25 text-[#D6B15C] text-[10px] uppercase tracking-[0.2em] px-4 py-2.5 hover:bg-[#D6B15C] hover:text-black hover:border-[#D6B15C] transition-all duration-300"
-            >
-              WhatsApp Inquiry
-            </a>
+          <p style={{ fontSize: "0.6rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "var(--text-3)", marginBottom: 24 }}>
+            Delivery
+          </p>
+          <div
+            style={{
+              border: "1px solid var(--gold-line)",
+              padding: "20px",
+              marginBottom: 20,
+            }}
+          >
+            <p style={{ fontSize: "0.6rem", letterSpacing: "0.3em", textTransform: "uppercase", color: "var(--gold)", marginBottom: 10 }}>
+              Worldwide
+            </p>
+            <p style={{ fontSize: "0.82rem", color: "var(--text-2)", lineHeight: 1.65 }}>
+              Secure export-grade packaging. International shipping to all countries.
+            </p>
           </div>
+          <a
+            href="https://wa.me/916261068277"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-outline"
+            style={{ fontSize: "0.55rem", padding: "10px 18px" }}
+          >
+            WhatsApp Inquiry
+          </a>
         </div>
       </div>
 
-      {/* Bottom: Copyright */}
-      <div className="border-t border-[#D6B15C]/10 px-6 md:px-16 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
-        <p className="text-xs text-[#8e7b53]">
+      {/* Copyright */}
+      <div
+        className="section-x"
+        style={{
+          paddingTop: 24,
+          paddingBottom: 24,
+          display: "flex",
+          flexWrap: "wrap",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 12,
+        }}
+      >
+        <p style={{ fontSize: "0.72rem", color: "var(--text-3)" }}>
           © {new Date().getFullYear()} Devashilpa. All Rights Reserved.
         </p>
-        <p className="text-xs text-[#8e7b53]">
+        <p style={{ fontSize: "0.72rem", color: "var(--text-3)" }}>
           Handcrafted in Shajapur, Madhya Pradesh, India
         </p>
       </div>

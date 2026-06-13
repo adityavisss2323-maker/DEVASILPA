@@ -6,10 +6,10 @@ import Link from "next/link";
 import Navbar from "@/app/components/Navbar";
 import Footer from "@/app/components/Footer";
 import { products } from "@/app/data/products";
-import { Search, SlidersHorizontal, ArrowRight, X } from "lucide-react";
+import { Search, X, ArrowRight } from "lucide-react";
 
 const CATEGORIES = [
-  "All",
+  "All Works",
   "Divine Collection",
   "Temple Decor",
   "Heritage Collection",
@@ -19,164 +19,261 @@ const CATEGORIES = [
   "Warrior Collection",
   "Krishna Collection",
   "Ramayana Collection",
+  "Brass Lamps",
+  "Temple Lamps",
 ];
 
-type SortKey = "featured" | "name" | "newest";
+type Sort = "featured" | "name" | "newest";
 
 export default function CollectionsPage() {
-  const [search, setSearch] = useState("");
-  const [category, setCategory] = useState("All");
-  const [sortKey, setSortKey] = useState<SortKey>("featured");
+  const [search,   setSearch]   = useState("");
+  const [category, setCategory] = useState("All Works");
+  const [sort,     setSort]     = useState<Sort>("featured");
 
   const filtered = useMemo(() => {
+    const q = search.toLowerCase();
     let list = products.filter((p) => {
-      const q = search.toLowerCase();
-      const matchSearch =
-        p.name.toLowerCase().includes(q) ||
-        p.category.toLowerCase().includes(q) ||
-        p.shortDescription.toLowerCase().includes(q);
-      const matchCat = category === "All" || p.category === category;
-      return matchSearch && matchCat;
+      const matchQ   = !q || p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q);
+      const matchCat = category === "All Works" || p.category === category;
+      return matchQ && matchCat;
     });
-
-    if (sortKey === "featured") list = [...list].sort((a, b) => (a.featured === b.featured ? 0 : a.featured ? -1 : 1));
-    else if (sortKey === "name") list = [...list].sort((a, b) => a.name.localeCompare(b.name));
-    else if (sortKey === "newest") list = [...list].sort((a, b) => b.id - a.id);
-
+    if (sort === "featured") list = [...list].sort((a, b) => (a.featured === b.featured ? 0 : a.featured ? -1 : 1));
+    if (sort === "name")     list = [...list].sort((a, b) => a.name.localeCompare(b.name));
+    if (sort === "newest")   list = [...list].sort((a, b) => b.id - a.id);
     return list;
-  }, [search, category, sortKey]);
+  }, [search, category, sort]);
 
-  const clearAll = () => { setSearch(""); setCategory("All"); setSortKey("featured"); };
-  const hasFilters = search !== "" || category !== "All" || sortKey !== "featured";
+  const clear = () => { setSearch(""); setCategory("All Works"); setSort("featured"); };
 
   return (
-    <main className="bg-[#080604] text-[#F8F1DF] min-h-screen">
+    <main style={{ background: "var(--bg)", color: "var(--text)", minHeight: "100vh" }}>
       <Navbar />
 
       {/* ── Page Header ── */}
-      <section className="pt-[72px] px-6 md:px-16 py-20 border-b border-[#D6B15C]/10">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
+      <section
+        className="section-x"
+        style={{
+          paddingTop: "calc(var(--nav-h) + clamp(48px, 7vw, 96px))",
+          paddingBottom: "clamp(40px, 5vw, 64px)",
+          borderBottom: "1px solid var(--gold-line)",
+        }}
+      >
+        <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: 24, marginBottom: 28 }}>
           <div>
-            <p className="luxury-label mb-5">Devashilpa Collections</p>
-            <h1 className="font-display text-5xl md:text-7xl font-light text-[#F8F1DF] leading-tight">
+            <span className="lux-label block" style={{ marginBottom: 20 }}>The Collection</span>
+            <h1
+              className="font-display"
+              style={{ fontSize: "clamp(2.8rem, 6vw, 5.5rem)", fontWeight: 300, lineHeight: 1.05, color: "#F2EBD9" }}
+            >
               All Works
             </h1>
           </div>
-          <div className="flex items-center gap-2 border border-[#D6B15C]/20 px-5 py-3 self-start md:self-auto">
-            <span className="font-display text-3xl font-light text-[#D6B15C]">22+</span>
-            <span className="luxury-label text-[#8e7b53] text-[10px]">Masterpieces<br />Available</span>
+          <div style={{ display: "flex", alignItems: "center", gap: 12, border: "1px solid var(--gold-line)", padding: "16px 24px" }}>
+            <span className="font-display" style={{ fontSize: "2rem", fontWeight: 300, color: "var(--gold)", lineHeight: 1 }}>22+</span>
+            <div>
+              <span className="lux-label block">Masterpieces</span>
+              <span className="lux-label-muted block">Available</span>
+            </div>
           </div>
         </div>
-        <p className="mt-6 text-[#D8CCB2] max-w-xl leading-relaxed text-sm">
-          Handcrafted brass and copper masterpieces by master artisans using inherited Indian metal craftsmanship traditions.
+        <p style={{ color: "var(--text-2)", fontSize: "0.9rem", lineHeight: 1.8, maxWidth: 520 }}>
+          A curated exhibition of handcrafted brass and copper masterpieces, created by master artisans using inherited Indian metal casting traditions.
         </p>
       </section>
 
-      {/* ── Sticky Filter Bar ── */}
-      <div className="sticky top-[72px] z-40 bg-[#080604]/95 backdrop-blur-xl border-b border-[#D6B15C]/10">
-        <div className="px-6 md:px-16 py-4">
-          {/* Row 1: Search + Sort */}
-          <div className="flex flex-col sm:flex-row gap-3">
+      {/* ── Sticky Filters ── */}
+      <div
+        style={{
+          position: "sticky",
+          top: "var(--nav-h)",
+          zIndex: 40,
+          background: "rgba(8,6,4,0.96)",
+          backdropFilter: "blur(20px)",
+          WebkitBackdropFilter: "blur(20px)",
+          borderBottom: "1px solid var(--gold-line)",
+        }}
+      >
+        <div className="section-x" style={{ paddingTop: 16, paddingBottom: 16 }}>
+          {/* Search + Sort row */}
+          <div style={{ display: "flex", gap: 12, flexWrap: "wrap", alignItems: "center", marginBottom: 14 }}>
             {/* Search */}
-            <div className="relative flex-1">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 text-[#8e7b53]" size={15} />
+            <div style={{ position: "relative", flex: "1 1 220px", minWidth: 200 }}>
+              <Search
+                size={14}
+                style={{ position: "absolute", left: 12, top: "50%", transform: "translateY(-50%)", color: "var(--text-3)" }}
+              />
               {search && (
                 <button
                   onClick={() => setSearch("")}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-[#8e7b53] hover:text-[#D6B15C] transition-colors"
+                  style={{ position: "absolute", right: 12, top: "50%", transform: "translateY(-50%)", background: "none", border: "none", cursor: "pointer", color: "var(--text-3)", display: "flex" }}
                 >
-                  <X size={14} />
+                  <X size={13} />
                 </button>
               )}
               <input
                 type="text"
-                placeholder="Search sculptures..."
+                placeholder="Search masterpieces…"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="w-full bg-[#120d08] border border-[#D6B15C]/15 pl-10 pr-10 py-2.5 text-sm text-[#F8F1DF] placeholder:text-[#8e7b53] outline-none focus:border-[#D6B15C]/40 transition-colors duration-200"
+                style={{
+                  width: "100%",
+                  background: "var(--surface)",
+                  border: "1px solid var(--gold-line)",
+                  padding: "10px 36px",
+                  fontSize: "0.82rem",
+                  color: "var(--text)",
+                  outline: "none",
+                }}
+                className="focus:border-[#C8A96E]/50"
               />
             </div>
 
             {/* Sort */}
-            <div className="flex items-center gap-2 shrink-0">
-              <SlidersHorizontal size={14} className="text-[#8e7b53]" />
-              <select
-                value={sortKey}
-                onChange={(e) => setSortKey(e.target.value as SortKey)}
-                className="bg-[#120d08] border border-[#D6B15C]/15 text-xs uppercase tracking-wider text-[#D8CCB2] px-4 py-2.5 outline-none cursor-pointer hover:border-[#D6B15C]/35 transition-colors"
-              >
-                <option value="featured">Featured</option>
-                <option value="name">Name A–Z</option>
-                <option value="newest">Newest</option>
-              </select>
+            <select
+              value={sort}
+              onChange={(e) => setSort(e.target.value as Sort)}
+              style={{
+                background: "var(--surface)",
+                border: "1px solid var(--gold-line)",
+                color: "var(--text-2)",
+                padding: "10px 16px",
+                fontSize: "0.72rem",
+                letterSpacing: "0.12em",
+                textTransform: "uppercase",
+                outline: "none",
+                cursor: "pointer",
+                appearance: "none",
+              }}
+            >
+              <option value="featured">Featured First</option>
+              <option value="name">Name A–Z</option>
+              <option value="newest">Newest</option>
+            </select>
+
+            {/* Count + Clear */}
+            <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 16 }}>
+              <span style={{ fontSize: "0.72rem", color: "var(--text-3)", whiteSpace: "nowrap" }}>
+                <span style={{ color: "var(--gold)" }}>{filtered.length}</span> / {products.length}
+              </span>
+              {(search || category !== "All Works") && (
+                <button
+                  onClick={clear}
+                  style={{ background: "none", border: "none", cursor: "pointer", fontSize: "0.6rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "var(--text-3)" }}
+                  className="hover:text-[#C8A96E]"
+                >
+                  Clear
+                </button>
+              )}
             </div>
           </div>
 
-          {/* Row 2: Category chips */}
-          <div className="flex flex-wrap gap-2 mt-3 pb-1">
+          {/* Category chips */}
+          <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
             {CATEGORIES.map((cat) => (
               <button
                 key={cat}
                 onClick={() => setCategory(cat)}
-                className={`text-[10px] uppercase tracking-[0.15em] px-3.5 py-1.5 border transition-all duration-200 ${
-                  cat === category
-                    ? "border-[#D6B15C] bg-[#D6B15C] text-black font-medium"
-                    : "border-[#D6B15C]/20 text-[#D8CCB2] hover:border-[#D6B15C]/50 hover:text-[#F8F1DF]"
-                }`}
+                style={{
+                  fontSize: "0.6rem",
+                  letterSpacing: "0.18em",
+                  textTransform: "uppercase",
+                  padding: "7px 14px",
+                  border: "1px solid",
+                  borderColor: cat === category ? "var(--gold)" : "var(--gold-line)",
+                  background: cat === category ? "var(--gold)" : "transparent",
+                  color: cat === category ? "#0a0602" : "var(--text-2)",
+                  cursor: "pointer",
+                  transition: "all 0.25s",
+                  fontWeight: cat === category ? 600 : 400,
+                }}
               >
                 {cat}
               </button>
             ))}
           </div>
-
-          {/* Result count + clear */}
-          <div className="flex items-center justify-between mt-3 pt-3 border-t border-[#D6B15C]/8">
-            <p className="text-xs text-[#8e7b53]">
-              Showing <span className="text-[#D6B15C]">{filtered.length}</span> of {products.length}
-            </p>
-            {hasFilters && (
-              <button
-                onClick={clearAll}
-                className="text-[10px] uppercase tracking-[0.15em] text-[#8e7b53] hover:text-[#D6B15C] transition-colors"
-              >
-                Clear all
-              </button>
-            )}
-          </div>
         </div>
       </div>
 
-      {/* ── Product Grid ── */}
+      {/* ── Exhibition Grid ── */}
       {filtered.length > 0 ? (
-        <section className="px-6 md:px-16 py-16 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-14">
+        <section
+          className="section-x"
+          style={{
+            paddingTop: "clamp(48px, 6vw, 80px)",
+            paddingBottom: "clamp(64px, 8vw, 120px)",
+            display: "grid",
+            gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
+            gap: "clamp(32px, 4vw, 56px) clamp(16px, 2.5vw, 32px)",
+          }}
+        >
           {filtered.map((product) => (
             <Link
-              href={`/product/${product.slug}`}
               key={product.id}
-              className="group block card-hover"
+              href={`/product/${product.slug}`}
+              style={{ display: "block", textDecoration: "none" }}
+              className="group card-lift"
             >
               {/* Image */}
-              <div className="relative aspect-[4/5] overflow-hidden bg-[#120d08] mb-5">
+              <div
+                className="img-zoom"
+                style={{
+                  position: "relative",
+                  aspectRatio: "4/5",
+                  background: "var(--surface)",
+                  overflow: "hidden",
+                  marginBottom: 18,
+                }}
+              >
                 <Image
                   src={product.images[0]}
                   alt={product.name}
                   fill
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.05]"
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1100px) 50vw, 33vw"
                 />
-                {/* Badges */}
-                <div className="absolute top-4 left-4 flex gap-2">
-                  {product.featured && (
-                    <span className="bg-[#D6B15C] text-black text-[9px] uppercase tracking-[0.15em] px-2.5 py-1">
-                      Featured
-                    </span>
-                  )}
-                </div>
+                {product.featured && (
+                  <div
+                    style={{
+                      position: "absolute",
+                      top: 16,
+                      left: 16,
+                      background: "var(--gold)",
+                      color: "#0a0602",
+                      fontSize: "0.55rem",
+                      letterSpacing: "0.22em",
+                      textTransform: "uppercase",
+                      fontWeight: 600,
+                      padding: "5px 10px",
+                    }}
+                  >
+                    Featured
+                  </div>
+                )}
                 {/* Hover overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+                <div
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: "linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 60%)",
+                    opacity: 0,
+                    transition: "opacity 0.5s",
+                  }}
+                  className="group-hover:opacity-100"
+                />
                 {/* Hover CTA */}
-                <div className="absolute bottom-5 left-5 right-5 translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500">
-                  <span className="inline-flex items-center gap-2 text-[10px] uppercase tracking-[0.2em] text-white">
+                <div
+                  style={{
+                    position: "absolute",
+                    bottom: 18,
+                    left: 18,
+                    right: 18,
+                    opacity: 0,
+                    transform: "translateY(6px)",
+                    transition: "all 0.5s ease",
+                  }}
+                  className="group-hover:opacity-100 group-hover:translate-y-0"
+                >
+                  <span style={{ fontSize: "0.6rem", letterSpacing: "0.22em", textTransform: "uppercase", color: "#F2EBD9", display: "flex", alignItems: "center", gap: 8 }}>
                     View Masterpiece <ArrowRight size={11} />
                   </span>
                 </div>
@@ -184,29 +281,47 @@ export default function CollectionsPage() {
 
               {/* Text */}
               <div>
-                <p className="luxury-label text-[10px] mb-2">{product.category}</p>
-                <h2 className="text-[#F8F1DF] text-xl font-light group-hover:text-[#D6B15C] transition-colors duration-300">
+                <span className="lux-label block" style={{ marginBottom: 8 }}>{product.category}</span>
+                <h2
+                  style={{
+                    fontSize: "1.1rem",
+                    fontWeight: 300,
+                    color: "#F2EBD9",
+                    lineHeight: 1.35,
+                    transition: "color 0.3s",
+                  }}
+                  className="group-hover:text-[#C8A96E]"
+                >
                   {product.name}
                 </h2>
-                <p className="text-[#8e7b53] text-sm mt-2 leading-relaxed line-clamp-2">
-                  {product.shortDescription}
-                </p>
-                <div className="h-px bg-[#D6B15C]/30 mt-4 origin-left scale-x-0 group-hover:scale-x-100 transition-transform duration-500" />
+                <div
+                  style={{
+                    height: 1,
+                    background: "var(--gold)",
+                    marginTop: 12,
+                    transform: "scaleX(0)",
+                    transformOrigin: "left",
+                    opacity: 0.4,
+                    transition: "transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94)",
+                  }}
+                  className="group-hover:scale-x-100"
+                />
               </div>
             </Link>
           ))}
         </section>
       ) : (
-        /* Empty state */
-        <section className="px-6 md:px-16 py-32 text-center">
-          <p className="font-display text-3xl font-light text-[#D6B15C] mb-4">No works found</p>
-          <p className="text-[#8e7b53] text-sm mb-8">Try a different search or category filter.</p>
-          <button
-            onClick={clearAll}
-            className="border border-[#D6B15C]/30 text-[#D6B15C] text-xs uppercase tracking-[0.2em] px-7 py-3 hover:bg-[#D6B15C] hover:text-black transition-all duration-300"
-          >
-            Clear Filters
-          </button>
+        <section
+          className="section-x section-y"
+          style={{ textAlign: "center" }}
+        >
+          <p className="font-display" style={{ fontSize: "2rem", fontWeight: 300, color: "var(--gold)", marginBottom: 16 }}>
+            No works found
+          </p>
+          <p style={{ color: "var(--text-3)", fontSize: "0.9rem", marginBottom: 32 }}>
+            Try a different search term or category.
+          </p>
+          <button onClick={clear} className="btn-outline">Clear Filters</button>
         </section>
       )}
 
