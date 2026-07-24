@@ -34,7 +34,6 @@ export default function Navbar() {
 
   return (
     <>
-      {/* ── Header ── */}
       <header
         style={{
           position: "fixed",
@@ -45,99 +44,88 @@ export default function Navbar() {
           alignItems: "center",
           justifyContent: "space-between",
           padding: "0 var(--gutter)",
-          transition: "background 0.55s ease, backdrop-filter 0.55s ease, border-bottom 0.55s ease",
-          background: scrolled ? "rgba(8,6,4,0.95)" : "transparent",
-          backdropFilter: scrolled ? "blur(24px)" : "none",
-          WebkitBackdropFilter: scrolled ? "blur(24px)" : "none",
-          borderBottom: scrolled ? "1px solid var(--gold-line)" : "1px solid transparent",
+          transition: "background 0.6s ease, border-bottom 0.6s ease",
+          background: scrolled ? "var(--bg)" : "transparent",
+          borderBottom: scrolled ? "1px solid var(--surface-3)" : "1px solid transparent",
         }}
       >
-        {/* Logo */}
         <Link
           href="/"
           style={{
-            fontSize: "0.6rem",
-            letterSpacing: "0.44em",
+            fontSize: "12px",
+            letterSpacing: "0.2em",
             textTransform: "uppercase",
-            color: "#D4AF6A",
-            fontWeight: 500,
-            transition: "opacity 0.3s",
+            color: "var(--text)",
+            fontWeight: 400,
             textDecoration: "none",
+            transition: "color 0.3s",
           }}
-          className="hover:opacity-60"
+          className="hover:text-gold"
         >
-          DEVASHILPA
+          Devashilpa
         </Link>
 
-        {/* Desktop nav — centred */}
         <nav
           className="hidden md:flex"
-          style={{ gap: 38, position: "absolute", left: "50%", transform: "translateX(-50%)" }}
+          style={{ gap: 48, position: "absolute", left: "50%", transform: "translateX(-50%)" }}
           aria-label="Primary navigation"
         >
           {NAV.map(({ href, label }) => (
             <Link
               key={href}
               href={href}
+              className="underline-anim"
               style={{
-                fontSize: "0.58rem",
-                letterSpacing: "0.24em",
+                fontSize: "12px",
+                letterSpacing: "0.15em",
                 textTransform: "uppercase",
                 fontWeight: 400,
                 textDecoration: "none",
-                color: pathname === href ? "#D4AF6A" : "#C8BAA0",
+                color: pathname === href ? "var(--text)" : "var(--text-3)",
                 transition: "color 0.3s",
                 whiteSpace: "nowrap",
               }}
-              className={pathname !== href ? "hover:text-[#F5EDD8]" : ""}
             >
               {label}
             </Link>
           ))}
         </nav>
 
-        {/* Desktop right */}
-        <div className="hidden md:flex items-center gap-5">
+        <div className="hidden md:flex items-center">
           <a
             href={WA}
             target="_blank"
             rel="noopener noreferrer"
+            className="underline-anim"
             style={{
-              fontSize: "0.58rem",
-              letterSpacing: "0.26em",
+              fontSize: "12px",
+              letterSpacing: "0.15em",
               textTransform: "uppercase",
-              color: "#D4AF6A",
-              border: "1px solid rgba(212,175,106,0.32)",
-              padding: "9px 22px",
+              color: "var(--text)",
               textDecoration: "none",
-              transition: "all 0.35s",
-              whiteSpace: "nowrap",
             }}
-            className="hover:bg-[#D4AF6A] hover:text-black hover:border-[#D4AF6A]"
           >
             Inquire
           </a>
         </div>
 
-        {/* Mobile hamburger */}
         <button
           onClick={() => setOpen((v) => !v)}
           className="md:hidden"
           aria-label="Toggle menu"
           aria-expanded={open}
-          style={{ background: "none", border: "none", cursor: "pointer", color: "#C8BAA0", padding: 4, display: "flex" }}
+          style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text)", padding: 4, display: "flex" }}
         >
-          {open ? <X size={22} /> : <Menu size={22} />}
+          {open ? <X size={20} strokeWidth={1.5} /> : <Menu size={20} strokeWidth={1.5} />}
         </button>
       </header>
 
-      {/* ── Mobile full-screen overlay ── */}
       <div
         style={{
           position: "fixed",
           inset: 0,
           zIndex: 90,
-          background: "#080604",
+          background: "var(--bg)",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
@@ -155,32 +143,38 @@ export default function Navbar() {
             className="font-display"
             style={{
               display: "block",
-              padding: "18px 0",
-              fontSize: "clamp(2.2rem, 9vw, 3.8rem)",
+              padding: "24px 0",
+              fontSize: "clamp(36px, 9vw, 56px)",
               fontWeight: 300,
-              color: pathname === href ? "#D4AF6A" : "#F5EDD8",
+              color: pathname === href ? "var(--gold)" : "var(--text)",
               textDecoration: "none",
               textAlign: "center",
               transition: "color 0.25s, opacity 0.45s, transform 0.45s",
-              transitionDelay: `${0.05 + i * 0.07}s`,
-              borderBottom: i < NAV.length - 1 ? "1px solid rgba(212,175,106,0.1)" : "none",
+              transitionDelay: `${0.05 + i * 0.05}s`,
               width: "min(80vw, 380px)",
               opacity: open ? 1 : 0,
-              transform: open ? "translateY(0)" : "translateY(18px)",
+              transform: open ? "translateY(0)" : "translateY(16px)",
             }}
           >
             {label}
           </Link>
         ))}
 
-        <div style={{ marginTop: 52, opacity: open ? 1 : 0, transition: "opacity 0.35s 0.45s" }}>
+        <div style={{ marginTop: 64, opacity: open ? 1 : 0, transition: "opacity 0.35s 0.4s", transform: open ? "translateY(0)" : "translateY(16px)" }}>
           <a
             href={WA}
             target="_blank"
             rel="noopener noreferrer"
-            className="btn btn-outline-gold"
+            className="underline-anim"
+            style={{
+              fontSize: "14px",
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+              color: "var(--gold)",
+              textDecoration: "none",
+            }}
           >
-            WhatsApp Inquiry
+            Inquire
           </a>
         </div>
       </div>
