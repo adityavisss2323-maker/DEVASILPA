@@ -22,7 +22,7 @@ export default function Home() {
         }}
       >
         <ParallaxImage 
-          src="/products/parthasarathy-chariot/lux.jpg" 
+          src="/editorial/hero.jpg" 
           alt="Devashilpa Heritage" 
           priority 
           className="img-lux"
@@ -106,10 +106,10 @@ export default function Home() {
             <ScaleIn>
               <div style={{ position: "relative", width: "100%", height: "100%", minHeight: 400 }}>
                 <Image
-                  src="/products/ram-darbar/lux.jpg"
-                  alt="Ram Darbar Heritage"
+                  src="/products/durga-mahishasura-mardini/lux.jpg"
+                  alt="Devashilpa Atelier"
                   fill
-                  style={{ objectFit: "cover" }}
+                  style={{ objectFit: "cover", objectPosition: "center top" }}
                   sizes="(max-width: 768px) 100vw, 60vw"
                   className="img-lux"
                 />
@@ -211,30 +211,30 @@ export default function Home() {
 
         <div style={{ display: "flex", flexDirection: "column", gap: "clamp(80px, 12vw, 240px)" }}>
           {[
-            { num: "01", title: "Sculpting the Form", desc: "Before brass is poured, the vision must exist in clay. Each masterpiece takes weeks to sculpt perfectly by hand." },
-            { num: "02", title: "The Fire Casting", desc: "Using the ancient lost-wax technique, molten brass at 1,000°C is poured into the mold, capturing every microscopic detail." },
-            { num: "03", title: "Patient Finishing", desc: "The raw cast is refined over hundreds of hours. Artisans painstakingly carve, polish, and treat the metal to achieve its heritage patina." }
+            { num: "01", title: "Sculpting the Form", img: "/editorial/craft-01.jpg", desc: "Before brass is poured, the vision must exist in clay. Each masterpiece takes weeks to sculpt perfectly by hand." },
+            { num: "02", title: "The Fire Casting", img: "/editorial/craft-02.jpg", desc: "Using the ancient lost-wax technique, molten brass at 1,000\u00b0C is poured into the mold, capturing every microscopic detail." },
+            { num: "03", title: "Patient Finishing", img: "/editorial/craft-03.jpg", desc: "The raw cast is refined over hundreds of hours. Artisans painstakingly carve, polish, and treat the metal to achieve its heritage patina." }
           ].map((step, i) => {
             const isEven = i % 2 !== 0;
             return (
               <div key={step.num} className="section-x" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(40px, 8vw, 120px)", alignItems: "center" }}>
-                {/* Elegant Placeholder Image (until real process photos are supplied) */}
                 <div style={{ 
                   order: isEven ? 2 : 1, 
                   position: "relative", 
                   width: "100%", 
-                  aspectRatio: "4/5", 
-                  background: "linear-gradient(135deg, var(--surface-3) 0%, var(--surface) 100%)",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
+                  aspectRatio: "4/5",
                   overflow: "hidden"
                 }} className="max-md:order-1">
-                  {/* Subtle noise/texture overlay for the placeholder */}
-                  <div style={{ position: "absolute", inset: 0, opacity: 0.15, background: "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')" }} />
-                  <span className="font-display" style={{ fontSize: "clamp(120px, 15vw, 240px)", color: "var(--gold-dim)", lineHeight: 1, zIndex: 1 }}>
-                    {step.num}
-                  </span>
+                  <ScaleIn>
+                    <Image
+                      src={step.img}
+                      alt={step.title}
+                      fill
+                      style={{ objectFit: "cover" }}
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                      className="img-lux"
+                    />
+                  </ScaleIn>
                 </div>
 
                 <div style={{ order: isEven ? 1 : 2 }} className="max-md:order-2">
@@ -256,28 +256,24 @@ export default function Home() {
 
       {/* ═══════════════════════════════════════════
           CHAPTER V — GLOBAL COLLECTORS
-          Elegant Placeholder until real photo is supplied
+          Real editorial interior photo
           ═══════════════════════════════════════════ */}
-      <section className="section-x section-y" style={{ position: "relative", minHeight: "80vh", display: "flex", alignItems: "center" }}>
-        <div style={{ 
-          position: "absolute", 
-          inset: 0, 
-          background: "var(--surface)",
-          zIndex: -1 
-        }}>
-          {/* Subtle noise/texture overlay for the placeholder */}
-          <div style={{ position: "absolute", inset: 0, opacity: 0.1, background: "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')" }} />
-        </div>
-
-        <div style={{ maxWidth: 1000, margin: "0 auto", textAlign: "center" }}>
+      <section style={{ position: "relative", minHeight: "90vh", display: "flex", alignItems: "center", overflow: "hidden" }}>
+        <ParallaxImage
+          src="/editorial/collectors.jpg"
+          alt="Devashilpa sculpture in luxury interior"
+          className="img-lux"
+        />
+        <div className="overlay-dark" />
+        <div className="section-x" style={{ position: "relative", zIndex: 1, maxWidth: 1000, margin: "0 auto", textAlign: "center", width: "100%" }}>
           <Reveal>
-            <span style={{ display: "block", fontSize: "11px", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", marginBottom: 32 }}>
+            <span style={{ display: "block", fontSize: "11px", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(247,245,240,0.7)", marginBottom: 32 }}>
               Worldwide Presence
             </span>
-            <h2 className="font-display" style={{ fontSize: "clamp(40px, 6vw, 72px)", lineHeight: 1.05, color: "var(--text)", marginBottom: 48 }}>
+            <h2 className="font-display" style={{ fontSize: "clamp(40px, 6vw, 80px)", lineHeight: 1.05, color: "var(--text)", marginBottom: 48 }}>
               Housed in the world&apos;s most <br/>exclusive interiors.
             </h2>
-            <p style={{ color: "var(--text-2)", fontSize: "17px", lineHeight: 1.8, fontWeight: 300, maxWidth: 600, margin: "0 auto", letterSpacing: "0.05em", textTransform: "uppercase" }}>
+            <p style={{ color: "rgba(247,245,240,0.75)", fontSize: "17px", lineHeight: 1.8, fontWeight: 300, maxWidth: 600, margin: "0 auto", letterSpacing: "0.08em", textTransform: "uppercase" }}>
               USA · UK · GERMANY · FRANCE · AUSTRALIA · UAE
             </p>
           </Reveal>
@@ -298,7 +294,7 @@ export default function Home() {
         }}
       >
         <ParallaxImage 
-          src="/products/surya-rath-grand-edition/hero.jpg" 
+          src="/editorial/craft-02.jpg" 
           alt="Bespoke Commission" 
           className="img-lux"
         />
