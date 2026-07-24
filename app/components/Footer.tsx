@@ -17,14 +17,13 @@ export default function Footer() {
       style={{
         background: "var(--black)",
         color: "var(--text-3)",
-        borderTop: "1px solid var(--surface-3)",
       }}
     >
       <div
         className="section-x"
         style={{
-          paddingTop: "clamp(80px, 10vw, 120px)",
-          paddingBottom: "clamp(40px, 5vw, 60px)",
+          paddingTop: "clamp(120px, 15vw, 200px)",
+          paddingBottom: "clamp(60px, 8vw, 100px)",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -35,10 +34,10 @@ export default function Footer() {
           href="/"
           style={{
             fontSize: "14px",
-            letterSpacing: "0.2em",
+            letterSpacing: "0.25em",
             textTransform: "uppercase",
             color: "var(--text)",
-            marginBottom: 48,
+            marginBottom: 80,
             display: "block",
           }}
         >
@@ -46,15 +45,15 @@ export default function Footer() {
         </Link>
 
         {/* Minimal single column of understated links */}
-        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: 32, maxWidth: 600, marginBottom: 64 }}>
+        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "32px 48px", maxWidth: 700, marginBottom: 80 }}>
           {LINKS.map(({ href, label }) => (
             <Link 
               key={href} 
               href={href} 
               className="underline-anim"
               style={{ 
-                fontSize: "12px", 
-                letterSpacing: "0.15em", 
+                fontSize: "11px", 
+                letterSpacing: "0.2em", 
                 textTransform: "uppercase", 
                 color: "var(--text-2)" 
               }}
@@ -68,8 +67,8 @@ export default function Footer() {
             rel="noopener noreferrer"
             className="underline-anim"
             style={{ 
-              fontSize: "12px", 
-              letterSpacing: "0.15em", 
+              fontSize: "11px", 
+              letterSpacing: "0.2em", 
               textTransform: "uppercase", 
               color: "var(--gold)" 
             }}
@@ -78,7 +77,7 @@ export default function Footer() {
           </a>
         </div>
 
-        <p style={{ fontSize: "11px", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text-4)" }}>
+        <p style={{ fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-4)" }}>
           © {new Date().getFullYear()} Devashilpa. Handcrafted in India.
         </p>
       </div>

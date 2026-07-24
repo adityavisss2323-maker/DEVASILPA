@@ -6,25 +6,25 @@
    ═══════════════════════════════════════════════ */
 
 :root {
-  --black:        #0A0A0A;
-  --bg:           #0A0A0A;
-  --surface:      #111111;
-  --surface-2:    #161616;
-  --surface-3:    #1c1c1c;
-  --gold:         #B08D57;
-  --gold-bright:  #c5a36e;
-  --gold-dim:     rgba(176, 141, 87, 0.14);
-  --gold-line:    rgba(176, 141, 87, 0.18);
-  --gold-line-2:  rgba(176, 141, 87, 0.28);
-  --text:         #F7F5F1;
+  --black:        #000000;
+  --bg:           #000000;
+  --surface:      #050505;
+  --surface-2:    #0a0a0a;
+  --surface-3:    #111111;
+  --gold:         #A38047;
+  --gold-bright:  #C4A163;
+  --gold-dim:     rgba(163, 128, 71, 0.14);
+  --gold-line:    rgba(163, 128, 71, 0.18);
+  --gold-line-2:  rgba(163, 128, 71, 0.28);
+  --text:         #F7F5F0;
   --text-2:       #dcd8cd;
   --text-3:       #8a8476;
   --text-4:       #555148;
-  --white:        #F7F5F1;
+  --white:        #F7F5F0;
 
-  --section-y:    clamp(120px, 12vw, 160px);
-  --section-y-sm: clamp(60px, 8vw, 80px);
-  --gutter:       clamp(20px, 5vw, 88px);
+  --section-y:    clamp(160px, 15vw, 240px);
+  --section-y-sm: clamp(80px, 10vw, 120px);
+  --gutter:       clamp(24px, 5vw, 88px);
   --nav-h:        68px;
 
   /* Transition presets */

@@ -10,7 +10,6 @@ const NAV = [
   { href: "/collections",  label: "Collection" },
   { href: "/about",        label: "Heritage" },
   { href: "/custom-order", label: "Commission" },
-  { href: "/contact",      label: "Contact" },
 ];
 
 const WA = "https://wa.me/916261068277";
@@ -44,16 +43,18 @@ export default function Navbar() {
           alignItems: "center",
           justifyContent: "space-between",
           padding: "0 var(--gutter)",
-          transition: "background 0.6s ease, border-bottom 0.6s ease",
-          background: scrolled ? "var(--bg)" : "transparent",
-          borderBottom: scrolled ? "1px solid var(--surface-3)" : "1px solid transparent",
+          transition: "background 0.8s var(--ease-smooth), border-color 0.8s var(--ease-smooth)",
+          background: scrolled ? "rgba(0,0,0,0.95)" : "transparent",
+          backdropFilter: scrolled ? "blur(10px)" : "none",
+          WebkitBackdropFilter: scrolled ? "blur(10px)" : "none",
+          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.05)" : "1px solid transparent",
         }}
       >
         <Link
           href="/"
           style={{
-            fontSize: "12px",
-            letterSpacing: "0.2em",
+            fontSize: "11px",
+            letterSpacing: "0.25em",
             textTransform: "uppercase",
             color: "var(--text)",
             fontWeight: 400,
@@ -67,7 +68,7 @@ export default function Navbar() {
 
         <nav
           className="hidden md:flex"
-          style={{ gap: 48, position: "absolute", left: "50%", transform: "translateX(-50%)" }}
+          style={{ gap: 56, position: "absolute", left: "50%", transform: "translateX(-50%)" }}
           aria-label="Primary navigation"
         >
           {NAV.map(({ href, label }) => (
@@ -76,8 +77,8 @@ export default function Navbar() {
               href={href}
               className="underline-anim"
               style={{
-                fontSize: "12px",
-                letterSpacing: "0.15em",
+                fontSize: "11px",
+                letterSpacing: "0.2em",
                 textTransform: "uppercase",
                 fontWeight: 400,
                 textDecoration: "none",
@@ -98,8 +99,8 @@ export default function Navbar() {
             rel="noopener noreferrer"
             className="underline-anim"
             style={{
-              fontSize: "12px",
-              letterSpacing: "0.15em",
+              fontSize: "11px",
+              letterSpacing: "0.2em",
               textTransform: "uppercase",
               color: "var(--text)",
               textDecoration: "none",
@@ -125,14 +126,14 @@ export default function Navbar() {
           position: "fixed",
           inset: 0,
           zIndex: 90,
-          background: "var(--bg)",
+          background: "var(--black)",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
           opacity: open ? 1 : 0,
           pointerEvents: open ? "auto" : "none",
-          transition: "opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94)",
+          transition: "opacity 0.6s var(--ease-luxury)",
         }}
         aria-hidden={!open}
       >
@@ -144,37 +145,37 @@ export default function Navbar() {
             style={{
               display: "block",
               padding: "24px 0",
-              fontSize: "clamp(36px, 9vw, 56px)",
+              fontSize: "clamp(40px, 9vw, 64px)",
               fontWeight: 300,
               color: pathname === href ? "var(--gold)" : "var(--text)",
               textDecoration: "none",
               textAlign: "center",
-              transition: "color 0.25s, opacity 0.45s, transform 0.45s",
+              transition: "color 0.3s, opacity 0.6s var(--ease-luxury), transform 0.6s var(--ease-luxury)",
               transitionDelay: `${0.05 + i * 0.05}s`,
               width: "min(80vw, 380px)",
               opacity: open ? 1 : 0,
-              transform: open ? "translateY(0)" : "translateY(16px)",
+              transform: open ? "translateY(0)" : "translateY(24px)",
             }}
           >
             {label}
           </Link>
         ))}
 
-        <div style={{ marginTop: 64, opacity: open ? 1 : 0, transition: "opacity 0.35s 0.4s", transform: open ? "translateY(0)" : "translateY(16px)" }}>
+        <div style={{ marginTop: 80, opacity: open ? 1 : 0, transition: "opacity 0.6s 0.4s", transform: open ? "translateY(0)" : "translateY(24px)" }}>
           <a
             href={WA}
             target="_blank"
             rel="noopener noreferrer"
             className="underline-anim"
             style={{
-              fontSize: "14px",
-              letterSpacing: "0.15em",
+              fontSize: "12px",
+              letterSpacing: "0.2em",
               textTransform: "uppercase",
               color: "var(--gold)",
               textDecoration: "none",
             }}
           >
-            Inquire
+            Inquire Directly
           </a>
         </div>
       </div>
