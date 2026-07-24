@@ -129,7 +129,7 @@ export default function CollectionsPage() {
                       style={{
                         position: "relative",
                         width: "100%",
-                        aspectRatio: isEven ? "3/4" : "4/5", // slight rhythm variation
+                        paddingBottom: isEven ? "133.33%" : "125%",
                         background: "var(--surface)",
                         overflow: "hidden",
                         marginBottom: 24,
@@ -139,7 +139,7 @@ export default function CollectionsPage() {
                         src={product.images[0].replace("main.jpg", "lux.jpg")}
                         alt={product.name}
                         fill
-                        style={{ objectFit: "cover" }}
+                        style={{ objectFit: "cover", objectPosition: "center" }}
                         sizes="(max-width: 768px) 100vw, 50vw"
                         className="img-lux"
                       />

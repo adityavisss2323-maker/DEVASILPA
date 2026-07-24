@@ -102,14 +102,14 @@ export default function Home() {
             </Reveal>
           </div>
 
-          <div style={{ gridColumn: "1 / 8", position: "relative", minHeight: "70vh" }} className="max-md:col-span-12">
+          <div style={{ gridColumn: "1 / 8", position: "relative" }} className="max-md:col-span-12">
             <ScaleIn>
-              <div style={{ position: "relative", width: "100%", height: "100%", minHeight: 400 }}>
+              <div style={{ position: "relative", width: "100%", paddingBottom: "120%", overflow: "hidden" }}>
                 <Image
                   src="/products/durga-mahishasura-mardini/lux.jpg"
                   alt="Devashilpa Atelier"
                   fill
-                  style={{ objectFit: "cover", objectPosition: "center top" }}
+                  style={{ objectFit: "cover", objectPosition: "center 20%" }}
                   sizes="(max-width: 768px) 100vw, 60vw"
                   className="img-lux"
                 />
@@ -209,7 +209,7 @@ export default function Home() {
           </Reveal>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: "clamp(80px, 12vw, 240px)" }}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "clamp(80px, 12vw, 200px)" }}>
           {[
             { num: "01", title: "Sculpting the Form", img: "/editorial/craft-01.jpg", desc: "Before brass is poured, the vision must exist in clay. Each masterpiece takes weeks to sculpt perfectly by hand." },
             { num: "02", title: "The Fire Casting", img: "/editorial/craft-02.jpg", desc: "Using the ancient lost-wax technique, molten brass at 1,000\u00b0C is poured into the mold, capturing every microscopic detail." },
@@ -217,26 +217,41 @@ export default function Home() {
           ].map((step, i) => {
             const isEven = i % 2 !== 0;
             return (
-              <div key={step.num} className="section-x" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(40px, 8vw, 120px)", alignItems: "center" }}>
-                <div style={{ 
-                  order: isEven ? 2 : 1, 
-                  position: "relative", 
-                  width: "100%", 
-                  aspectRatio: "4/5",
-                  overflow: "hidden"
-                }} className="max-md:order-1">
-                  <ScaleIn>
+              <div
+                key={step.num}
+                className="section-x"
+                style={{
+                  display: "grid",
+                  gridTemplateColumns: "1fr 1fr",
+                  gap: "clamp(40px, 8vw, 120px)",
+                  alignItems: "center",
+                }}
+              >
+                {/* Image */}
+                <ScaleIn
+                  className="max-md:order-1"
+                  style={{ order: isEven ? 2 : 1 }}
+                >
+                  <div
+                    style={{
+                      position: "relative",
+                      width: "100%",
+                      paddingBottom: "125%", /* 4:5 aspect ratio */
+                      overflow: "hidden",
+                    }}
+                  >
                     <Image
                       src={step.img}
                       alt={step.title}
                       fill
-                      style={{ objectFit: "cover" }}
+                      style={{ objectFit: "cover", objectPosition: "center" }}
                       sizes="(max-width: 768px) 100vw, 50vw"
                       className="img-lux"
                     />
-                  </ScaleIn>
-                </div>
+                  </div>
+                </ScaleIn>
 
+                {/* Text */}
                 <div style={{ order: isEven ? 1 : 2 }} className="max-md:order-2">
                   <Reveal>
                     <span style={{ display: "block", fontSize: "14px", fontFamily: "var(--font-geist-mono), monospace", color: "var(--gold)", letterSpacing: "0.1em", marginBottom: 24 }}>
