@@ -139,7 +139,7 @@ export default function CollectionsPage() {
                         src={product.images[0].replace("main.jpg", "lux.jpg")}
                         alt={product.name}
                         fill
-                        style={{ objectFit: "cover", objectPosition: "center" }}
+                        style={{ objectFit: "cover", objectPosition: "center 15%" }}
                         sizes="(max-width: 768px) 100vw, 50vw"
                         className="img-lux"
                       />

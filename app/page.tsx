@@ -26,6 +26,7 @@ export default function Home() {
           alt="Devashilpa Heritage" 
           priority 
           className="img-lux"
+          objectPosition="center 35%"
         />
 
         <div className="overlay-dark" />
@@ -109,7 +110,7 @@ export default function Home() {
                   src="/products/durga-mahishasura-mardini/lux.jpg"
                   alt="Devashilpa Atelier"
                   fill
-                  style={{ objectFit: "cover", objectPosition: "center 20%" }}
+                  style={{ objectFit: "cover", objectPosition: "center 10%" }}
                   sizes="(max-width: 768px) 100vw, 60vw"
                   className="img-lux"
                 />
@@ -161,7 +162,7 @@ export default function Home() {
             <Reveal>
               <Link href={`/product/${featured[0].slug}`} className="group" style={{ display: "block", marginBottom: "clamp(40px, 8vw, 120px)" }}>
                 <div style={{ position: "relative", width: "100%", height: "80vh", overflow: "hidden", marginBottom: 32 }}>
-                  <Image src={featured[0].images[0].replace("main.jpg", "lux.jpg")} alt={featured[0].name} fill style={{ objectFit: "cover" }} className="img-lux" sizes="100vw" />
+                  <Image src={featured[0].images[0].replace("main.jpg", "lux.jpg")} alt={featured[0].name} fill style={{ objectFit: "cover", objectPosition: "center 15%" }} className="img-lux" sizes="100vw" />
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
                   <h3 className="font-display" style={{ fontSize: "clamp(24px, 3vw, 40px)", color: "var(--text)" }}>{featured[0].name}</h3>
@@ -176,8 +177,8 @@ export default function Home() {
             {featured.slice(1, 3).map((product, i) => (
               <Reveal key={product.id} delay={i * 0.1}>
                 <Link href={`/product/${product.slug}`} className="group" style={{ display: "block", marginTop: i === 1 ? "clamp(40px, 10vw, 160px)" : 0 }}>
-                  <div style={{ position: "relative", width: "100%", aspectRatio: "3/4", overflow: "hidden", marginBottom: 24 }}>
-                    <Image src={product.images[0].replace("main.jpg", "lux.jpg")} alt={product.name} fill style={{ objectFit: "cover" }} className="img-lux" sizes="(max-width: 768px) 100vw, 50vw" />
+                  <div style={{ position: "relative", width: "100%", paddingBottom: "133.33%", overflow: "hidden", marginBottom: 24 }}>
+                    <Image src={product.images[0].replace("main.jpg", "lux.jpg")} alt={product.name} fill style={{ objectFit: "cover", objectPosition: "center 15%" }} className="img-lux" sizes="(max-width: 768px) 100vw, 50vw" />
                   </div>
                   <h3 className="font-display" style={{ fontSize: "28px", color: "var(--text)", marginBottom: 8 }}>{product.name}</h3>
                   <span style={{ fontSize: "11px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-3)" }}>{product.category}</span>

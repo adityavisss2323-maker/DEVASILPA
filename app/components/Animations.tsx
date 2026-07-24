@@ -183,12 +183,14 @@ export function ParallaxImage({
   className,
   priority = false,
   sizes = "100vw",
+  objectPosition = "center",
 }: {
   src: string;
   alt: string;
   className?: string;
   priority?: boolean;
   sizes?: string;
+  objectPosition?: string;
 }) {
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
@@ -209,7 +211,7 @@ export function ParallaxImage({
           width: "100%",
           height: "100%",
           objectFit: "cover",
-          objectPosition: "center",
+          objectPosition,
         }}
         className={className}
       />

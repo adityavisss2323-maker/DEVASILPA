@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist_Mono, Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
+import WhatsAppTab from "./components/WhatsAppTab";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -88,6 +89,7 @@ export default function RootLayout({
     >
       <body style={{ background: "#0A0A0A" }}>
         {children}
+        <WhatsAppTab />
       </body>
     </html>
   );
