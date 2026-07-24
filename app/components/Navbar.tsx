@@ -31,6 +31,17 @@ export default function Navbar() {
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
+  const linkStyle = (href: string) => ({
+    fontSize: "11px",
+    letterSpacing: "0.2em",
+    textTransform: "uppercase" as const,
+    fontWeight: 400,
+    textDecoration: "none",
+    color: pathname === href ? "var(--text)" : "var(--text-3)",
+    transition: "color 0.3s",
+    whiteSpace: "nowrap" as const,
+  });
+
   return (
     <>
       <header
@@ -39,9 +50,9 @@ export default function Navbar() {
           top: 0, left: 0, right: 0,
           zIndex: 100,
           height: "var(--nav-h)",
+          /* ── Single flex row, 3 equal-weight columns: logo | links | cta ── */
           display: "flex",
           alignItems: "center",
-          justifyContent: "space-between",
           padding: "0 var(--gutter)",
           transition: "background 0.8s var(--ease-smooth), border-color 0.8s var(--ease-smooth)",
           background: scrolled ? "rgba(0,0,0,0.95)" : "transparent",
@@ -50,25 +61,33 @@ export default function Navbar() {
           borderBottom: scrolled ? "1px solid rgba(255,255,255,0.05)" : "1px solid transparent",
         }}
       >
-        <Link
-          href="/"
-          style={{
-            fontSize: "11px",
-            letterSpacing: "0.25em",
-            textTransform: "uppercase",
-            color: "var(--text)",
-            fontWeight: 400,
-            textDecoration: "none",
-            transition: "color 0.3s",
-          }}
-          className="hover:text-gold"
-        >
-          Devashilpa
-        </Link>
+        {/* ── Logo (left, flex: 1) ── */}
+        <div style={{ flex: 1, display: "flex", alignItems: "center" }}>
+          <Link
+            href="/"
+            style={{
+              fontSize: "11px",
+              letterSpacing: "0.25em",
+              textTransform: "uppercase",
+              color: "var(--text)",
+              fontWeight: 400,
+              textDecoration: "none",
+            }}
+          >
+            Devashilpa
+          </Link>
+        </div>
 
+        {/* ── Centre nav links (flex: 2, centred) — desktop only ── */}
         <nav
           className="hidden md:flex"
-          style={{ gap: 56, position: "absolute", left: "50%", transform: "translateX(-50%)" }}
+          style={{
+            flex: 2,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "clamp(24px, 4vw, 56px)",
+          }}
           aria-label="Primary navigation"
         >
           {NAV.map(({ href, label }) => (
@@ -76,28 +95,21 @@ export default function Navbar() {
               key={href}
               href={href}
               className="underline-anim"
-              style={{
-                fontSize: "11px",
-                letterSpacing: "0.2em",
-                textTransform: "uppercase",
-                fontWeight: 400,
-                textDecoration: "none",
-                color: pathname === href ? "var(--text)" : "var(--text-3)",
-                transition: "color 0.3s",
-                whiteSpace: "nowrap",
-              }}
+              style={linkStyle(href)}
             >
               {label}
             </Link>
           ))}
         </nav>
 
-        <div className="hidden md:flex items-center">
+        {/* ── Right slot: Inquire (desktop) | Hamburger (mobile) ── */}
+        <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
+          {/* Inquire — desktop only */}
           <a
             href={WA}
             target="_blank"
             rel="noopener noreferrer"
-            className="underline-anim"
+            className="underline-anim hidden md:inline-block"
             style={{
               fontSize: "11px",
               letterSpacing: "0.2em",
@@ -108,19 +120,28 @@ export default function Navbar() {
           >
             Inquire
           </a>
-        </div>
 
-        <button
-          onClick={() => setOpen((v) => !v)}
-          className="md:hidden"
-          aria-label="Toggle menu"
-          aria-expanded={open}
-          style={{ background: "none", border: "none", cursor: "pointer", color: "var(--text)", padding: 4, display: "flex" }}
-        >
-          {open ? <X size={20} strokeWidth={1.5} /> : <Menu size={20} strokeWidth={1.5} />}
-        </button>
+          {/* Hamburger — mobile only */}
+          <button
+            onClick={() => setOpen((v) => !v)}
+            className="md:hidden"
+            aria-label="Toggle menu"
+            aria-expanded={open}
+            style={{
+              background: "none",
+              border: "none",
+              cursor: "pointer",
+              color: "var(--text)",
+              padding: 4,
+              display: "flex",
+            }}
+          >
+            {open ? <X size={20} strokeWidth={1.5} /> : <Menu size={20} strokeWidth={1.5} />}
+          </button>
+        </div>
       </header>
 
+      {/* ── Mobile full-screen menu overlay ── */}
       <div
         style={{
           position: "fixed",
@@ -144,8 +165,8 @@ export default function Navbar() {
             className="font-display"
             style={{
               display: "block",
-              padding: "24px 0",
-              fontSize: "clamp(40px, 9vw, 64px)",
+              padding: "20px 0",
+              fontSize: "clamp(36px, 9vw, 64px)",
               fontWeight: 300,
               color: pathname === href ? "var(--gold)" : "var(--text)",
               textDecoration: "none",
@@ -161,7 +182,14 @@ export default function Navbar() {
           </Link>
         ))}
 
-        <div style={{ marginTop: 80, opacity: open ? 1 : 0, transition: "opacity 0.6s 0.4s", transform: open ? "translateY(0)" : "translateY(24px)" }}>
+        <div
+          style={{
+            marginTop: 64,
+            opacity: open ? 1 : 0,
+            transition: "opacity 0.6s 0.4s, transform 0.6s 0.4s var(--ease-luxury)",
+            transform: open ? "translateY(0)" : "translateY(24px)",
+          }}
+        >
           <a
             href={WA}
             target="_blank"
