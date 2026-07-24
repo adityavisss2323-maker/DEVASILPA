@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 
 /* ── Reveal on scroll (fade + rise) ── */
@@ -174,5 +174,45 @@ export function SlideIn({
     >
       {children}
     </motion.div>
+  );
+}
+/* ── Parallax Image ── */
+export function ParallaxImage({
+  src,
+  alt,
+  className,
+  priority = false,
+  sizes = "100vw",
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+  priority?: boolean;
+  sizes?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+
+  return (
+    <div ref={ref} style={{ position: "relative", width: "100%", height: "100%", overflow: "hidden" }}>
+      <motion.img
+        src={src}
+        alt={alt}
+        style={{
+          y,
+          scale: 1.2,
+          position: "absolute",
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          objectPosition: "center",
+        }}
+        className={className}
+      />
+    </div>
   );
 }

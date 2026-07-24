@@ -233,13 +233,36 @@ a { text-decoration: none; }
   display: inline-block;
 }
 .underline-anim::after {
-  content: '';
+  content: "";
   position: absolute;
-  bottom: -3px; left: 0;
-  width: 100%; height: 1px;
-  background: var(--gold);
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
   transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.5s var(--ease-smooth);
+  transform-origin: right;
+  transition: transform 0.6s var(--ease-luxury);
 }
-.underline-anim:hover::after { transform: scaleX(1); }
+.underline-anim:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ══ Photography Treatments ══ */
+.img-lux {
+  /* Subtle warm grade to unify all images */
+  filter: sepia(12%) contrast(105%) brightness(92%);
+  transition: filter 0.8s var(--ease-luxury), transform 1.2s var(--ease-luxury);
+}
+.group:hover .img-lux {
+  filter: sepia(5%) contrast(110%) brightness(100%);
+  transform: scale(1.04);
+}
+
+.overlay-dark {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+  pointer-events: none;
+}

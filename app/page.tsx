@@ -1,8 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
 import Footer from "./components/Footer";
-import { Reveal, FadeIn, ScaleIn, SlideIn, StaggerGroup, StaggerItem } from "./components/Animations";
+import { Reveal, FadeIn, ScaleIn, SlideIn, StaggerGroup, StaggerItem, ParallaxImage } from "./components/Animations";
 import { products } from "./data/products";
 
 export default function Home() {
@@ -12,7 +11,6 @@ export default function Home() {
     <main style={{ background: "var(--bg)" }}>
       {/* ═══════════════════════════════════════════
           CHAPTER I — THE HERO
-          Pure cinematic. No borders.
           ═══════════════════════════════════════════ */}
       <section
         style={{
@@ -23,23 +21,14 @@ export default function Home() {
           overflow: "hidden",
         }}
       >
-        <Image
-          src="/products/parthasarathy-chariot/lux.jpg"
-          alt="Devashilpa Heritage"
-          fill
-          priority
-          style={{ objectFit: "cover", objectPosition: "center", transform: "scale(1.02)" }}
-          sizes="100vw"
+        <ParallaxImage 
+          src="/products/parthasarathy-chariot/lux.jpg" 
+          alt="Devashilpa Heritage" 
+          priority 
+          className="img-lux"
         />
 
-        {/* Minimal gradient strictly at bottom for text contrast */}
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 40%)",
-          }}
-        />
+        <div className="overlay-dark" />
 
         <div
           className="section-x"
@@ -91,7 +80,6 @@ export default function Home() {
 
       {/* ═══════════════════════════════════════════
           CHAPTER II — PHILOSOPHY (Merged Story)
-          Overlapping editorial layout
           ═══════════════════════════════════════════ */}
       <section className="section-x section-y" style={{ position: "relative" }}>
         <div style={{ maxWidth: 1400, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(12, 1fr)", gap: "24px" }}>
@@ -123,6 +111,7 @@ export default function Home() {
                   fill
                   style={{ objectFit: "cover" }}
                   sizes="(max-width: 768px) 100vw, 60vw"
+                  className="img-lux"
                 />
               </div>
             </ScaleIn>
@@ -153,7 +142,6 @@ export default function Home() {
 
       {/* ═══════════════════════════════════════════
           CHAPTER III — THE COLLECTION
-          Asymmetrical Masonry Editorial Grid
           ═══════════════════════════════════════════ */}
       <section className="section-x section-y" style={{ background: "var(--surface)" }}>
         <Reveal>
@@ -173,7 +161,7 @@ export default function Home() {
             <Reveal>
               <Link href={`/product/${featured[0].slug}`} className="group" style={{ display: "block", marginBottom: "clamp(40px, 8vw, 120px)" }}>
                 <div style={{ position: "relative", width: "100%", height: "80vh", overflow: "hidden", marginBottom: 32 }}>
-                  <Image src={featured[0].images[0].replace("main.jpg", "lux.jpg")} alt={featured[0].name} fill style={{ objectFit: "cover", transition: "transform 1.2s cubic-bezier(0.16, 1, 0.3, 1)" }} className="group-hover:scale-105" sizes="100vw" />
+                  <Image src={featured[0].images[0].replace("main.jpg", "lux.jpg")} alt={featured[0].name} fill style={{ objectFit: "cover" }} className="img-lux" sizes="100vw" />
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
                   <h3 className="font-display" style={{ fontSize: "clamp(24px, 3vw, 40px)", color: "var(--text)" }}>{featured[0].name}</h3>
@@ -189,7 +177,7 @@ export default function Home() {
               <Reveal key={product.id} delay={i * 0.1}>
                 <Link href={`/product/${product.slug}`} className="group" style={{ display: "block", marginTop: i === 1 ? "clamp(40px, 10vw, 160px)" : 0 }}>
                   <div style={{ position: "relative", width: "100%", aspectRatio: "3/4", overflow: "hidden", marginBottom: 24 }}>
-                    <Image src={product.images[0].replace("main.jpg", "lux.jpg")} alt={product.name} fill style={{ objectFit: "cover", transition: "transform 1.2s cubic-bezier(0.16, 1, 0.3, 1)" }} className="group-hover:scale-105" sizes="(max-width: 768px) 100vw, 50vw" />
+                    <Image src={product.images[0].replace("main.jpg", "lux.jpg")} alt={product.name} fill style={{ objectFit: "cover" }} className="img-lux" sizes="(max-width: 768px) 100vw, 50vw" />
                   </div>
                   <h3 className="font-display" style={{ fontSize: "28px", color: "var(--text)", marginBottom: 8 }}>{product.name}</h3>
                   <span style={{ fontSize: "11px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-3)" }}>{product.category}</span>
@@ -207,55 +195,97 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          CHAPTER IV — THE CRAFT
-          Museum Placard Style
+          CHAPTER IV — THE CRAFT (Editorial Alternate Layout)
           ═══════════════════════════════════════════ */}
-      <section className="section-x section-y">
-        <div style={{ maxWidth: 1000, margin: "0 auto" }}>
+      <section className="section-y" style={{ overflow: "hidden" }}>
+        <div className="section-x" style={{ textAlign: "center", marginBottom: "clamp(80px, 10vw, 160px)" }}>
           <Reveal>
-            <div style={{ marginBottom: "clamp(80px, 10vw, 160px)" }}>
-              <span style={{ display: "block", fontSize: "11px", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", marginBottom: 32 }}>
-                The Discipline
-              </span>
-              <h2 className="font-display" style={{ fontSize: "clamp(40px, 6vw, 72px)", lineHeight: 1.05, color: "var(--text)" }}>
-                Time is our most <br/>expensive material.
-              </h2>
-            </div>
+            <span style={{ display: "block", fontSize: "11px", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", marginBottom: 32 }}>
+              The Discipline
+            </span>
+            <h2 className="font-display" style={{ fontSize: "clamp(40px, 6vw, 72px)", lineHeight: 1.05, color: "var(--text)" }}>
+              Time is our most <br/>expensive material.
+            </h2>
           </Reveal>
+        </div>
 
-          <StaggerGroup>
-            {[
-              { num: "01", title: "Sculpting the Form", desc: "Before brass is poured, the vision must exist in clay. Each masterpiece takes weeks to sculpt perfectly by hand." },
-              { num: "02", title: "The Fire Casting", desc: "Using the ancient lost-wax technique, molten brass at 1,000°C is poured into the mold, capturing every microscopic detail." },
-              { num: "03", title: "Patient Finishing", desc: "The raw cast is refined over hundreds of hours. Artisans painstakingly carve, polish, and treat the metal to achieve its heritage patina." }
-            ].map((step) => (
-              <StaggerItem key={step.num}>
+        <div style={{ display: "flex", flexDirection: "column", gap: "clamp(80px, 12vw, 240px)" }}>
+          {[
+            { num: "01", title: "Sculpting the Form", desc: "Before brass is poured, the vision must exist in clay. Each masterpiece takes weeks to sculpt perfectly by hand." },
+            { num: "02", title: "The Fire Casting", desc: "Using the ancient lost-wax technique, molten brass at 1,000°C is poured into the mold, capturing every microscopic detail." },
+            { num: "03", title: "Patient Finishing", desc: "The raw cast is refined over hundreds of hours. Artisans painstakingly carve, polish, and treat the metal to achieve its heritage patina." }
+          ].map((step, i) => {
+            const isEven = i % 2 !== 0;
+            return (
+              <div key={step.num} className="section-x" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(40px, 8vw, 120px)", alignItems: "center" }}>
+                {/* Elegant Placeholder Image (until real process photos are supplied) */}
                 <div style={{ 
-                  display: "grid", 
-                  gridTemplateColumns: "100px 1fr", 
-                  gap: "24px", 
-                  padding: "48px 0",
-                  borderBottom: "1px solid var(--surface-3)"
-                }} className="max-md:grid-cols-1">
-                  <span style={{ fontSize: "14px", fontFamily: "var(--font-geist-mono), monospace", color: "var(--text-4)", letterSpacing: "0.1em" }}>
+                  order: isEven ? 2 : 1, 
+                  position: "relative", 
+                  width: "100%", 
+                  aspectRatio: "4/5", 
+                  background: "linear-gradient(135deg, var(--surface-3) 0%, var(--surface) 100%)",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  overflow: "hidden"
+                }} className="max-md:order-1">
+                  {/* Subtle noise/texture overlay for the placeholder */}
+                  <div style={{ position: "absolute", inset: 0, opacity: 0.15, background: "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')" }} />
+                  <span className="font-display" style={{ fontSize: "clamp(120px, 15vw, 240px)", color: "var(--gold-dim)", lineHeight: 1, zIndex: 1 }}>
                     {step.num}
                   </span>
-                  <div>
-                    <h3 style={{ fontSize: "18px", letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--text)", marginBottom: 16 }}>{step.title}</h3>
-                    <p style={{ color: "var(--text-2)", fontSize: "16px", lineHeight: 1.8, maxWidth: 600, fontWeight: 300 }}>
+                </div>
+
+                <div style={{ order: isEven ? 1 : 2 }} className="max-md:order-2">
+                  <Reveal>
+                    <span style={{ display: "block", fontSize: "14px", fontFamily: "var(--font-geist-mono), monospace", color: "var(--gold)", letterSpacing: "0.1em", marginBottom: 24 }}>
+                      Step {step.num}
+                    </span>
+                    <h3 className="font-display" style={{ fontSize: "clamp(32px, 4vw, 56px)", color: "var(--text)", marginBottom: 32 }}>{step.title}</h3>
+                    <p style={{ color: "var(--text-2)", fontSize: "17px", lineHeight: 1.8, fontWeight: 300, maxWidth: 480 }}>
                       {step.desc}
                     </p>
-                  </div>
+                  </Reveal>
                 </div>
-              </StaggerItem>
-            ))}
-          </StaggerGroup>
+              </div>
+            );
+          })}
         </div>
       </section>
 
       {/* ═══════════════════════════════════════════
-          CHAPTER V — THE COMMISSION
-          Full immersion
+          CHAPTER V — GLOBAL COLLECTORS
+          Elegant Placeholder until real photo is supplied
+          ═══════════════════════════════════════════ */}
+      <section className="section-x section-y" style={{ position: "relative", minHeight: "80vh", display: "flex", alignItems: "center" }}>
+        <div style={{ 
+          position: "absolute", 
+          inset: 0, 
+          background: "var(--surface)",
+          zIndex: -1 
+        }}>
+          {/* Subtle noise/texture overlay for the placeholder */}
+          <div style={{ position: "absolute", inset: 0, opacity: 0.1, background: "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')" }} />
+        </div>
+
+        <div style={{ maxWidth: 1000, margin: "0 auto", textAlign: "center" }}>
+          <Reveal>
+            <span style={{ display: "block", fontSize: "11px", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", marginBottom: 32 }}>
+              Worldwide Presence
+            </span>
+            <h2 className="font-display" style={{ fontSize: "clamp(40px, 6vw, 72px)", lineHeight: 1.05, color: "var(--text)", marginBottom: 48 }}>
+              Housed in the world&apos;s most <br/>exclusive interiors.
+            </h2>
+            <p style={{ color: "var(--text-2)", fontSize: "17px", lineHeight: 1.8, fontWeight: 300, maxWidth: 600, margin: "0 auto", letterSpacing: "0.05em", textTransform: "uppercase" }}>
+              USA · UK · GERMANY · FRANCE · AUSTRALIA · UAE
+            </p>
+          </Reveal>
+        </div>
+      </section>
+
+      {/* ═══════════════════════════════════════════
+          CHAPTER VI — THE COMMISSION
           ═══════════════════════════════════════════ */}
       <section
         style={{
@@ -267,21 +297,13 @@ export default function Home() {
           justifyContent: "center",
         }}
       >
-        <Image
-          src="/products/surya-rath-grand-edition/hero.jpg"
-          alt="Bespoke Commission"
-          fill
-          style={{ objectFit: "cover", objectPosition: "center" }}
-          sizes="100vw"
+        <ParallaxImage 
+          src="/products/surya-rath-grand-edition/hero.jpg" 
+          alt="Bespoke Commission" 
+          className="img-lux"
         />
 
-        <div
-          style={{
-            position: "absolute",
-            inset: 0,
-            background: "rgba(0,0,0,0.6)",
-          }}
-        />
+        <div className="overlay-dark" />
 
         <div
           className="section-x"
