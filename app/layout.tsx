@@ -1,11 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Cormorant_Garamond } from "next/font/google";
-import WhatsAppButton from "./components/WhatsAppButton";
+import { Geist_Mono, Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  weight: ["300", "400", "500"],
 });
 
 const geistMono = Geist_Mono({
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     template: "%s | Devashilpa",
   },
   description:
-    "Luxury handcrafted brass sculptures, temple decor, divine idols, and heritage artworks created by Indian artisans. Worldwide shipping available.",
+    "Museum-grade handcrafted brass and copper sculptures by Indian master artisans. Collector-grade divine sculptures, heritage masterpieces and temple decor. Worldwide shipping.",
   keywords: [
     "Handcrafted Brass Sculptures",
     "Indian Brass Sculptures",
@@ -37,7 +37,6 @@ export const metadata: Metadata = {
     "Divine Brass Idols",
     "Heritage Metal Art India",
     "Luxury Handcrafted Sculptures",
-    "Brass Ganesha Sculpture",
     "Custom Brass Sculptures",
     "Devashilpa",
     "Brass Sculptures Worldwide Shipping",
@@ -49,10 +48,10 @@ export const metadata: Metadata = {
     siteName: "Devashilpa",
     title: "Devashilpa | Handcrafted Brass Sculptures from India",
     description:
-      "Luxury handcrafted brass sculptures, temple decor, divine idols, and heritage artworks created by Indian artisans. Worldwide shipping available.",
+      "Museum-grade handcrafted brass and copper sculptures by Indian master artisans. Collector-grade divine sculptures, heritage masterpieces and temple decor. Worldwide shipping.",
     images: [
       {
-        url: "/products/parthasarathy-chariot/main.jpg",
+        url: "/products/parthasarathy-chariot/lux.jpg",
         width: 1200,
         height: 630,
         alt: "Devashilpa — Handcrafted Brass Sculptures from India",
@@ -63,8 +62,8 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Devashilpa | Handcrafted Brass Sculptures from India",
     description:
-      "Luxury handcrafted brass sculptures, temple decor, divine idols, and heritage artworks created by Indian artisans. Worldwide shipping available.",
-    images: ["/products/parthasarathy-chariot/main.jpg"],
+      "Museum-grade handcrafted brass and copper sculptures by Indian master artisans. Worldwide shipping.",
+    images: ["/products/parthasarathy-chariot/lux.jpg"],
   },
   alternates: { canonical: siteUrl },
   robots: {
@@ -85,11 +84,10 @@ export default function RootLayout({
   return (
     <html
       lang="en-IN"
-      className={`${geistSans.variable} ${geistMono.variable} ${cormorant.variable} h-full antialiased`}
+      className={`${inter.variable} ${geistMono.variable} ${cormorant.variable}`}
     >
-      <body className="min-h-full flex flex-col bg-[#080604]">
+      <body style={{ background: "#0A0A0A" }}>
         {children}
-        <WhatsAppButton />
       </body>
     </html>
   );
