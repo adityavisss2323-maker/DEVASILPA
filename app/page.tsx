@@ -7,8 +7,8 @@ import { getProducts } from "./lib/db";
 export const revalidate = 3600;
 
 export default function Home() {
-  const products = getProducts();
-  const featured = products.filter(p => p.featured);
+  const products = getProducts().filter(p => p.status !== 'draft');
+  const featured = products.filter((p) => p.featured);
 
   return (
     <main style={{ background: "var(--bg)" }}>
@@ -113,7 +113,7 @@ export default function Home() {
             <ScaleIn>
               <div style={{ position: "relative", width: "100%", paddingBottom: "120%", overflow: "hidden" }}>
                 <Image
-                  src="/products/durga-mahishasura-mardini/lux.jpg"
+                  src="/products/parthasarathy-chariot/lux.jpg"
                   alt="Devashilpa Atelier"
                   fill
                   style={{ objectFit: "cover", objectPosition: "center 10%" }}

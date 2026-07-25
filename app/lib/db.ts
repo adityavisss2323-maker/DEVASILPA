@@ -17,6 +17,7 @@ export interface Product {
   images: string[];
   featured: boolean;
   type: 'in-stock' | 'concept';
+  status?: 'published' | 'draft';
   availabilityStatus?: 'In Stock' | 'Made to Order' | 'Available on Request';
   sizeOptions?: string[];
   finishOptions?: string[];

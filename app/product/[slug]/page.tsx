@@ -24,6 +24,13 @@ export async function generateMetadata({
   const product = getProductBySlug(slug);
   if (!product) return { title: "Not Found" };
   
+  if (product.status === 'draft') {
+    return {
+      title: `${product.name} | Devashilpa`,
+      robots: { index: false, follow: false },
+    };
+  }
+  
   const isPlaceholder = product.images[0].includes("placeholder");
   
   return {
@@ -68,7 +75,23 @@ export default async function ProductPage({
   const product = getProductBySlug(slug);
   if (!product) notFound();
 
-  const allProducts = getProducts();
+  if (product.status === 'draft') {
+    return (
+      <main style={{ background: "var(--bg)", color: "var(--text)", minHeight: "100vh", display: "flex", flexDirection: "column" }}>
+        <Navbar />
+        <section className="section-x" style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", alignItems: "center", paddingTop: "calc(var(--nav-h) + 120px)", paddingBottom: 120, textAlign: "center" }}>
+          <h1 className="font-display" style={{ fontSize: "2rem", marginBottom: 16, color: "var(--text)" }}>Currently Unavailable</h1>
+          <p style={{ color: "var(--text-2)", marginBottom: 32 }}>This artwork is currently being curated or is no longer available.</p>
+          <Link href="/collections" className="btn btn-outline-gold" style={{ textDecoration: "none" }}>
+            Explore the Collection
+          </Link>
+        </section>
+        <Footer />
+      </main>
+    );
+  }
+
+  const allProducts = getProducts().filter(p => p.status !== 'draft');
   const related = [
     ...allProducts.filter((p) => p.slug !== product.slug && p.category === product.category && p.type !== "concept"),
     ...allProducts.filter((p) => p.slug !== product.slug && p.category !== product.category && p.type !== "concept"),

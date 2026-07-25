@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { products } from "@/app/data/products";
+import { getProducts } from "@/app/lib/db";
 
 const BASE_URL = "https://www.devashilpa.com";
 
@@ -55,6 +55,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
   ];
 
+  const products = getProducts().filter(p => p.status !== 'draft');
   const productRoutes: MetadataRoute.Sitemap = products.map((product) => ({
     url: `${BASE_URL}/product/${product.slug}`,
     lastModified: new Date(),

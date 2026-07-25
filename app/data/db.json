@@ -43,8 +43,9 @@
       "images": [
         "/products/durga-mahishasura-mardini/main.jpg"
       ],
-      "featured": true,
+      "featured": false,
       "type": "in-stock",
+      "status": "draft",
       "availabilityStatus": "Made to Order",
       "sizeOptions": [
         "Approx. 10–12 inches / Custom Sizes Available"
