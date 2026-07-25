@@ -2,32 +2,41 @@
 
 /* ═══════════════════════════════════════════════
    DEVASHILPA — LUXURY DESIGN SYSTEM
-   Apple · Rolex · Cartier · Hermès · Leica
+   Warm Ivory Edition · Leica · The Row · B&O
    ═══════════════════════════════════════════════ */
 
 :root {
-  --black:        #000000;
-  --bg:           #000000;
-  --surface:      #050505;
-  --surface-2:    #0a0a0a;
-  --surface-3:    #111111;
+  /* ── Core Palette ── */
+  --black:        #0F0F0F;
+  --bg:           #FAF8F5;        /* warm ivory — not stark white */
+  --surface:      #F3F0EA;        /* card / alternate section */
+  --surface-2:    #EDE8DE;        /* deeper ivory for nested surfaces */
+  --surface-3:    #E4DDD0;        /* subtle separator value */
+
+  /* ── Gold accent (unchanged — brand constant) ── */
   --gold:         #A38047;
   --gold-bright:  #C4A163;
-  --gold-dim:     rgba(163, 128, 71, 0.14);
-  --gold-line:    rgba(163, 128, 71, 0.18);
+  --gold-dim:     rgba(163, 128, 71, 0.10);
+  --gold-line:    rgba(163, 128, 71, 0.15);
   --gold-line-2:  rgba(163, 128, 71, 0.28);
-  --text:         #F7F5F0;
-  --text-2:       #dcd8cd;
-  --text-3:       #8a8476;
-  --text-4:       #555148;
-  --white:        #F7F5F0;
 
+  /* ── Text hierarchy ── */
+  --text:         #1A1A1A;        /* deep charcoal — primary */
+  --text-2:       #3D3A34;        /* body copy */
+  --text-3:       #8A8476;        /* muted taupe — labels, captions */
+  --text-4:       #B0A899;        /* very muted — fine print */
+  --white:        #FAF8F5;        /* alias for ivory bg */
+
+  /* ── For full-bleed overlay sections (hero, collectors, commission) ── */
+  --overlay-text: #F7F5F0;        /* ivory text on dark-overlay images */
+
+  /* ── Spacing ── */
   --section-y:    clamp(160px, 15vw, 240px);
   --section-y-sm: clamp(80px, 10vw, 120px);
   --gutter:       clamp(24px, 5vw, 88px);
   --nav-h:        68px;
 
-  /* Transition presets */
+  /* ── Transitions ── */
   --ease-luxury:  cubic-bezier(0.16, 1, 0.3, 1);
   --ease-smooth:  cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
@@ -71,9 +80,9 @@ a { text-decoration: none; }
 }
 
 /* ══ Spacing ══ */
-.section-y   { padding-top: var(--section-y); padding-bottom: var(--section-y); }
-.section-y-sm{ padding-top: var(--section-y-sm); padding-bottom: var(--section-y-sm); }
-.section-x   { padding-left: var(--gutter); padding-right: var(--gutter); }
+.section-y    { padding-top: var(--section-y); padding-bottom: var(--section-y); }
+.section-y-sm { padding-top: var(--section-y-sm); padding-bottom: var(--section-y-sm); }
+.section-x    { padding-left: var(--gutter); padding-right: var(--gutter); }
 
 /* ══ Labels ══ */
 .label {
@@ -90,12 +99,13 @@ a { text-decoration: none; }
   text-transform: uppercase;
   color: var(--text-3);
 }
-.label-white {
+/* Kept for use inside dark overlay sections */
+.label-light {
   font-size: 0.6rem;
   font-weight: 500;
   letter-spacing: 0.38em;
   text-transform: uppercase;
-  color: rgba(245,237,216,0.55);
+  color: rgba(247, 245, 240, 0.65);
 }
 
 /* ══ Divider ══ */
@@ -104,7 +114,7 @@ a { text-decoration: none; }
   width: 40px;
   height: 1px;
   background: var(--gold);
-  opacity: 0.5;
+  opacity: 0.45;
 }
 .rule-full {
   display: block;
@@ -131,9 +141,15 @@ a { text-decoration: none; }
 }
 .btn-gold {
   background: var(--gold);
-  color: #0A0A0A;
+  color: #FAF8F5;
 }
-.btn-gold:hover { background: var(--text); color: #0A0A0A; }
+.btn-gold:hover { background: var(--text); color: var(--bg); }
+
+.btn-charcoal {
+  background: var(--text);
+  color: var(--bg);
+}
+.btn-charcoal:hover { background: var(--gold); color: var(--bg); }
 
 .btn-outline-gold {
   border: 1px solid var(--gold-line-2);
@@ -143,18 +159,19 @@ a { text-decoration: none; }
 .btn-outline-gold:hover {
   border-color: var(--gold);
   background: var(--gold);
-  color: #060402;
+  color: var(--bg);
 }
 
-.btn-outline-white {
-  border: 1px solid rgba(245,237,216,0.35);
-  color: var(--text);
+/* For use inside dark overlay sections */
+.btn-outline-ivory {
+  border: 1px solid rgba(247, 245, 240, 0.35);
+  color: var(--overlay-text);
   background: transparent;
 }
-.btn-outline-white:hover {
-  border-color: var(--text);
-  background: var(--text);
-  color: #060402;
+.btn-outline-ivory:hover {
+  border-color: var(--overlay-text);
+  background: var(--overlay-text);
+  color: #1A1A1A;
 }
 
 .btn-text {
@@ -175,11 +192,11 @@ a { text-decoration: none; }
 .btn-text:hover { color: var(--gold); }
 
 /* ══ Cards ══ */
-.card-border {
-  border: 1px solid var(--gold-line);
-  transition: border-color 0.4s;
+.card-lux {
+  background: var(--surface);
+  transition: box-shadow 0.4s var(--ease-smooth);
 }
-.card-border:hover { border-color: var(--gold-line-2); }
+.card-lux:hover { box-shadow: 0 8px 48px rgba(26, 26, 26, 0.09); }
 
 /* ══ Image Containers ══ */
 .img-zoom { overflow: hidden; }
@@ -194,17 +211,17 @@ a { text-decoration: none; }
   border: 1px solid var(--gold-line);
 }
 .grid-divider > * { background: var(--bg); }
-.grid-divider-s > * { background: var(--surface); }
+.grid-divider-s  > * { background: var(--surface); }
 .grid-divider-s2 > * { background: var(--surface-2); }
 
 /* ══ Scrollbar ══ */
 ::-webkit-scrollbar { width: 2px; }
 ::-webkit-scrollbar-track { background: transparent; }
-::-webkit-scrollbar-thumb { background: #2a1e08; }
+::-webkit-scrollbar-thumb { background: var(--surface-3); }
 ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
 
 /* ══ Selection ══ */
-::selection { background: rgba(212,175,106,0.2); color: var(--text); }
+::selection { background: rgba(163, 128, 71, 0.18); color: var(--text); }
 
 /* ══ Focus ══ */
 :focus-visible { outline: 1px solid var(--gold); outline-offset: 3px; }
@@ -224,7 +241,7 @@ a { text-decoration: none; }
 .anim-hero-4 { opacity: 0; animation: heroUp 0.9s var(--ease-luxury) 0.92s forwards; }
 .anim-hero-5 { opacity: 0; animation: heroFade 1s ease 1.45s forwards; }
 
-/* ══ Hover utilities (Tailwind can't do everything) ══ */
+/* ══ Hover utilities ══ */
 .hover-gold { transition: color 0.3s; }
 .hover-gold:hover { color: var(--gold); }
 
@@ -251,18 +268,67 @@ a { text-decoration: none; }
 
 /* ══ Photography Treatments ══ */
 .img-lux {
-  /* Subtle warm grade to unify all images */
-  filter: sepia(12%) contrast(105%) brightness(92%);
+  /* Subtle warm grade — slightly brighter for light theme */
+  filter: sepia(8%) contrast(103%) brightness(98%);
   transition: filter 0.8s var(--ease-luxury), transform 1.2s var(--ease-luxury);
 }
 .group:hover .img-lux {
-  filter: sepia(5%) contrast(110%) brightness(100%);
+  filter: sepia(4%) contrast(106%) brightness(102%);
   transform: scale(1.04);
 }
 
+/* ── Dark overlay — used for full-bleed hero/parallax sections only ── */
+/* Slightly lighter than before since surrounding page is now ivory, not black */
 .overlay-dark {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.2) 60%, transparent 100%);
+  background: linear-gradient(to top, rgba(0,0,0,0.70) 0%, rgba(0,0,0,0.18) 55%, transparent 100%);
   pointer-events: none;
 }
+
+/* ── Placeholder card for products awaiting photography ── */
+.placeholder-card {
+  background: var(--surface-2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 24px;
+  position: relative;
+}
+.placeholder-card::before {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border: 1px dashed var(--gold-line-2);
+  pointer-events: none;
+}
+
+/* ══ Collection filter tabs ══ */
+.filter-tab {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 10px 0;
+  border-bottom: 1px solid transparent;
+  transition: color 0.35s, border-color 0.35s;
+  white-space: nowrap;
+  font-family: inherit;
+}
+.filter-tab.active {
+  color: var(--text);
+  border-bottom-color: var(--text);
+}
+.filter-tab:not(.active) {
+  color: var(--text-3);
+}
+.filter-tab:not(.active):hover {
+  color: var(--text-2);
+}
+
+/* Hide scrollbar on filter row */
+.filter-scroll::-webkit-scrollbar { display: none; }

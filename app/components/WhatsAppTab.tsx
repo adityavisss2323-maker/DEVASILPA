@@ -2,12 +2,12 @@
 
 import { useEffect, useState } from "react";
 
-const WA_NUMBER = "916261068277";
+const WA_NUMBER  = "916261068277";
 const WA_MESSAGE = "Hello, I would like to inquire about a Devashilpa sculpture.";
-const WA_URL = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(WA_MESSAGE)}`;
+const WA_URL     = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(WA_MESSAGE)}`;
 
 export default function WhatsAppTab() {
-  const [visible, setVisible] = useState(false);
+  const [visible,  setVisible]  = useState(false);
   const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
@@ -17,7 +17,7 @@ export default function WhatsAppTab() {
 
   return (
     <>
-      {/* Desktop: slim vertical edge tab */}
+      {/* Desktop: slim vertical edge tab — palette-matched ivory/charcoal */}
       <a
         href={WA_URL}
         target="_blank"
@@ -33,7 +33,7 @@ export default function WhatsAppTab() {
           zIndex: 80,
           display: "flex",
           alignItems: "center",
-          background: "var(--black)",
+          background: "var(--bg)",
           border: "1px solid var(--gold-line-2)",
           borderRight: "none",
           color: "var(--text)",
@@ -43,8 +43,8 @@ export default function WhatsAppTab() {
           transition: "width 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease, box-shadow 0.4s ease",
           opacity: visible ? 1 : 0,
           boxShadow: expanded
-            ? "-4px 0 32px rgba(163,128,71,0.18)"
-            : "-2px 0 12px rgba(0,0,0,0.4)",
+            ? "-4px 0 32px rgba(163,128,71,0.14)"
+            : "-2px 0 12px rgba(26,26,26,0.06)",
         }}
         className="hidden md:flex"
       >
@@ -59,10 +59,9 @@ export default function WhatsAppTab() {
             flexShrink: 0,
           }}
         >
-          {/* Minimal chat icon in gold */}
           <svg
-            width="16"
-            height="16"
+            width="15"
+            height="15"
             viewBox="0 0 24 24"
             fill="none"
             stroke="var(--gold)"
@@ -80,7 +79,7 @@ export default function WhatsAppTab() {
             fontSize: "10px",
             letterSpacing: "0.18em",
             textTransform: "uppercase",
-            color: "var(--text-2)",
+            color: "var(--text-3)",
             whiteSpace: "nowrap",
             paddingRight: 16,
             opacity: expanded ? 1 : 0,
@@ -105,23 +104,23 @@ export default function WhatsAppTab() {
           display: "flex",
           alignItems: "center",
           gap: 10,
-          background: "var(--black)",
+          background: "var(--bg)",
           border: "1px solid var(--gold-line-2)",
           color: "var(--text)",
           textDecoration: "none",
           padding: "10px 18px",
           opacity: visible ? 1 : 0,
           transition: "opacity 0.6s ease, transform 0.3s var(--ease-luxury), box-shadow 0.3s ease",
-          boxShadow: "0 4px 24px rgba(0,0,0,0.5)",
+          boxShadow: "0 4px 24px rgba(26,26,26,0.10)",
         }}
         className="md:hidden"
         onTouchStart={(e) => {
           (e.currentTarget as HTMLElement).style.transform = "scale(1.05)";
-          (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 32px rgba(163,128,71,0.2)";
+          (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 32px rgba(163,128,71,0.18)";
         }}
         onTouchEnd={(e) => {
           (e.currentTarget as HTMLElement).style.transform = "scale(1)";
-          (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 24px rgba(0,0,0,0.5)";
+          (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 24px rgba(26,26,26,0.10)";
         }}
       >
         <svg
@@ -141,7 +140,7 @@ export default function WhatsAppTab() {
             fontSize: "10px",
             letterSpacing: "0.18em",
             textTransform: "uppercase",
-            color: "var(--text-2)",
+            color: "var(--text-3)",
           }}
         >
           Inquire

@@ -2,15 +2,19 @@ import Image from "next/image";
 import Link from "next/link";
 import Footer from "./components/Footer";
 import { Reveal, FadeIn, ScaleIn, SlideIn, StaggerGroup, StaggerItem, ParallaxImage } from "./components/Animations";
-import { products } from "./data/products";
+import { getProducts } from "./lib/db";
+
+export const revalidate = 3600;
 
 export default function Home() {
+  const products = getProducts();
   const featured = products.filter(p => p.featured);
 
   return (
     <main style={{ background: "var(--bg)" }}>
       {/* ═══════════════════════════════════════════
           CHAPTER I — THE HERO
+          Full-bleed image → overlay stays dark (image section, not page bg)
           ═══════════════════════════════════════════ */}
       <section
         style={{
@@ -21,14 +25,15 @@ export default function Home() {
           overflow: "hidden",
         }}
       >
-        <ParallaxImage 
-          src="/editorial/hero.jpg" 
-          alt="Devashilpa Heritage" 
-          priority 
+        <ParallaxImage
+          src="/editorial/hero.jpg"
+          alt="Devashilpa Heritage"
+          priority
           className="img-lux"
           objectPosition="center 35%"
         />
 
+        {/* Slightly lighter overlay gradient now that page bg is ivory, not black */}
         <div className="overlay-dark" />
 
         <div
@@ -44,12 +49,12 @@ export default function Home() {
           }}
         >
           <Reveal>
-            <p style={{ 
-              marginBottom: 40, 
-              letterSpacing: "0.2em", 
-              fontSize: "11px", 
-              color: "rgba(247,245,240,0.6)", 
-              textTransform: "uppercase" 
+            <p style={{
+              marginBottom: 40,
+              letterSpacing: "0.2em",
+              fontSize: "11px",
+              color: "rgba(247,245,240,0.65)",
+              textTransform: "uppercase",
             }}>
               Masterpieces forged in fire.
             </p>
@@ -59,7 +64,7 @@ export default function Home() {
               style={{
                 fontSize: "clamp(48px, 9vw, 130px)",
                 lineHeight: 0.95,
-                color: "var(--text)",
+                color: "var(--overlay-text)",
                 letterSpacing: "-0.02em",
                 marginBottom: 56,
               }}
@@ -67,11 +72,11 @@ export default function Home() {
               Indian Heritage.
             </h1>
 
-            <Link href="/collections" className="underline-anim" style={{ 
-              fontSize: "12px", 
-              letterSpacing: "0.15em", 
-              textTransform: "uppercase", 
-              color: "var(--text)" 
+            <Link href="/collections" className="underline-anim" style={{
+              fontSize: "12px",
+              letterSpacing: "0.15em",
+              textTransform: "uppercase",
+              color: "var(--overlay-text)",
             }}>
               Discover the Collection
             </Link>
@@ -80,11 +85,12 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          CHAPTER II — PHILOSOPHY (Merged Story)
+          CHAPTER II — PHILOSOPHY
+          Ivory background — charcoal text
           ═══════════════════════════════════════════ */}
-      <section className="section-x section-y" style={{ position: "relative" }}>
+      <section className="section-x section-y" style={{ position: "relative", background: "var(--bg)" }}>
         <div style={{ maxWidth: 1400, margin: "0 auto", display: "grid", gridTemplateColumns: "repeat(12, 1fr)", gap: "24px" }}>
-          
+
           <div style={{ gridColumn: "1 / 13", textAlign: "center", marginBottom: "clamp(80px, 10vw, 140px)" }}>
             <Reveal>
               <h2
@@ -118,7 +124,10 @@ export default function Home() {
             </ScaleIn>
           </div>
 
-          <div style={{ gridColumn: "8 / 13", paddingLeft: "clamp(24px, 5vw, 80px)", display: "flex", flexDirection: "column", justifyContent: "center" }} className="max-md:col-span-12 max-md:mt-12 max-md:pl-0">
+          <div
+            style={{ gridColumn: "8 / 13", paddingLeft: "clamp(24px, 5vw, 80px)", display: "flex", flexDirection: "column", justifyContent: "center" }}
+            className="max-md:col-span-12 max-md:mt-12 max-md:pl-0"
+          >
             <SlideIn direction="right">
               <span style={{ display: "block", fontSize: "11px", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", marginBottom: 32 }}>
                 The Atelier
@@ -143,6 +152,7 @@ export default function Home() {
 
       {/* ═══════════════════════════════════════════
           CHAPTER III — THE COLLECTION
+          Slightly warm surface, not pure ivory
           ═══════════════════════════════════════════ */}
       <section className="section-x section-y" style={{ background: "var(--surface)" }}>
         <Reveal>
@@ -161,12 +171,19 @@ export default function Home() {
           {featured[0] && (
             <Reveal>
               <Link href={`/product/${featured[0].slug}`} className="group" style={{ display: "block", marginBottom: "clamp(40px, 8vw, 120px)" }}>
-                <div style={{ position: "relative", width: "100%", height: "80vh", overflow: "hidden", marginBottom: 32 }}>
-                  <Image src={featured[0].images[0].replace("main.jpg", "lux.jpg")} alt={featured[0].name} fill style={{ objectFit: "cover", objectPosition: "center 15%" }} className="img-lux" sizes="100vw" />
+                <div style={{ position: "relative", width: "100%", height: "80vh", overflow: "hidden", marginBottom: 28 }}>
+                  <Image
+                    src={featured[0].images[0].replace("main.jpg", "lux.jpg")}
+                    alt={featured[0].name}
+                    fill
+                    style={{ objectFit: "cover", objectPosition: "center 15%" }}
+                    className="img-lux"
+                    sizes="100vw"
+                  />
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
                   <h3 className="font-display" style={{ fontSize: "clamp(24px, 3vw, 40px)", color: "var(--text)" }}>{featured[0].name}</h3>
-                  <span style={{ fontSize: "11px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-3)" }}>{featured[0].category}</span>
+                  <span style={{ fontSize: "11px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--gold)" }}>{featured[0].category}</span>
                 </div>
               </Link>
             </Reveal>
@@ -178,17 +195,24 @@ export default function Home() {
               <Reveal key={product.id} delay={i * 0.1}>
                 <Link href={`/product/${product.slug}`} className="group" style={{ display: "block", marginTop: i === 1 ? "clamp(40px, 10vw, 160px)" : 0 }}>
                   <div style={{ position: "relative", width: "100%", paddingBottom: "133.33%", overflow: "hidden", marginBottom: 24 }}>
-                    <Image src={product.images[0].replace("main.jpg", "lux.jpg")} alt={product.name} fill style={{ objectFit: "cover", objectPosition: "center 15%" }} className="img-lux" sizes="(max-width: 768px) 100vw, 50vw" />
+                    <Image
+                      src={product.images[0].replace("main.jpg", "lux.jpg")}
+                      alt={product.name}
+                      fill
+                      style={{ objectFit: "cover", objectPosition: "center 15%" }}
+                      className="img-lux"
+                      sizes="(max-width: 768px) 100vw, 50vw"
+                    />
                   </div>
                   <h3 className="font-display" style={{ fontSize: "28px", color: "var(--text)", marginBottom: 8 }}>{product.name}</h3>
-                  <span style={{ fontSize: "11px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-3)" }}>{product.category}</span>
+                  <span style={{ fontSize: "11px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--gold)" }}>{product.category}</span>
                 </Link>
               </Reveal>
             ))}
           </div>
-          
+
           <div style={{ textAlign: "center", marginTop: "clamp(80px, 10vw, 160px)" }}>
-            <Link href="/collections" className="btn btn-gold">
+            <Link href="/collections" className="btn btn-charcoal">
               Explore the Archive
             </Link>
           </div>
@@ -196,9 +220,10 @@ export default function Home() {
       </section>
 
       {/* ═══════════════════════════════════════════
-          CHAPTER IV — THE CRAFT (Editorial Alternate Layout)
+          CHAPTER IV — THE CRAFT
+          Ivory bg — alternating image + text rows
           ═══════════════════════════════════════════ */}
-      <section className="section-y" style={{ overflow: "hidden" }}>
+      <section className="section-y" style={{ overflow: "hidden", background: "var(--bg)" }}>
         <div className="section-x" style={{ textAlign: "center", marginBottom: "clamp(80px, 10vw, 160px)" }}>
           <Reveal>
             <span style={{ display: "block", fontSize: "11px", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", marginBottom: 32 }}>
@@ -212,9 +237,9 @@ export default function Home() {
 
         <div style={{ display: "flex", flexDirection: "column", gap: "clamp(80px, 12vw, 200px)" }}>
           {[
-            { num: "01", title: "Sculpting the Form", img: "/editorial/craft-01.jpg", desc: "Before brass is poured, the vision must exist in clay. Each masterpiece takes weeks to sculpt perfectly by hand." },
-            { num: "02", title: "The Fire Casting", img: "/editorial/craft-02.jpg", desc: "Using the ancient lost-wax technique, molten brass at 1,000\u00b0C is poured into the mold, capturing every microscopic detail." },
-            { num: "03", title: "Patient Finishing", img: "/editorial/craft-03.jpg", desc: "The raw cast is refined over hundreds of hours. Artisans painstakingly carve, polish, and treat the metal to achieve its heritage patina." }
+            { num: "01", title: "Sculpting the Form",  img: "/editorial/craft-01.jpg", desc: "Before brass is poured, the vision must exist in clay. Each masterpiece takes weeks to sculpt perfectly by hand." },
+            { num: "02", title: "The Fire Casting",    img: "/editorial/craft-02.jpg", desc: "Using the ancient lost-wax technique, molten brass at 1,000°C is poured into the mold, capturing every microscopic detail." },
+            { num: "03", title: "Patient Finishing",   img: "/editorial/craft-03.jpg", desc: "The raw cast is refined over hundreds of hours. Artisans painstakingly carve, polish, and treat the metal to achieve its heritage patina." },
           ].map((step, i) => {
             const isEven = i % 2 !== 0;
             return (
@@ -229,18 +254,8 @@ export default function Home() {
                 }}
               >
                 {/* Image */}
-                <ScaleIn
-                  className="max-md:order-1"
-                  style={{ order: isEven ? 2 : 1 }}
-                >
-                  <div
-                    style={{
-                      position: "relative",
-                      width: "100%",
-                      paddingBottom: "125%", /* 4:5 aspect ratio */
-                      overflow: "hidden",
-                    }}
-                  >
+                <ScaleIn className="max-md:order-1" style={{ order: isEven ? 2 : 1 }}>
+                  <div style={{ position: "relative", width: "100%", paddingBottom: "125%", overflow: "hidden" }}>
                     <Image
                       src={step.img}
                       alt={step.title}
@@ -272,7 +287,7 @@ export default function Home() {
 
       {/* ═══════════════════════════════════════════
           CHAPTER V — GLOBAL COLLECTORS
-          Real editorial interior photo
+          Full-bleed parallax image — overlay stays dark
           ═══════════════════════════════════════════ */}
       <section style={{ position: "relative", minHeight: "90vh", display: "flex", alignItems: "center", overflow: "hidden" }}>
         <ParallaxImage
@@ -283,13 +298,13 @@ export default function Home() {
         <div className="overlay-dark" />
         <div className="section-x" style={{ position: "relative", zIndex: 1, maxWidth: 1000, margin: "0 auto", textAlign: "center", width: "100%" }}>
           <Reveal>
-            <span style={{ display: "block", fontSize: "11px", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(247,245,240,0.7)", marginBottom: 32 }}>
+            <span style={{ display: "block", fontSize: "11px", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(247,245,240,0.65)", marginBottom: 32 }}>
               Worldwide Presence
             </span>
-            <h2 className="font-display" style={{ fontSize: "clamp(40px, 6vw, 80px)", lineHeight: 1.05, color: "var(--text)", marginBottom: 48 }}>
+            <h2 className="font-display" style={{ fontSize: "clamp(40px, 6vw, 80px)", lineHeight: 1.05, color: "var(--overlay-text)", marginBottom: 48 }}>
               Housed in the world&apos;s most <br/>exclusive interiors.
             </h2>
-            <p style={{ color: "rgba(247,245,240,0.75)", fontSize: "17px", lineHeight: 1.8, fontWeight: 300, maxWidth: 600, margin: "0 auto", letterSpacing: "0.08em", textTransform: "uppercase" }}>
+            <p style={{ color: "rgba(247,245,240,0.7)", fontSize: "17px", lineHeight: 1.8, fontWeight: 300, maxWidth: 600, margin: "0 auto", letterSpacing: "0.08em", textTransform: "uppercase" }}>
               USA · UK · GERMANY · FRANCE · AUSTRALIA · UAE
             </p>
           </Reveal>
@@ -298,6 +313,7 @@ export default function Home() {
 
       {/* ═══════════════════════════════════════════
           CHAPTER VI — THE COMMISSION
+          Full-bleed parallax image — overlay stays dark
           ═══════════════════════════════════════════ */}
       <section
         style={{
@@ -309,9 +325,9 @@ export default function Home() {
           justifyContent: "center",
         }}
       >
-        <ParallaxImage 
-          src="/editorial/craft-02.jpg" 
-          alt="Bespoke Commission" 
+        <ParallaxImage
+          src="/editorial/craft-02.jpg"
+          alt="Bespoke Commission"
           className="img-lux"
         />
 
@@ -330,7 +346,7 @@ export default function Home() {
           }}
         >
           <Reveal>
-            <span style={{ display: "block", marginBottom: 40, fontSize: "11px", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(247,245,240,0.7)" }}>
+            <span style={{ display: "block", marginBottom: 40, fontSize: "11px", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(247,245,240,0.65)" }}>
               Private Commission
             </span>
 
@@ -339,7 +355,7 @@ export default function Home() {
               style={{
                 fontSize: "clamp(48px, 8vw, 110px)",
                 lineHeight: 1,
-                color: "var(--text)",
+                color: "var(--overlay-text)",
                 maxWidth: 1000,
                 margin: "0 auto 48px",
                 letterSpacing: "-0.01em",

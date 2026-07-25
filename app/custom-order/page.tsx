@@ -49,7 +49,7 @@ export default function CustomOrderPage() {
           <span className="label" style={{ display: "block", marginBottom: 24 }}>Bespoke Commission</span>
           <h1
             className="font-display"
-            style={{ fontSize: "clamp(2.8rem, 6.5vw, 6rem)", fontWeight: 300, lineHeight: 1.05, color: "#F5EDD8", maxWidth: 680, marginBottom: 24 }}
+            style={{ fontSize: "clamp(2.8rem, 6.5vw, 6rem)", fontWeight: 300, lineHeight: 1.05, color: "var(--text)", maxWidth: 680, marginBottom: 24 }}
           >
             Commission a masterpiece shaped by your vision.
           </h1>
@@ -149,7 +149,7 @@ export default function CustomOrderPage() {
                   className="group-hover:scale-110"
                 />
                 <div>
-                  <h3 style={{ fontSize: "0.9rem", fontWeight: 400, color: "#F5EDD8", marginBottom: 6, lineHeight: 1.3 }}>{title}</h3>
+                  <h3 style={{ fontSize: "0.9rem", fontWeight: 400, color: "var(--text)", marginBottom: 6, lineHeight: 1.3 }}>{title}</h3>
                   <p style={{ fontSize: "0.78rem", color: "var(--text-3)", lineHeight: 1.75 }}>{desc}</p>
                 </div>
               </div>

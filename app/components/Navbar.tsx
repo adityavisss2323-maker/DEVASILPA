@@ -37,8 +37,11 @@ export default function Navbar() {
     textTransform: "uppercase" as const,
     fontWeight: 400,
     textDecoration: "none",
-    color: pathname === href ? "var(--text)" : "var(--text-3)",
-    transition: "color 0.3s",
+    /* On hero (transparent nav) links stay ivory; once scrolled use charcoal */
+    color: scrolled
+      ? (pathname === href ? "var(--text)" : "var(--text-3)")
+      : (pathname === href ? "var(--overlay-text)" : "rgba(247,245,240,0.7)"),
+    transition: "color 0.35s",
     whiteSpace: "nowrap" as const,
   });
 
@@ -50,15 +53,15 @@ export default function Navbar() {
           top: 0, left: 0, right: 0,
           zIndex: 100,
           height: "var(--nav-h)",
-          /* ── Single flex row, 3 equal-weight columns: logo | links | cta ── */
           display: "flex",
           alignItems: "center",
           padding: "0 var(--gutter)",
-          transition: "background 0.8s var(--ease-smooth), border-color 0.8s var(--ease-smooth)",
-          background: scrolled ? "rgba(0,0,0,0.95)" : "transparent",
-          backdropFilter: scrolled ? "blur(10px)" : "none",
-          WebkitBackdropFilter: scrolled ? "blur(10px)" : "none",
-          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.05)" : "1px solid transparent",
+          transition: "background 0.7s var(--ease-smooth), border-color 0.7s var(--ease-smooth)",
+          /* Transparent on hero (page starts with image), frosted ivory once scrolled */
+          background: scrolled ? "rgba(250,248,245,0.96)" : "transparent",
+          backdropFilter: scrolled ? "blur(12px)" : "none",
+          WebkitBackdropFilter: scrolled ? "blur(12px)" : "none",
+          borderBottom: scrolled ? "1px solid rgba(163,128,71,0.12)" : "1px solid transparent",
         }}
       >
         {/* ── Logo (left, flex: 1) ── */}
@@ -69,16 +72,18 @@ export default function Navbar() {
               fontSize: "11px",
               letterSpacing: "0.25em",
               textTransform: "uppercase",
-              color: "var(--text)",
+              /* Ivory on hero image, charcoal once scrolled */
+              color: scrolled ? "var(--text)" : "var(--overlay-text)",
               fontWeight: 400,
               textDecoration: "none",
+              transition: "color 0.35s",
             }}
           >
             Devashilpa
           </Link>
         </div>
 
-        {/* ── Centre nav links (flex: 2, centred) — desktop only ── */}
+        {/* ── Centre nav links — desktop only ── */}
         <nav
           className="hidden md:flex"
           style={{
@@ -114,8 +119,9 @@ export default function Navbar() {
               fontSize: "11px",
               letterSpacing: "0.2em",
               textTransform: "uppercase",
-              color: "var(--text)",
+              color: scrolled ? "var(--text)" : "var(--overlay-text)",
               textDecoration: "none",
+              transition: "color 0.35s",
             }}
           >
             Inquire
@@ -131,9 +137,10 @@ export default function Navbar() {
               background: "none",
               border: "none",
               cursor: "pointer",
-              color: "var(--text)",
+              color: scrolled ? "var(--text)" : "var(--overlay-text)",
               padding: 4,
               display: "flex",
+              transition: "color 0.35s",
             }}
           >
             {open ? <X size={20} strokeWidth={1.5} /> : <Menu size={20} strokeWidth={1.5} />}
@@ -141,20 +148,20 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* ── Mobile full-screen menu overlay ── */}
+      {/* ── Mobile full-screen menu overlay — ivory drawer ── */}
       <div
         style={{
           position: "fixed",
           inset: 0,
           zIndex: 90,
-          background: "var(--black)",
+          background: "var(--bg)",
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
           opacity: open ? 1 : 0,
           pointerEvents: open ? "auto" : "none",
-          transition: "opacity 0.6s var(--ease-luxury)",
+          transition: "opacity 0.5s var(--ease-luxury)",
         }}
         aria-hidden={!open}
       >
@@ -171,11 +178,11 @@ export default function Navbar() {
               color: pathname === href ? "var(--gold)" : "var(--text)",
               textDecoration: "none",
               textAlign: "center",
-              transition: "color 0.3s, opacity 0.6s var(--ease-luxury), transform 0.6s var(--ease-luxury)",
+              transition: "color 0.3s, opacity 0.5s var(--ease-luxury), transform 0.5s var(--ease-luxury)",
               transitionDelay: `${0.05 + i * 0.05}s`,
               width: "min(80vw, 380px)",
               opacity: open ? 1 : 0,
-              transform: open ? "translateY(0)" : "translateY(24px)",
+              transform: open ? "translateY(0)" : "translateY(20px)",
             }}
           >
             {label}
@@ -184,10 +191,10 @@ export default function Navbar() {
 
         <div
           style={{
-            marginTop: 64,
+            marginTop: 56,
             opacity: open ? 1 : 0,
-            transition: "opacity 0.6s 0.4s, transform 0.6s 0.4s var(--ease-luxury)",
-            transform: open ? "translateY(0)" : "translateY(24px)",
+            transition: "opacity 0.5s 0.35s, transform 0.5s 0.35s var(--ease-luxury)",
+            transform: open ? "translateY(0)" : "translateY(20px)",
           }}
         >
           <a

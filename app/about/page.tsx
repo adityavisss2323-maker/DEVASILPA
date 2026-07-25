@@ -39,7 +39,7 @@ export default function AboutPage() {
           style={{
             position: "absolute",
             inset: 0,
-            background: "linear-gradient(110deg, rgba(4,3,2,0.96) 38%, rgba(4,3,2,0.78) 58%, rgba(4,3,2,0.22) 100%)",
+            background: "linear-gradient(110deg, rgba(10,8,6,0.92) 35%, rgba(10,8,6,0.70) 58%, rgba(10,8,6,0.18) 100%)",
           }}
         />
         <div
@@ -47,7 +47,7 @@ export default function AboutPage() {
             position: "absolute",
             bottom: 0, left: 0, right: 0,
             height: "38%",
-            background: "linear-gradient(to top, #080604, transparent)",
+            background: "linear-gradient(to top, rgba(10,8,6,0.85), transparent)",
           }}
         />
 
@@ -59,14 +59,14 @@ export default function AboutPage() {
             <span className="label anim-hero-1" style={{ display: "block", marginBottom: 28 }}>Our Heritage</span>
             <h1
               className="font-display anim-hero-2"
-              style={{ fontSize: "clamp(2.8rem, 6vw, 5.5rem)", lineHeight: 1.06, color: "#F5EDD8", marginBottom: 28 }}
+              style={{ fontSize: "clamp(2.8rem, 6vw, 5.5rem)", lineHeight: 1.06, color: "var(--overlay-text)", marginBottom: 28 }}
             >
               A heritage inherited.<br />
-              <em style={{ fontStyle: "italic", color: "#D4AF6A" }}>A legacy preserved.</em>
+              <em style={{ fontStyle: "italic", color: "var(--gold-bright)" }}>A legacy preserved.</em>
             </h1>
             <p
               className="anim-hero-3"
-              style={{ color: "#C8BAA0", fontSize: "1rem", lineHeight: 1.85, maxWidth: 420, marginBottom: 40 }}
+              style={{ color: "rgba(247,245,240,0.75)", fontSize: "1rem", lineHeight: 1.85, maxWidth: 420, marginBottom: 40 }}
             >
               Devashilpa is built on a generational Indian art tradition, where every sculpture is shaped through inherited skill, devotion, and patient craftsmanship.
             </p>
@@ -97,7 +97,7 @@ export default function AboutPage() {
                 fontSize: "clamp(1.6rem, 3vw, 2.8rem)",
                 fontWeight: 300,
                 lineHeight: 1.45,
-                color: "#C8BAA0",
+                color: "var(--text-2)",
                 fontStyle: "italic",
               }}
             >
@@ -146,19 +146,19 @@ export default function AboutPage() {
             <span className="label" style={{ display: "block", marginBottom: 28 }}>Our Story</span>
             <h2
               className="font-display"
-              style={{ fontSize: "clamp(2rem, 3vw, 3.2rem)", lineHeight: 1.1, color: "#F5EDD8", marginBottom: 28 }}
+              style={{ fontSize: "clamp(2rem, 3vw, 3.2rem)", lineHeight: 1.1, color: "var(--text)", marginBottom: 28 }}
             >
               Born from traditional hands, shaped for timeless spaces.
             </h2>
             <span className="rule" style={{ marginBottom: 28 }} />
             <div style={{ display: "flex", flexDirection: "column", gap: 18, maxWidth: 440 }}>
-              <p style={{ fontSize: "0.9rem", color: "#C8BAA0", lineHeight: 1.9 }}>
+              <p style={{ fontSize: "0.9rem", color: "var(--text-2)", lineHeight: 1.9 }}>
                 Devashilpa is a family workshop in Shajapur, Madhya Pradesh, where the tradition of brass sculpture has been passed down from master to apprentice across generations.
               </p>
-              <p style={{ fontSize: "0.9rem", color: "#C8BAA0", lineHeight: 1.9 }}>
+              <p style={{ fontSize: "0.9rem", color: "var(--text-2)", lineHeight: 1.9 }}>
                 Each sculpture begins as raw clay, travels through five stages of craftsmanship, and emerges as a finished masterpiece — weeks or months later — ready to carry its story into the world.
               </p>
-              <p style={{ fontSize: "0.9rem", color: "#C8BAA0", lineHeight: 1.9, fontStyle: "italic" }}>
+              <p style={{ fontSize: "0.9rem", color: "var(--text-2)", lineHeight: 1.9, fontStyle: "italic" }}>
                 These are not products. They are heirlooms.
               </p>
             </div>
@@ -198,7 +198,7 @@ export default function AboutPage() {
           <span className="label" style={{ display: "block", marginBottom: 24 }}>Commission a Work</span>
           <h2
             className="font-display"
-            style={{ fontSize: "clamp(2rem, 4vw, 3.8rem)", fontWeight: 300, color: "#F5EDD8", maxWidth: 560, margin: "0 auto 20px", lineHeight: 1.1 }}
+            style={{ fontSize: "clamp(2rem, 4vw, 3.8rem)", fontWeight: 300, color: "var(--text)", maxWidth: 560, margin: "0 auto 20px", lineHeight: 1.1 }}
           >
             Every sculpture carries its own soul.
           </h2>
