@@ -88,6 +88,28 @@ export default function RootLayout({
       className={`${inter.variable} ${geistMono.variable} ${cormorant.variable}`}
     >
       <body style={{ background: "var(--bg)" }}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Organization",
+              name: "Devashilpa",
+              url: siteUrl,
+              logo: `${siteUrl}/icon.png`,
+              sameAs: [
+                "https://www.instagram.com/devashilpa",
+              ],
+              contactPoint: {
+                "@type": "ContactPoint",
+                telephone: "+91-6261068277",
+                contactType: "customer service",
+                areaServed: "IN,US,GB,AE,AU",
+                availableLanguage: ["English", "Hindi"],
+              },
+            }),
+          }}
+        />
         {children}
         <WhatsAppTab />
       </body>

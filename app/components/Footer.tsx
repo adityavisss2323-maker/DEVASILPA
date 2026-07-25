@@ -61,20 +61,6 @@ export default function Footer() {
               {label}
             </Link>
           ))}
-          <a
-            href="https://wa.me/916261068277"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline-anim"
-            style={{ 
-              fontSize: "11px", 
-              letterSpacing: "0.2em", 
-              textTransform: "uppercase", 
-              color: "var(--gold)" 
-            }}
-          >
-            Inquire
-          </a>
         </div>
 
         <p style={{ fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(247,245,240,0.5)" }}>

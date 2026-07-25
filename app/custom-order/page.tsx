@@ -46,7 +46,7 @@ export default function CustomOrderPage() {
             borderBottom: "1px solid var(--gold-line)",
           }}
         >
-          <span className="label" style={{ display: "block", marginBottom: 24 }}>Bespoke Commission</span>
+          <span className="label" style={{ display: "block", marginBottom: 24 }}>BESPOKE COMMISSION</span>
           <h1
             className="font-display"
             style={{ fontSize: "clamp(2.8rem, 6.5vw, 6rem)", fontWeight: 300, lineHeight: 1.05, color: "var(--text)", maxWidth: 680, marginBottom: 24 }}

@@ -107,23 +107,25 @@ export default function CollectionsClient({ products }: { products: Product[] })
           <div style={{ display: "flex", flexWrap: "wrap", alignItems: "flex-end", justifyContent: "space-between", gap: 24 }}>
             <div>
               <span style={{ display: "block", fontSize: "11px", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", marginBottom: 24 }}>
-                The Collection
+                THE COLLECTION
               </span>
               <h1
                 className="font-display"
                 style={{ fontSize: "clamp(48px, 9vw, 120px)", fontWeight: 300, lineHeight: 0.9, color: "var(--text)", letterSpacing: "-0.02em" }}
               >
-                The Archive.
+                The archive.
               </h1>
             </div>
-            <div style={{ display: "flex", alignItems: "baseline", gap: 10 }}>
-              <span className="font-display" style={{ fontSize: "clamp(36px, 6vw, 72px)", fontWeight: 300, color: "var(--gold)", lineHeight: 1 }}>
-                {filtered.length}
-              </span>
-              <span style={{ fontSize: "11px", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--text-3)" }}>
-                {filtered.length === 1 ? "Work" : "Works"}
-              </span>
-            </div>
+            <Reveal delay={0.1}>
+              <div style={{ display: "flex", alignItems: "baseline", gap: 10 }}>
+                <span className="font-display" style={{ fontSize: "clamp(36px, 6vw, 72px)", fontWeight: 300, color: "var(--gold)", lineHeight: 1 }}>
+                  {filtered.length}
+                </span>
+                <span style={{ fontSize: "11px", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--text-3)" }}>
+                  {filtered.length === 1 ? "Work" : "Works"}
+                </span>
+              </div>
+            </Reveal>
           </div>
         </Reveal>
       </section>
@@ -387,7 +389,7 @@ function ProductCard({ product, index }: { product: Product; index: number }) {
               textTransform: "uppercase",
               color: "var(--text-4)",
             }}>
-              {product.availabilityStatus || "Price on Request"}
+              {product.availabilityStatus || "Inquire"}
             </span>
           </div>
         </div>

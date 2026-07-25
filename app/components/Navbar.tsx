@@ -111,25 +111,8 @@ export default function Navbar() {
           ))}
         </nav>
 
-        {/* ── Right slot: Inquire (desktop) | Hamburger (mobile) ── */}
+        {/* ── Right slot: Hamburger (mobile) ── */}
         <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "flex-end" }}>
-          {/* Inquire — desktop only */}
-          <a
-            href={WA}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline-anim hidden md:inline-block"
-            style={{
-              fontSize: "11px",
-              letterSpacing: "0.2em",
-              textTransform: "uppercase",
-              color: scrolled ? "var(--text)" : "var(--overlay-text)",
-              textDecoration: "none",
-              transition: "color 0.35s",
-            }}
-          >
-            Inquire
-          </a>
 
           {/* Hamburger — mobile only */}
           <button
@@ -192,31 +175,6 @@ export default function Navbar() {
             {label}
           </Link>
         ))}
-
-        <div
-          style={{
-            marginTop: 56,
-            opacity: open ? 1 : 0,
-            transition: "opacity 0.5s 0.35s, transform 0.5s 0.35s var(--ease-luxury)",
-            transform: open ? "translateY(0)" : "translateY(20px)",
-          }}
-        >
-          <a
-            href={WA}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline-anim"
-            style={{
-              fontSize: "12px",
-              letterSpacing: "0.2em",
-              textTransform: "uppercase",
-              color: "var(--gold)",
-              textDecoration: "none",
-            }}
-          >
-            Inquire Directly
-          </a>
-        </div>
       </div>
     </>
   );

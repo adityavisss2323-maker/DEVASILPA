@@ -69,7 +69,7 @@ export default function Home() {
                 marginBottom: 56,
               }}
             >
-              Indian Heritage.
+              Indian heritage.
             </h1>
 
             <Link href="/collections" className="underline-anim" style={{
@@ -130,7 +130,7 @@ export default function Home() {
           >
             <SlideIn direction="right">
               <span style={{ display: "block", fontSize: "11px", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", marginBottom: 32 }}>
-                The Atelier
+                THE ATELIER
               </span>
               <div style={{ display: "flex", flexDirection: "column", gap: 32 }}>
                 <p style={{ color: "var(--text-2)", fontSize: "17px", lineHeight: 1.8, fontWeight: 300 }}>
@@ -158,10 +158,10 @@ export default function Home() {
         <Reveal>
           <div style={{ textAlign: "center", marginBottom: "clamp(80px, 10vw, 160px)" }}>
             <span style={{ display: "block", fontSize: "11px", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--text-3)", marginBottom: 32 }}>
-              Selected Works
+              SELECTED WORKS
             </span>
             <h2 className="font-display" style={{ fontSize: "clamp(48px, 7vw, 96px)", lineHeight: 1, color: "var(--text)" }}>
-              The Archive
+              The archive.
             </h2>
           </div>
         </Reveal>
@@ -183,7 +183,10 @@ export default function Home() {
                 </div>
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
                   <h3 className="font-display" style={{ fontSize: "clamp(24px, 3vw, 40px)", color: "var(--text)" }}>{featured[0].name}</h3>
+                </div>
+                <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginTop: 8 }}>
                   <span style={{ fontSize: "11px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--gold)" }}>{featured[0].category}</span>
+                  <span style={{ fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-4)" }}>{featured[0].availabilityStatus || "Inquire"}</span>
                 </div>
               </Link>
             </Reveal>
@@ -204,8 +207,13 @@ export default function Home() {
                       sizes="(max-width: 768px) 100vw, 50vw"
                     />
                   </div>
-                  <h3 className="font-display" style={{ fontSize: "28px", color: "var(--text)", marginBottom: 8 }}>{product.name}</h3>
-                  <span style={{ fontSize: "11px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--gold)" }}>{product.category}</span>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline" }}>
+                    <h3 className="font-display" style={{ fontSize: "28px", color: "var(--text)", marginBottom: 8 }}>{product.name}</h3>
+                  </div>
+                  <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                    <span style={{ fontSize: "11px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--gold)" }}>{product.category}</span>
+                    <span style={{ fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-4)" }}>{product.availabilityStatus || "Inquire"}</span>
+                  </div>
                 </Link>
               </Reveal>
             ))}
@@ -213,7 +221,7 @@ export default function Home() {
 
           <div style={{ textAlign: "center", marginTop: "clamp(80px, 10vw, 160px)" }}>
             <Link href="/collections" className="btn btn-charcoal">
-              Explore the Archive
+              Explore the archive
             </Link>
           </div>
         </div>
@@ -227,7 +235,7 @@ export default function Home() {
         <div className="section-x" style={{ textAlign: "center", marginBottom: "clamp(80px, 10vw, 160px)" }}>
           <Reveal>
             <span style={{ display: "block", fontSize: "11px", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", marginBottom: 32 }}>
-              The Discipline
+              THE DISCIPLINE
             </span>
             <h2 className="font-display" style={{ fontSize: "clamp(40px, 6vw, 72px)", lineHeight: 1.05, color: "var(--text)" }}>
               Time is our most <br/>expensive material.
@@ -237,9 +245,9 @@ export default function Home() {
 
         <div style={{ display: "flex", flexDirection: "column", gap: "clamp(80px, 12vw, 200px)" }}>
           {[
-            { num: "01", title: "Sculpting the Form",  img: "/editorial/craft-01.jpg", desc: "Before brass is poured, the vision must exist in clay. Each masterpiece takes weeks to sculpt perfectly by hand." },
-            { num: "02", title: "The Fire Casting",    img: "/editorial/craft-02.jpg", desc: "Using the ancient lost-wax technique, molten brass at 1,000°C is poured into the mold, capturing every microscopic detail." },
-            { num: "03", title: "Patient Finishing",   img: "/editorial/craft-03.jpg", desc: "The raw cast is refined over hundreds of hours. Artisans painstakingly carve, polish, and treat the metal to achieve its heritage patina." },
+            { num: "01", title: "Sculpting the form",  img: "/editorial/craft-01.jpg", desc: "Before brass is poured, the vision must exist in clay. Each masterpiece takes weeks to sculpt perfectly by hand." },
+            { num: "02", title: "The fire casting",    img: "/editorial/craft-02.jpg", desc: "Using the ancient lost-wax technique, molten brass at 1,000°C is poured into the mold, capturing every microscopic detail." },
+            { num: "03", title: "Patient finishing",   img: "/editorial/craft-03.jpg", desc: "The raw cast is refined over hundreds of hours. Artisans painstakingly carve, polish, and treat the metal to achieve its heritage patina." },
           ].map((step, i) => {
             const isEven = i % 2 !== 0;
             return (
@@ -319,7 +327,7 @@ export default function Home() {
           <Reveal delay={0.2}>
             <div>
               <span style={{ display: "block", fontSize: "11px", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", marginBottom: 32 }}>
-                Worldwide Presence
+                WORLDWIDE PRESENCE
               </span>
               <h2 className="font-display" style={{ fontSize: "clamp(36px, 5vw, 64px)", lineHeight: 1.1, color: "#FAF8F5", marginBottom: 48, maxWidth: 600 }}>
                 Housed in the world&apos;s most exclusive interiors.
@@ -346,14 +354,10 @@ export default function Home() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          background: "var(--black)"
         }}
       >
-        <ParallaxImage
-          src="/editorial/craft-02.jpg"
-          alt="Bespoke Commission"
-          className="img-lux"
-        />
-
+        <div style={{ position: "absolute", inset: 0, opacity: 0.1, backgroundImage: "linear-gradient(to right, #FAF8F5 1px, transparent 1px), linear-gradient(to bottom, #FAF8F5 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
         <div className="overlay-dark" />
 
         <div
@@ -370,8 +374,11 @@ export default function Home() {
         >
           <Reveal>
             <span style={{ display: "block", marginBottom: 40, fontSize: "11px", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(247,245,240,0.65)" }}>
-              Private Commission
+              PRIVATE COMMISSION
             </span>
+            <div style={{ display: "inline-block", padding: "6px 12px", background: "rgba(247,245,240,0.1)", color: "rgba(247,245,240,0.8)", fontSize: "9px", letterSpacing: "0.2em", textTransform: "uppercase", marginBottom: 40, border: "1px dashed rgba(247,245,240,0.3)" }}>
+              Asset Pending: Missing commission image
+            </div>
 
             <h2
               className="font-display"

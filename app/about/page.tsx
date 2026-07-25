@@ -56,7 +56,7 @@ export default function AboutPage() {
           style={{ position: "absolute", inset: 0, display: "flex", flexDirection: "column", justifyContent: "center", paddingTop: "var(--nav-h)" }}
         >
           <div style={{ maxWidth: 600 }}>
-            <span className="label anim-hero-1" style={{ display: "block", marginBottom: 28 }}>Our Heritage</span>
+            <span className="label anim-hero-1" style={{ display: "block", marginBottom: 28 }}>OUR HERITAGE</span>
             <h1
               className="font-display anim-hero-2"
               style={{ fontSize: "clamp(2.8rem, 6vw, 5.5rem)", lineHeight: 1.06, color: "var(--overlay-text)", marginBottom: 28 }}
@@ -90,7 +90,7 @@ export default function AboutPage() {
           className="section-x section-y"
         >
           <div style={{ maxWidth: 760, margin: "0 auto", textAlign: "center" }}>
-            <span className="label" style={{ display: "block", marginBottom: 28 }}>The Philosophy</span>
+            <span className="label" style={{ display: "block", marginBottom: 28 }}>THE PHILOSOPHY</span>
             <p
               className="font-display"
               style={{
@@ -143,7 +143,7 @@ export default function AboutPage() {
               height: "100%",
             }}
           >
-            <span className="label" style={{ display: "block", marginBottom: 28 }}>Our Story</span>
+            <span className="label" style={{ display: "block", marginBottom: 28 }}>THE MAKERS</span>
             <h2
               className="font-display"
               style={{ fontSize: "clamp(2rem, 3vw, 3.2rem)", lineHeight: 1.1, color: "var(--text)", marginBottom: 28 }}

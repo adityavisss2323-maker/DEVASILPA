@@ -58,13 +58,13 @@ export default function ContactPage() {
         <Reveal>
           <div style={{ maxWidth: 600, margin: "0 auto" }}>
             <span style={{ display: "block", fontSize: "11px", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--text-3)", marginBottom: 32 }}>
-              Get in Touch
+              GET IN TOUCH
             </span>
             <h1
               className="font-display"
               style={{ fontSize: "clamp(48px, 9vw, 80px)", fontWeight: 300, lineHeight: 1, color: "var(--text)", letterSpacing: "-0.02em", marginBottom: 48 }}
             >
-              Contact the Atelier.
+              Contact the atelier.
             </h1>
 
             {status === "success" ? (

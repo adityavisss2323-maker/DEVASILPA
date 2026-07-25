@@ -98,6 +98,23 @@ export default async function ProductPage({
 
   return (
     <main style={{ background: "var(--bg)", color: "var(--text)", minHeight: "100vh" }}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Product",
+            name: product.name,
+            image: product.images.map((img) => `https://www.devashilpa.com${img}`),
+            description: product.description,
+            brand: {
+              "@type": "Brand",
+              name: "Devashilpa",
+            },
+            category: product.category,
+          }),
+        }}
+      />
       <Navbar />
 
       {/* ── Breadcrumb ── */}
@@ -298,26 +315,6 @@ export default async function ProductPage({
               {product.description}
             </p>
 
-            {/* Pricing block */}
-            <div
-              style={{
-                border: "1px solid var(--gold-line)",
-                padding: "20px 24px",
-                marginBottom: 28,
-              }}
-            >
-              <span className="label-muted" style={{ display: "block", marginBottom: 10 }}>Pricing</span>
-              <p
-                className="font-display"
-                style={{ fontSize: "1.9rem", fontWeight: 300, color: "var(--text)", marginBottom: 8 }}
-              >
-                {product.price}
-              </p>
-              <p style={{ fontSize: "0.75rem", color: "var(--text-3)", lineHeight: 1.65 }}>
-                Final price varies by size, material, detailing, finish, and shipping destination. Contact us for a precise quote.
-              </p>
-            </div>
-
             {/* CTAs */}
             <div style={{ display: "flex", flexDirection: "column", gap: 10, marginBottom: 28 }}>
               <a href={waUrl} target="_blank" rel="noopener noreferrer" style={{ textDecoration: "none" }}>
@@ -326,7 +323,7 @@ export default async function ProductPage({
                   style={{ width: "100%", justifyContent: "center" }}
                 >
                   <MessageCircle size={14} />
-                  Ask Price on WhatsApp
+                  Inquire via WhatsApp
                 </button>
               </a>
               <Link href="/custom-order" style={{ textDecoration: "none" }}>
@@ -421,7 +418,7 @@ export default async function ProductPage({
         }}
       >
         <Reveal>
-          <span className="label" style={{ display: "block", marginBottom: 24 }}>Heritage &amp; Story</span>
+          <span className="label" style={{ display: "block", marginBottom: 24 }}>HERITAGE &amp; STORY</span>
           <h2
             className="font-display"
             style={{
@@ -461,7 +458,7 @@ export default async function ProductPage({
           ═══════════════════════════════════════════ */}
       <section className="section-x section-y" style={{ borderBottom: "1px solid var(--gold-line)" }}>
         <Reveal>
-          <span className="label" style={{ display: "block", marginBottom: 52 }}>The Making</span>
+          <span className="label" style={{ display: "block", marginBottom: 52 }}>THE MAKING</span>
         </Reveal>
         <div
           className="grid-divider"
