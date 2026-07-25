@@ -87,7 +87,7 @@ export default function RootLayout({
       lang="en-IN"
       className={`${inter.variable} ${geistMono.variable} ${cormorant.variable}`}
     >
-      <body style={{ background: "#0A0A0A" }}>
+      <body style={{ background: "var(--bg)" }}>
         {children}
         <WhatsAppTab />
       </body>

@@ -17,7 +17,7 @@ export default function WhatsAppTab() {
 
   return (
     <>
-      {/* Desktop: slim vertical edge tab — palette-matched ivory/charcoal */}
+      {/* Single persistent bottom-right pill for all breakpoints */}
       <a
         href={WA_URL}
         target="_blank"
@@ -27,111 +27,44 @@ export default function WhatsAppTab() {
         onMouseLeave={() => setExpanded(false)}
         style={{
           position: "fixed",
-          right: 0,
-          top: "50%",
-          transform: "translateY(-50%)",
+          bottom: "clamp(24px, 4vw, 32px)",
+          right: "clamp(20px, 4vw, 32px)",
           zIndex: 80,
           display: "flex",
           alignItems: "center",
+          gap: expanded ? 12 : 0,
           background: "var(--bg)",
           border: "1px solid var(--gold-line-2)",
-          borderRight: "none",
           color: "var(--text)",
           textDecoration: "none",
+          padding: expanded ? "10px 20px 10px 14px" : "12px",
+          borderRadius: "100px",
+          opacity: visible ? 1 : 0,
           overflow: "hidden",
-          width: expanded ? "clamp(160px, 18vw, 200px)" : "44px",
-          transition: "width 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.6s ease, box-shadow 0.4s ease",
-          opacity: visible ? 1 : 0,
+          transition: "all 0.5s cubic-bezier(0.16, 1, 0.3, 1)",
           boxShadow: expanded
-            ? "-4px 0 32px rgba(163,128,71,0.14)"
-            : "-2px 0 12px rgba(26,26,26,0.06)",
+            ? "0 8px 32px rgba(163,128,71,0.18)"
+            : "0 4px 24px rgba(26,26,26,0.10)",
         }}
-        className="hidden md:flex"
-      >
-        {/* Icon */}
-        <span
-          style={{
-            minWidth: 44,
-            height: 44,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexShrink: 0,
-          }}
-        >
-          <svg
-            width="15"
-            height="15"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="var(--gold)"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-          </svg>
-        </span>
-
-        {/* Label */}
-        <span
-          style={{
-            fontSize: "10px",
-            letterSpacing: "0.18em",
-            textTransform: "uppercase",
-            color: "var(--text-3)",
-            whiteSpace: "nowrap",
-            paddingRight: 16,
-            opacity: expanded ? 1 : 0,
-            transition: "opacity 0.3s ease 0.15s",
-          }}
-        >
-          Inquire Now
-        </span>
-      </a>
-
-      {/* Mobile: small pill bottom-right */}
-      <a
-        href={WA_URL}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Inquire on WhatsApp"
-        style={{
-          position: "fixed",
-          bottom: 24,
-          right: 20,
-          zIndex: 80,
-          display: "flex",
-          alignItems: "center",
-          gap: 10,
-          background: "var(--bg)",
-          border: "1px solid var(--gold-line-2)",
-          color: "var(--text)",
-          textDecoration: "none",
-          padding: "10px 18px",
-          opacity: visible ? 1 : 0,
-          transition: "opacity 0.6s ease, transform 0.3s var(--ease-luxury), box-shadow 0.3s ease",
-          boxShadow: "0 4px 24px rgba(26,26,26,0.10)",
-        }}
-        className="md:hidden"
         onTouchStart={(e) => {
+          setExpanded(true);
           (e.currentTarget as HTMLElement).style.transform = "scale(1.05)";
-          (e.currentTarget as HTMLElement).style.boxShadow = "0 8px 32px rgba(163,128,71,0.18)";
         }}
         onTouchEnd={(e) => {
+          setTimeout(() => setExpanded(false), 2000);
           (e.currentTarget as HTMLElement).style.transform = "scale(1)";
-          (e.currentTarget as HTMLElement).style.boxShadow = "0 4px 24px rgba(26,26,26,0.10)";
         }}
       >
         <svg
-          width="14"
-          height="14"
+          width="16"
+          height="16"
           viewBox="0 0 24 24"
           fill="none"
           stroke="var(--gold)"
           strokeWidth="1.5"
           strokeLinecap="round"
           strokeLinejoin="round"
+          style={{ flexShrink: 0 }}
         >
           <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
         </svg>
@@ -140,10 +73,16 @@ export default function WhatsAppTab() {
             fontSize: "10px",
             letterSpacing: "0.18em",
             textTransform: "uppercase",
-            color: "var(--text-3)",
+            color: "var(--text)",
+            whiteSpace: "nowrap",
+            opacity: expanded ? 1 : 0,
+            width: expanded ? "auto" : 0,
+            transform: expanded ? "translateX(0)" : "translateX(10px)",
+            transition: "all 0.4s ease",
+            display: "block"
           }}
         >
-          Inquire
+          Inquire Now
         </span>
       </a>
     </>

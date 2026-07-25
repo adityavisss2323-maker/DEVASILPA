@@ -289,25 +289,48 @@ export default function Home() {
           CHAPTER V — GLOBAL COLLECTORS
           Full-bleed parallax image — overlay stays dark
           ═══════════════════════════════════════════ */}
-      <section style={{ position: "relative", minHeight: "90vh", display: "flex", alignItems: "center", overflow: "hidden" }}>
-        <ParallaxImage
-          src="/editorial/collectors.jpg"
-          alt="Devashilpa sculpture in luxury interior"
-          className="img-lux"
-        />
-        <div className="overlay-dark" />
-        <div className="section-x" style={{ position: "relative", zIndex: 1, maxWidth: 1000, margin: "0 auto", textAlign: "center", width: "100%" }}>
+      <section className="section-x section-y" style={{ background: "var(--black)", color: "#FAF8F5", overflow: "hidden", display: "flex", alignItems: "center" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(40px, 8vw, 120px)", alignItems: "center", width: "100%", maxWidth: 1400, margin: "0 auto" }}>
+          
+          {/* Left: Image */}
           <Reveal>
-            <span style={{ display: "block", fontSize: "11px", letterSpacing: "0.2em", textTransform: "uppercase", color: "rgba(247,245,240,0.65)", marginBottom: 32 }}>
-              Worldwide Presence
-            </span>
-            <h2 className="font-display" style={{ fontSize: "clamp(40px, 6vw, 80px)", lineHeight: 1.05, color: "var(--overlay-text)", marginBottom: 48 }}>
-              Housed in the world&apos;s most <br/>exclusive interiors.
-            </h2>
-            <p style={{ color: "rgba(247,245,240,0.7)", fontSize: "17px", lineHeight: 1.8, fontWeight: 300, maxWidth: 600, margin: "0 auto", letterSpacing: "0.08em", textTransform: "uppercase" }}>
-              USA · UK · GERMANY · FRANCE · AUSTRALIA · UAE
-            </p>
+            <div
+              className="img-zoom"
+              style={{
+                position: "relative",
+                aspectRatio: "4/5",
+                width: "100%",
+                background: "#1A1A1A",
+                overflow: "hidden"
+              }}
+            >
+              <Image
+                src="/editorial/collectors.jpg"
+                alt="Devashilpa sculpture in luxury interior"
+                fill
+                style={{ objectFit: "cover" }}
+                sizes="(max-width: 768px) 100vw, 50vw"
+                className="img-lux"
+              />
+            </div>
           </Reveal>
+
+          {/* Right: Text Content */}
+          <Reveal delay={0.2}>
+            <div>
+              <span style={{ display: "block", fontSize: "11px", letterSpacing: "0.2em", textTransform: "uppercase", color: "var(--gold)", marginBottom: 32 }}>
+                Worldwide Presence
+              </span>
+              <h2 className="font-display" style={{ fontSize: "clamp(36px, 5vw, 64px)", lineHeight: 1.1, color: "#FAF8F5", marginBottom: 48, maxWidth: 600 }}>
+                Housed in the world&apos;s most exclusive interiors.
+              </h2>
+              <div style={{ width: 40, height: 1, background: "var(--gold)", marginBottom: 48 }} />
+              <p style={{ color: "rgba(250,248,245,0.7)", fontSize: "14px", lineHeight: 2, letterSpacing: "0.15em", textTransform: "uppercase" }}>
+                USA <br/> UK <br/> GERMANY <br/> FRANCE <br/> AUSTRALIA <br/> UAE
+              </p>
+            </div>
+          </Reveal>
+          
         </div>
       </section>
 

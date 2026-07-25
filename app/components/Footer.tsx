@@ -16,7 +16,7 @@ export default function Footer() {
     <footer
       style={{
         background: "var(--black)",
-        color: "var(--text-3)",
+        color: "rgba(247,245,240,0.65)",
       }}
     >
       <div
@@ -36,7 +36,7 @@ export default function Footer() {
             fontSize: "14px",
             letterSpacing: "0.25em",
             textTransform: "uppercase",
-            color: "var(--text)",
+            color: "var(--overlay-text)",
             marginBottom: 80,
             display: "block",
           }}
@@ -55,7 +55,7 @@ export default function Footer() {
                 fontSize: "11px", 
                 letterSpacing: "0.2em", 
                 textTransform: "uppercase", 
-                color: "var(--text-2)" 
+                color: "rgba(247,245,240,0.75)" 
               }}
             >
               {label}
@@ -77,7 +77,7 @@ export default function Footer() {
           </a>
         </div>
 
-        <p style={{ fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: "var(--text-4)" }}>
+        <p style={{ fontSize: "10px", letterSpacing: "0.15em", textTransform: "uppercase", color: "rgba(247,245,240,0.5)" }}>
           © {new Date().getFullYear()} Devashilpa. Handcrafted in India.
         </p>
       </div>

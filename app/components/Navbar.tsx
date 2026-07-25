@@ -31,16 +31,21 @@ export default function Navbar() {
     return () => { document.body.style.overflow = ""; };
   }, [open]);
 
+  const isHome = pathname === "/";
+  // On home page before scrolling, nav is transparent with light text over the dark hero.
+  // On all other pages (or after scrolling on home), nav is solid ivory with dark text.
+  const useLightText = isHome && !scrolled;
+  const useSolidBg = !isHome || scrolled;
+
   const linkStyle = (href: string) => ({
     fontSize: "11px",
     letterSpacing: "0.2em",
     textTransform: "uppercase" as const,
     fontWeight: 400,
     textDecoration: "none",
-    /* On hero (transparent nav) links stay ivory; once scrolled use charcoal */
-    color: scrolled
-      ? (pathname === href ? "var(--text)" : "var(--text-3)")
-      : (pathname === href ? "var(--overlay-text)" : "rgba(247,245,240,0.7)"),
+    color: useLightText
+      ? (pathname === href ? "var(--overlay-text)" : "rgba(247,245,240,0.7)")
+      : (pathname === href ? "var(--text)" : "var(--text-3)"),
     transition: "color 0.35s",
     whiteSpace: "nowrap" as const,
   });
@@ -57,11 +62,10 @@ export default function Navbar() {
           alignItems: "center",
           padding: "0 var(--gutter)",
           transition: "background 0.7s var(--ease-smooth), border-color 0.7s var(--ease-smooth)",
-          /* Transparent on hero (page starts with image), frosted ivory once scrolled */
-          background: scrolled ? "rgba(250,248,245,0.96)" : "transparent",
-          backdropFilter: scrolled ? "blur(12px)" : "none",
-          WebkitBackdropFilter: scrolled ? "blur(12px)" : "none",
-          borderBottom: scrolled ? "1px solid rgba(163,128,71,0.12)" : "1px solid transparent",
+          background: useSolidBg ? "rgba(250,248,245,0.96)" : "transparent",
+          backdropFilter: useSolidBg ? "blur(12px)" : "none",
+          WebkitBackdropFilter: useSolidBg ? "blur(12px)" : "none",
+          borderBottom: useSolidBg ? "1px solid rgba(163,128,71,0.12)" : "1px solid transparent",
         }}
       >
         {/* ── Logo (left, flex: 1) ── */}
@@ -73,7 +77,7 @@ export default function Navbar() {
               letterSpacing: "0.25em",
               textTransform: "uppercase",
               /* Ivory on hero image, charcoal once scrolled */
-              color: scrolled ? "var(--text)" : "var(--overlay-text)",
+              color: useLightText ? "var(--overlay-text)" : "var(--text)",
               fontWeight: 400,
               textDecoration: "none",
               transition: "color 0.35s",
@@ -129,17 +133,17 @@ export default function Navbar() {
 
           {/* Hamburger — mobile only */}
           <button
-            onClick={() => setOpen((v) => !v)}
             className="md:hidden"
-            aria-label="Toggle menu"
-            aria-expanded={open}
+            onClick={() => setOpen(true)}
             style={{
-              background: "none",
+              background: "transparent",
               border: "none",
+              color: useLightText ? "var(--overlay-text)" : "var(--text)",
               cursor: "pointer",
-              color: scrolled ? "var(--text)" : "var(--overlay-text)",
-              padding: 4,
+              padding: "8px 0 8px 8px",
               display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
               transition: "color 0.35s",
             }}
           >
