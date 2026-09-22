@@ -30,7 +30,7 @@ export default function Home() {
           alt="Devashilpa Heritage"
           priority
           className="img-lux"
-          objectPosition="center 35%"
+          objectPosition="center 30%"
         />
 
         {/* Slightly lighter overlay gradient now that page bg is ivory, not black */}

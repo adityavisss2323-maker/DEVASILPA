@@ -183,7 +183,7 @@ export function ParallaxImage({
   className,
   priority = false,
   sizes = "100vw",
-  objectPosition = "center",
+  objectPosition = "center 30%",
 }: {
   src: string;
   alt: string;
@@ -195,26 +195,43 @@ export function ParallaxImage({
   const ref = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "end start"],
+    offset: ["start start", "end start"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], ["-10%", "10%"]);
+  // Subtle parallax: image drifts smoothly as you scroll
+  const y = useTransform(scrollYProgress, [0, 1], ["0%", "10%"]);
 
   return (
-    <div ref={ref} style={{ position: "relative", width: "100%", height: "100%", overflow: "hidden" }}>
-      <motion.img
-        src={src}
-        alt={alt}
+    <div
+      ref={ref}
+      style={{
+        position: "absolute",
+        inset: 0,
+        overflow: "hidden",
+      }}
+    >
+      <motion.div
         style={{
           y,
-          scale: 1.2,
           position: "absolute",
+          top: "-10%",
+          left: 0,
           width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          objectPosition,
+          height: "120%",
         }}
-        className={className}
-      />
+      >
+        <img
+          src={src}
+          alt={alt}
+          style={{
+            width: "100%",
+            height: "100%",
+            objectFit: "cover",
+            objectPosition,
+            display: "block",
+          }}
+          className={className}
+        />
+      </motion.div>
     </div>
   );
 }
