@@ -30,31 +30,33 @@ export default function Home() {
           alt="Devashilpa Heritage"
           priority
           className="img-lux"
-          objectPosition="center 30%"
+          objectPosition="25% 35%"
         />
 
-        {/* Slightly lighter overlay gradient now that page bg is ivory, not black */}
+        {/* Dark gradient overlay for text contrast */}
         <div className="overlay-dark" />
 
         <div
           className="section-x"
           style={{
             position: "absolute",
-            bottom: "12vh",
+            bottom: "7vh",
             left: 0, right: 0,
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
             textAlign: "center",
+            zIndex: 2,
           }}
         >
           <Reveal>
             <p style={{
-              marginBottom: 40,
-              letterSpacing: "0.2em",
+              marginBottom: 32,
+              letterSpacing: "0.22em",
               fontSize: "11px",
-              color: "rgba(247,245,240,0.65)",
+              color: "rgba(247,245,240,0.75)",
               textTransform: "uppercase",
+              textShadow: "0 2px 8px rgba(0,0,0,0.5)",
             }}>
               Masterpieces forged in fire.
             </p>
@@ -62,11 +64,12 @@ export default function Home() {
             <h1
               className="font-display"
               style={{
-                fontSize: "clamp(48px, 9vw, 130px)",
+                fontSize: "clamp(48px, 9vw, 125px)",
                 lineHeight: 0.95,
                 color: "var(--overlay-text)",
                 letterSpacing: "-0.02em",
-                marginBottom: 56,
+                marginBottom: 44,
+                textShadow: "0 4px 20px rgba(0,0,0,0.5)",
               }}
             >
               Indian heritage.
@@ -74,9 +77,10 @@ export default function Home() {
 
             <Link href="/collections" className="underline-anim" style={{
               fontSize: "12px",
-              letterSpacing: "0.15em",
+              letterSpacing: "0.18em",
               textTransform: "uppercase",
               color: "var(--overlay-text)",
+              textShadow: "0 2px 8px rgba(0,0,0,0.5)",
             }}>
               Discover the Collection
             </Link>
